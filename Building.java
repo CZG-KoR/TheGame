@@ -11,22 +11,20 @@ package javaapplication1;
 public abstract class Building {
     // Dauer wie Lange gebaut wird
     int buildtime;
-
-    //gibt eine kurze Info über die Eigenschaften des Gebäudes
-    String info;
-
+    
     // Funktionsweise der Gebäude überdenken
     int healthpoints;
     
     // Reichweitenvergrößerung des Landes
     int buildingrange;
     
+    //Credits fuer Gebaeude zum Bauen und spaeter pro Runde
+    int buildcredits;
+    int creditsperround;
+    
+    
+    
     // Position
     int xPosition;
     int yPosition;
-    
-
-    //Id, die angibt zu welchem Team das GEbäude gehört
-    //ist nicht schlimm, wenn man das später nicht nutzt
-    int TeamId;
 }

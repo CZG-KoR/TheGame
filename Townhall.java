@@ -17,11 +17,10 @@ public class Townhall extends Building{
     String info = "Das hier ist das Herz deines Dorfs. Das Verbessern schaltet neue Gebäude frei."
             + " Man sollte das Rathaus mit Verteidigungsgebäuden umgeben, denn der Gegner kann dein Rathaus einnehmen!";
     
-    public Townhall(int xPosition, int yPosition, int TeamId) {
+    public Townhall(int xPosition, int yPosition) {
         buildtime = 0;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        this.TeamId = TeamId;
         buildingrange = 2;
         healthpoints = 100;
     }
