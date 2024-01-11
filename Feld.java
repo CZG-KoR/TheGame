@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javaapplication1;
+package javaapplication2;
 
 /**
  *
@@ -18,6 +18,9 @@ public class Feld {
     // Besetzt?   
     boolean occupied;
     
+    // möglich da hin zu bewegen, nachdem Figur angeklickt wurde
+    boolean highlighted;
+    
     // Position
     int xPosition;
     int yPosition;
@@ -28,6 +31,34 @@ public class Feld {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         occupied = false;
+    }
+
+    public Terrain getT() {
+        return t;
+    }
+    
+    public String getTerrainName() {
+        return t.getName();
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public boolean isOccupied() {
+        return occupied;
+    }
+
+    public boolean isHighlighted() {
+        return highlighted;
+    }
+
+    public int getxPosition() {
+        return xPosition;
+    }
+
+    public int getyPosition() {
+        return yPosition;
     }
     
     
