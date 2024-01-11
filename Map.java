@@ -33,7 +33,7 @@ public class Map {
         for(int i = 0; i<heigth; i++){
             ArrayList<Feld> Zeile = new ArrayList<Feld>();
             for(int j = 0; j<width; j++){
-                Feld f = new Feld(t, 0, i, j);
+                Feld f = new Feld(t, 0, j, i);
                 Zeile.add(f);
             }
             this.Felder.add(Zeile);
