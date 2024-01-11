@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author guest-7gls9j
+ * @author Ambrosius, Jannik
  */
 public class Map {
     /*
@@ -18,7 +18,7 @@ public class Map {
     * Jede Arraylist<Feld> steht für eine Spalte (gleiche x-Koordinate)
     * */
 
-    ArrayList<ArrayList<Feld>> Felder = new ArrayList<ArrayList<Feld>>();
+    ArrayList<ArrayList<Feld>> Felder;
 
     //Dimensionen des Feldes
     int height;
