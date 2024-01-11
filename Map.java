@@ -24,15 +24,29 @@ public class Map {
     int height;
     int width;
 
-    public Map(int heigth, int width, ArrayList<ArrayList<Feld>> felder) {
+    public Map(int heigth, int width) {
         this.height = heigth;
         this.width = width;
-        this.Felder = felder;
+
+        Terrain t = new Terrain("grass");
+        this.Felder = new ArrayList<ArrayList<Feld>>();
+        for(int i = 0; i<heigth; i++){
+            ArrayList<Feld> Zeile = new ArrayList<Feld>();
+            for(int j = 0; j<width; j++){
+                Feld f = new Feld(t, 0, i, j);
+                Zeile.add(f);
+            }
+            this.Felder.add(Zeile);
+        }
     }
 
     //GET-Function
     public Feld get(int xcoord, int ycoord){
         Feld feld = this.Felder.get(xcoord).get(ycoord);
         return feld;
+    }
+
+    public String getTerrainName(int xcoord, int ycoord){
+        return get(xcoord, ycoord).getTerrainName();
     }
 }
