@@ -10,12 +10,14 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import Map.Map;
+import Map.Terrain;
+import Map.ImageLoader;
 
 /**
  *
@@ -25,6 +27,8 @@ public class GUI extends JPanel{
     //komplette Größe des Bildschirms
     static final int width = Toolkit.getDefaultToolkit().getScreenSize().width;
     static final int height = Toolkit.getDefaultToolkit().getScreenSize().height;
+    
+    static Map M;
 
     static JInternalFrame internal = new JInternalFrame();
     /**
@@ -40,6 +44,7 @@ public class GUI extends JPanel{
     }
     
     public static void main(String[] args) {
+        ImageLoader imageload = new ImageLoader();
         GUI g = new GUI();
         JFrame window = new JFrame();
         window.setTitle("TheGame");
@@ -47,14 +52,17 @@ public class GUI extends JPanel{
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 3
         window.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));//zentriert
         window.setExtendedState(JFrame.MAXIMIZED_BOTH);//fullsize
-        window.setUndecorated(true);//entfernt topbar von window (fullscreen)
+//        window.setUndecorated(true);//entfernt topbar von window (fullscreen)
         window.add(g);
         window.setVisible(true);
         window.add(internal);
         
+        
         //immer ganz unten
         window.pack();
+        M = new Map(8,8);
     }
+    
     
     //painComponent; erst schwarzer Hintergrund
     @Override
@@ -63,7 +71,14 @@ public class GUI extends JPanel{
             g.setColor(InterfaceBackground);
             g.fillRect(100, 100, 300, 50);
             botBar();
-        }
+
+
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    g.drawImage(M.getTerrainPicture(i, j), 100*i, 100, null);
+                }
+            }
+       }
     
     private static void botBar(){
         JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);

@@ -34,7 +34,7 @@ public class Terrain {
         switch (terrainname) {
             case "grass":
                 this.rangemultiplier = 1;
-                this.terrainpicture = Toolkit.getDefaultToolkit().getImage("grass.png");
+                this.terrainpicture = ImageLoader.imageA[0];
                 break;
             default:
                 throw new AssertionError();
