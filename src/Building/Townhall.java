@@ -15,6 +15,8 @@ public class Townhall extends Building{
     // progress gibt den "technischen Fortschritt" an
     int progress = 0;
     
+    
+    
     String info = "Das hier ist das Herz deines Dorfs. Das Verbessern schaltet neue Gebäude frei."
             + " Man sollte das Rathaus mit Verteidigungsgebäuden umgeben, denn der Gegner kann dein Rathaus einnehmen!";
     
@@ -26,19 +28,18 @@ public class Townhall extends Building{
         healthpoints = 100;
     }
 
-    public void Upgrade1() {
-        buildtime = 2;
-        healthpoints = 200;
-        progress+=1;
+    public void Upgrade() {
         //Ressourcen-=10;
-    }
-    
-    public void Upgrade2() {
-        buildtime = 2;
-        healthpoints = 400;
         progress+=1;
-        //Ressourcen-=10;
+        if(progress==1){
+            buildtime = 2;
+            healthpoints = 200;
+        } else if(progress==2){
+            buildtime = 2;
+            healthpoints = 400;
+        }
     }
+
     
     public void GenerateFigther() {
         //new Fighter();
