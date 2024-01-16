@@ -40,6 +40,8 @@ public class Map {
                 Feld f = new Feld(t, 0, i, j);
                 Zeile.add(f);
             }
+            
+            //fügt neue Zeile hinzu
             this.Felder.add(Zeile);
         }
     }
