@@ -75,7 +75,7 @@ public class GUI extends JPanel{
 
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
-                    g.drawImage(M.getTerrainPicture(i, j), 100*i, 100, null);
+                   // g.drawImage(M.getTerrainPicture(i, j), 100*i, 100, null);
                 }
             }
        }
