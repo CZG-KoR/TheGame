@@ -55,4 +55,12 @@ public class Map {
     public String getTerrainName(int xcoord, int ycoord){
         return get(xcoord, ycoord).getTerrainName();
     }
+    
+    public int getHeight(){
+        return this.height;
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
 }
