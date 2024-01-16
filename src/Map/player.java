@@ -28,6 +28,16 @@ public class player {
     //Farbe des Spielers fuer Animation
     String colour;
     
+    //Holz des Spielers
+    int wood=0;
+    
+    //Stein des Spielers
+    int stone=0;
+    
+    //Nahrung des Spielers
+    int food=0;
+    
+    
     //Charaktere und Gebaeude eines Spielers
     ArrayList<Character> Characters= new ArrayList();
     ArrayList<Building> Buildings = new ArrayList();
