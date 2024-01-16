@@ -18,7 +18,7 @@ public class Lumberjack extends Building {
     this.buildtime=3;
     this.healthpoints=3;
     this.buildingrange=4;
-    this.buildcosts[0]=5;
+    this.buildcost[0]=5;
     this.chopspeed = 1.0;
     }
  
