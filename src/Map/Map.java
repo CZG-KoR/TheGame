@@ -31,12 +31,17 @@ public class Map {
 
         Terrain t = new Terrain("grass");
         this.Felder = new ArrayList<ArrayList<Feld>>();
+        //y-Koordinate
         for(int i = 0; i<heigth; i++){
             ArrayList<Feld> Zeile = new ArrayList<Feld>();
+            
+            //x-Koordinate
             for(int j = 0; j<width; j++){
-                Feld f = new Feld(t, 0, j, i);
+                Feld f = new Feld(t, 0, i, j);
                 Zeile.add(f);
             }
+            
+            //fügt neue Zeile hinzu
             this.Felder.add(Zeile);
         }
     }
