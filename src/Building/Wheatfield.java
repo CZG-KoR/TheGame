@@ -1,8 +1,9 @@
+package Building;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javaapplication1;
 
 /**
  *
@@ -23,8 +24,8 @@ public class Wheatfield extends Building{
     this.healthpoints=2;
     this.buildingrange=2;
     this.motivationboost=1.0;
-    this.info="Ein endloses Weizenfeld erstreckt sich vor dir, goldene Ähren wiegen sich im Wind. Zwischen den Reihen verlaufen Pfade, auf denen Bauern die reiche Ernte einbringen. Die Arbeit hier ist nicht nur körperlich, sondern stärkt auch den Zusammenhalt. Die erfolgreiche Ernte gibt den Truppen einen spürbaren Motivationsboost, da sie nicht nur Nahrung, sondern auch ein Gefühl von Gemeinschaft und Kampfgeist gewinnen.";
-    this.TeamId=TeamId;
+   // this.info="Ein endloses Weizenfeld erstreckt sich vor dir, goldene Ähren wiegen sich im Wind. Zwischen den Reihen verlaufen Pfade, auf denen Bauern die reiche Ernte einbringen. Die Arbeit hier ist nicht nur körperlich, sondern stärkt auch den Zusammenhalt. Die erfolgreiche Ernte gibt den Truppen einen spürbaren Motivationsboost, da sie nicht nur Nahrung, sondern auch ein Gefühl von Gemeinschaft und Kampfgeist gewinnen.";
+   // this.TeamId=TeamId;
     }
     
     public void harvest(){
