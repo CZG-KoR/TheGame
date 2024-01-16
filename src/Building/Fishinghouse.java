@@ -8,17 +8,17 @@ package Building;
  *
  * @author guest-a9khel
  */
-public class fishinghouse extends Building{
+public class Fishinghouse extends Building{
     //wie lumberjack
     double fishingspeed;
     
-    public fishinghouse(int xPosition, int yPosition) {
+    public Fishinghouse(int xPosition, int yPosition) {
     this.xPosition=xPosition;
     this.yPosition=yPosition;
     this.buildtime=4;
     this.healthpoints=2;
     this.buildingrange=3;
-    this.buildcosts[0]=5;
+    this.buildcost[0]=5;
     this.fishingspeed = 2;
     }
     
