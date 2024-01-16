@@ -7,10 +7,6 @@ package Map;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-/**
- *
- * @author administrator
- */
 class ImageLoader {
 
     public static Image[] imageA = new Image[4];
