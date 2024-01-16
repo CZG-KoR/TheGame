@@ -20,12 +20,15 @@ public abstract class Building {
     int buildingrange;
     
     //Credits fuer Gebaeude zum Bauen und spaeter pro Runde
-    int buildcredits;
-    int creditsperround;
+    //int buildcredits;
+    //int creditsperround;
     
-    
+    int[] buildcosts = new int[2];
     
     // Position
     int xPosition;
     int yPosition;
+
+    
+    
 }
