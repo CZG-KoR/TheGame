@@ -23,7 +23,9 @@ public abstract class Building {
     //int buildcredits;
     //int creditsperround;
     
-    int[] buildcosts = new int[2];
+
+    int[] buildcost = new int[2];
+
     
     // Position
     int xPosition;

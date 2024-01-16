@@ -29,16 +29,7 @@ public class Map {
         this.height = heigth;
         this.width = width;
 
-        Terrain t = new Terrain("grass");
-        this.Felder = new ArrayList<ArrayList<Feld>>();
-        for(int i = 0; i<heigth; i++){
-            ArrayList<Feld> Zeile = new ArrayList<Feld>();
-            for(int j = 0; j<width; j++){
-                Feld f = new Feld(t, 0, j, i);
-                Zeile.add(f);
-            }
-            this.Felder.add(Zeile);
-        }
+        generateMap();
     }
 
     //GET-Function
@@ -49,5 +40,33 @@ public class Map {
 
     public String getTerrainName(int xcoord, int ycoord){
         return get(xcoord, ycoord).getTerrainName();
+    }
+    
+    public int getHeight(){
+        return this.height;
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+    
+    public void generateMap(){
+        this.Felder = new ArrayList<ArrayList<Feld>>();
+        Terrain t = new Terrain("grass");
+        
+        
+        //Generieren einer neuen mit Grass gefüllten Map / Grundlage der Map Erstellung
+        for(int i = 0; i<this.height; i++){
+            ArrayList<Feld> Zeile = new ArrayList<Feld>();
+            
+            //x-Koordinate
+            for(int j = 0; j<this.width; j++){
+                Feld f = new Feld(t, 0, i, j);
+                Zeile.add(f);
+            }
+            
+            //fügt neue Zeile hinzu
+            this.Felder.add(Zeile);
+        }
     }
 }
