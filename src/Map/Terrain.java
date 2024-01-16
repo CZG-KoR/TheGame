@@ -1,9 +1,11 @@
+package Map;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javaapplication1;
 
+import Building.Building;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ class Terrain {
     //ArrayList mit den Eigenschaften aller Terrains
     private final ArrayList<ArrayList> terrains = new ArrayList<ArrayList>() {
         {
-            add(new ArrayList(){{add("grass"); add(1); add(new ArrayList<Building>()); add(ImageIO(new File("")));}});
+          //  add(new ArrayList(){{add("grass"); add(1); add(new ArrayList<Building>()); add(ImageIO(new File("")));}});
             add(new ArrayList(){{add("water"); add(1); add(new ArrayList<Building>());}});
             add(new ArrayList(){{add("sand"); add(1); add(new ArrayList<Building>());}});
             
