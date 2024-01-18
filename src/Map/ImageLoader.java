@@ -11,7 +11,7 @@ public class ImageLoader {
 
     public static Image[] imageA = new Image[4];
 
-    public ImageLoader(String path) {
+    public ImageLoader() {
         for (int i = 0; i < imageA.length; i++) {
             imageA[i] = switch (i) {
                 case 0 ->
