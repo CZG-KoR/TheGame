@@ -4,6 +4,8 @@
  */
 package Building;
 
+import Map.player;
+
 /**
  *
  * @author guest-a9khel
@@ -20,6 +22,22 @@ public class Fishinghouse extends Building{
     this.buildingrange=3;
     this.buildcost[0]=5;
     this.fishingspeed = 2;
+    }
+    
+    public boolean buildable(player player) {
+        // Wood und Stone vom player
+        int wood = player.getWood();
+        int stone = player.getStone();
+
+        if (wood >= 1 && stone >= 1) {
+            // Kosten des Bauens: 1 wood, 1 Stone
+            player.setWood(wood - 1);
+            player.setStone(stone - 1);
+            // genug ressourcen, deswegen buildable true
+            return true;
+        }
+        // bei false, soll das Gebäude nicht gebaut werden
+        return false;
     }
     
     //Anfang jede Runde fischen
