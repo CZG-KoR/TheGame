@@ -72,9 +72,7 @@ public class GUI extends JPanel{
                     g.drawImage(M.get(i, j).getT().getPicture(), 64*i, 64*j, null);
                 }
             }
-            Color InterfaceBackground = new Color(209,188,138);
-            g.setColor(InterfaceBackground);
-            g.fillRect(0, 0, 300, 50);
+            g.drawImage(Toolkit.getDefaultToolkit().getImage("src/GUI/res/ResourceBar.png"), 0, 0, null);
             botBar();
        }
     
@@ -87,8 +85,8 @@ public class GUI extends JPanel{
         internal.show();
         //entfernt leiste bei tabbedpane
         ((javax.swing.plaf.basic.BasicInternalFrameUI)internal.getUI()).setNorthPane(null);
-        
-        internal.setBorder(BorderFactory.createLineBorder(Color.CYAN,10));
+        Color InternalBorderColor = new Color(85, 53, 5);
+        internal.setBorder(BorderFactory.createLineBorder(InternalBorderColor,4));
         
         tabs.setSize(width,height/3);
         JPanel panelGrau = new JPanel();
