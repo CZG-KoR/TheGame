@@ -1,4 +1,5 @@
 package Character;
+import Map.player;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,6 +13,11 @@ package Character;
 public class Builder extends Character{
     // Builder Eigenschaften überdenken, wie soll es funktionieren, Cooldown/Speed/Charges
     int buildcooldown;
+
+    public Builder(String playername) {
+        super(playername);
+    }
+    
 
     @Override
     public void move() {
