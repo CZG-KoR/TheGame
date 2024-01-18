@@ -72,9 +72,7 @@ public class GUI extends JPanel{
                     g.drawImage(M.getTerrainPicture(i, j), 64*i, 64*j, null);
                 }
             }
-            Color InterfaceBackground = new Color(209,188,138);
-            g.setColor(InterfaceBackground);
-            g.fillRect(0, 0, 300, 50);
+            g.drawImage(Toolkit.getDefaultToolkit().getImage("src/GUI/res/ResourceBar.png"), 0, 0, null);
             botBar();
        }
     
@@ -87,28 +85,15 @@ public class GUI extends JPanel{
         internal.show();
         //entfernt leiste bei tabbedpane
         ((javax.swing.plaf.basic.BasicInternalFrameUI)internal.getUI()).setNorthPane(null);
-        
-        internal.setBorder(BorderFactory.createLineBorder(Color.CYAN,10));
+        Color InternalBorderColor = new Color(85, 53, 5);
+        internal.setBorder(BorderFactory.createLineBorder(InternalBorderColor,4));
         
         tabs.setSize(width,height/3);
-        JPanel panelGrau = new JPanel();
-        JPanel panelBlue = new JPanel();
-        JPanel panelGreen = new JPanel();
-        JPanel panelYellow = new JPanel();
-        JPanel panelPink = new JPanel();
-        JPanel panelBlack = new JPanel();
-        panelGrau.setBackground(Color.GRAY);
-        panelBlue.setBackground(Color.BLUE);
-        panelGreen.setBackground(Color.GREEN);
-        panelYellow.setBackground(Color.YELLOW);
-        panelPink.setBackground(Color.PINK);
-        panelBlack.setBackground(Color.BLACK);
-        tabs.addTab("Ich bin grau", panelGrau);
-        tabs.addTab("Ich bin blau", panelBlue);
-        tabs.addTab("Ich bin grün", panelGreen);
-        tabs.addTab("Ich bin gelb", panelYellow);
-        tabs.addTab("Ich bin pink", panelPink);
-        tabs.addTab("Ich bin schwarz", panelBlack);
+        JPanel panelBuildings = new JPanel();
+        panelBuildings.setBackground(Color.GRAY);
+        JPanel panelTroops = new JPanel();
+        tabs.addTab("Gebäude", panelBuildings);
+        tabs.addTab("Truppen", panelTroops);
         tabs.setVisible(true);
         
         internal.add(tabs);
