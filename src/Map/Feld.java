@@ -62,6 +62,9 @@ public class Feld {
         return yPosition;
     }
     
-    
+    public void setT(String TerrainName) {
+        Terrain T = new Terrain(TerrainName);
+        this.t = t;
+    }
     
 }
