@@ -8,20 +8,21 @@ import Map.player;
 
 /**
  *
- * @author guest-a9khel
+ * @author guest-zhpwcu
  */
-public class Lumberjack extends Building {
-    //Abbaugeschwindigkeit des Holzes in holz pro runde
-    double chopspeed;
-
-    public Lumberjack(int xPosition, int yPosition) {
+public class Theatre extends Building{
+    // Das Gebäude dient der Unterhaltung des Volkes
+    
+    // gibt Motivationsboost durch Unterhaltung
+    double motivationboost;
+    
+    public Theatre(int xPosition, int yPosition) {
     this.xPosition=xPosition;
     this.yPosition=yPosition;
-    this.buildtime=3;
-    this.healthpoints=3;
-    this.buildingrange=4;
-    this.buildcost[0]=5;
-    this.chopspeed = 1.0;
+    this.buildtime=2;
+    this.healthpoints=2;
+    this.buildingrange=2;
+    this.motivationboost = 1.0;
     }
     
     public boolean buildable(player player) {
@@ -39,9 +40,6 @@ public class Lumberjack extends Building {
         // bei false, soll das Gebäude nicht gebaut werden
         return false;
     }
- 
-    //anfang jeder runde Holz faellen
-  public void chopchop() {
-      //player.wood = player.wood + chopspeed;
-  }
+    
+
 }
