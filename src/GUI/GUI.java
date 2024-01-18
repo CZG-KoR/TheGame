@@ -69,7 +69,7 @@ public class GUI extends JPanel{
     public void paintComponent(Graphics g) {
             for (int i = 0; i < M.getWidth(); i++) {
                 for (int j = 0; j < M.getHeight(); j++) {
-                    g.drawImage(M.get(i, j).getT().getPicture(), 64*i, 64*j, null);
+                    g.drawImage(M.getTerrainPicture(i, j), 64*i, 64*j, null);
                 }
             }
             Color InterfaceBackground = new Color(209,188,138);
