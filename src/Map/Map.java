@@ -71,6 +71,10 @@ public class Map {
         }
     }
     
+    public void setT(int xcoord, int ycoord, String TerrainName){
+        getFeld(xcoord, ycoord).setT(TerrainName);
+    }
+    
     public Image getTerrainPicture(int xcoord, int ycoord){
         return getFeld(xcoord, ycoord).getT().getPicture();
     }
