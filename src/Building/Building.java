@@ -1,4 +1,5 @@
 package Building;
+import Map.player;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

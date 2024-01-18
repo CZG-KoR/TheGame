@@ -18,6 +18,9 @@ import javax.swing.JTabbedPane;
 import Map.Map;
 import Map.Terrain;
 import Map.ImageLoader;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 /**
  *
@@ -27,7 +30,7 @@ public class GUI extends JPanel{
     //komplette Größe des Bildschirms
     static final int width = Toolkit.getDefaultToolkit().getScreenSize().width;
     static final int height = Toolkit.getDefaultToolkit().getScreenSize().height;
-    
+    static Timer t;
     static Map M;
 
     static JInternalFrame internal = new JInternalFrame();
@@ -44,8 +47,9 @@ public class GUI extends JPanel{
     }
     
     public static void main(String[] args) {
-        ImageLoader imageload = new ImageLoader();
-        GUI g = new GUI();
+        ImageLoader imageload = new ImageLoader(); //als 1.
+        M = new Map(50,50); //als 2.
+        GUI g = new GUI(); //als 3. immer
         JFrame window = new JFrame();
         window.setTitle("TheGame");
         window.setPreferredSize(new Dimension(width, height));
@@ -58,26 +62,31 @@ public class GUI extends JPanel{
         window.add(internal);
         
         
+        
         //immer ganz unten
         window.pack();
-        M = new Map(8,8);
+        M.setT(3, 3, "water");
+        t = new Timer(60, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.repaint();
+            }
+        });
+        //t.start();
+        g.repaint();
     }
     
     
     //painComponent; erst schwarzer Hintergrund
     @Override
     public void paintComponent(Graphics g) {
-            Color InterfaceBackground = new Color(209,188,138);
-            g.setColor(InterfaceBackground);
-            g.fillRect(100, 100, 300, 50);
-            botBar();
-
-
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                   // g.drawImage(M.getTerrainPicture(i, j), 100*i, 100, null);
+            for (int i = 0; i < M.getWidth(); i++) {
+                for (int j = 0; j < M.getHeight(); j++) {
+                    g.drawImage(M.getTerrainPicture(i, j), 64*i, 64*j, null);
                 }
             }
+            g.drawImage(Toolkit.getDefaultToolkit().getImage("src/GUI/res/ResourceBar.png"), 0, 0, null);
+            botBar();
        }
     
     private static void botBar(){
@@ -89,28 +98,15 @@ public class GUI extends JPanel{
         internal.show();
         //entfernt leiste bei tabbedpane
         ((javax.swing.plaf.basic.BasicInternalFrameUI)internal.getUI()).setNorthPane(null);
-        
-        internal.setBorder(BorderFactory.createLineBorder(Color.CYAN,10));
+        Color InternalBorderColor = new Color(85, 53, 5);
+        internal.setBorder(BorderFactory.createLineBorder(InternalBorderColor,4));
         
         tabs.setSize(width,height/3);
-        JPanel panelGrau = new JPanel();
-        JPanel panelBlue = new JPanel();
-        JPanel panelGreen = new JPanel();
-        JPanel panelYellow = new JPanel();
-        JPanel panelPink = new JPanel();
-        JPanel panelBlack = new JPanel();
-        panelGrau.setBackground(Color.GRAY);
-        panelBlue.setBackground(Color.BLUE);
-        panelGreen.setBackground(Color.GREEN);
-        panelYellow.setBackground(Color.YELLOW);
-        panelPink.setBackground(Color.PINK);
-        panelBlack.setBackground(Color.BLACK);
-        tabs.addTab("Ich bin grau", panelGrau);
-        tabs.addTab("Ich bin blau", panelBlue);
-        tabs.addTab("Ich bin grün", panelGreen);
-        tabs.addTab("Ich bin gelb", panelYellow);
-        tabs.addTab("Ich bin pink", panelPink);
-        tabs.addTab("Ich bin schwarz", panelBlack);
+        JPanel panelBuildings = new JPanel();
+        panelBuildings.setBackground(Color.GRAY);
+        JPanel panelTroops = new JPanel();
+        tabs.addTab("Gebäude", panelBuildings);
+        tabs.addTab("Truppen", panelTroops);
         tabs.setVisible(true);
         
         internal.add(tabs);

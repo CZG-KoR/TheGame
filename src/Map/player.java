@@ -51,7 +51,7 @@ public class player {
         creditsperround = 2;
         
         //Beginn des Spiels mit Rathaus und Builder
-        Characters.add(new Builder());
+        Characters.add(new Builder(this.playername));
         
         System.out.println("Position fuer Rathaus muss noch erstellt werden");
         Buildings.add(new Townhall(0,0));
@@ -60,6 +60,7 @@ public class player {
     public int getWood() {
         return wood;
     }
+
 
     public int getStone() {
         return stone;

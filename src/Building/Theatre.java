@@ -8,20 +8,21 @@ import Map.player;
 
 /**
  *
- * @author guest-a9khel
+ * @author guest-zhpwcu
  */
-public class Fishinghouse extends Building{
-    //wie lumberjack
-    int fishingspeed;
+public class Theatre extends Building{
+    // Das Gebäude dient der Unterhaltung des Volkes
     
-    public Fishinghouse(int xPosition, int yPosition) {
+    // gibt Motivationsboost durch Unterhaltung
+    double motivationboost;
+    
+    public Theatre(int xPosition, int yPosition) {
     this.xPosition=xPosition;
     this.yPosition=yPosition;
-    this.buildtime=4;
+    this.buildtime=2;
     this.healthpoints=2;
-    this.buildingrange=3;
-    this.buildcost[0]=5;
-    this.fishingspeed = 2;
+    this.buildingrange=2;
+    this.motivationboost = 1.0;
     }
     
     public boolean buildable(player player) {
@@ -40,8 +41,5 @@ public class Fishinghouse extends Building{
         return false;
     }
     
-    //Anfang jede Runde fischen
-    public void fish(player player) {
-        player.setWood(player.getWood()+fishingspeed);
-    }
+
 }

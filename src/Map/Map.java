@@ -5,6 +5,7 @@ package Map;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
+import java.awt.Image;
 import java.util.ArrayList;
 
 /**
@@ -33,13 +34,13 @@ public class Map {
     }
 
     //GET-Function
-    public Feld get(int xcoord, int ycoord){
+    public Feld getFeld(int xcoord, int ycoord){
         Feld feld = this.Felder.get(xcoord).get(ycoord);
         return feld;
     }
 
     public String getTerrainName(int xcoord, int ycoord){
-        return get(xcoord, ycoord).getTerrainName();
+        return getFeld(xcoord, ycoord).getTerrainName();
     }
     
     public int getHeight(){
@@ -68,5 +69,22 @@ public class Map {
             //fügt neue Zeile hinzu
             this.Felder.add(Zeile);
         }
+    }
+    
+    public void addSource(int a, int xsource, int ysource) {
+        for(int x = 0; x<xsource; x++){
+            for(int y = 0; x<ysource; y++) {
+                if(a+xsource >= getWidth() || a+ysource >= getHeight()) continue;
+                setT(xsource, ysource, "water");
+            }
+        }
+    }
+    
+    public void setT(int xcoord, int ycoord, String TerrainName){
+        getFeld(xcoord, ycoord).setT(TerrainName);
+    }
+    
+    public Image getTerrainPicture(int xcoord, int ycoord){
+        return getFeld(xcoord, ycoord).getT().getPicture();
     }
 }
