@@ -1,5 +1,8 @@
 package Character;
 
+import Map.Map;
+import java.util.ArrayList;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -70,4 +73,35 @@ public abstract class Character {
             }
         }
     }
+    //noch nicht fertig(jonte):
+      public void movementrange(int xposition, int yposition, Character chara, Map map) {
+      ArrayList<int[]> movementr = new ArrayList<>();
+      movementr.add(new int[]{2,3});
+     // movementr = movementrange2(xposition, yposition, map, chara, movementr);
+  }
+      
+      public ArrayList<ArrayList<Integer>> movementrange2(int xposition, int yposition,Map map, Character chara, ArrayList<ArrayList<Integer>> movementr) {
+          if (map.get(xPosition, yPosition).getHeight()>chara.movement) {
+              return movementr;
+          }
+          if (map.get(xPosition+1, yPosition).getHeight()<chara.movement) {
+              chara.movement = chara.movement - map.get(xPosition+1, yPosition).getHeight();
+              
+             //movementr.add()
+              movementrange2(xposition+1, yposition, map, chara, movementr);
+          }
+          if (map.get(xPosition-1, yPosition).getHeight()<chara.movement) {
+              chara.movement = chara.movement - map.get(xPosition+1, yPosition).getHeight();
+              movementrange2(xposition-1, yposition, map, chara, movementr);
+          }
+          if (map.get(xPosition, yPosition+1).getHeight()<chara.movement) {
+              chara.movement = chara.movement - map.get(xPosition+1, yPosition).getHeight();
+              movementrange2(xposition, yposition+1, map, chara, movementr);
+          }
+          if (map.get(xPosition+1, yPosition-1).getHeight()<chara.movement) {
+              chara.movement = chara.movement - map.get(xPosition+1, yPosition).getHeight();
+              movementrange2(xposition, yposition-1, map, chara, movementr);
+          }
+          return movementr;
+      }
 }

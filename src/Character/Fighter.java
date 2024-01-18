@@ -18,5 +18,5 @@ public abstract class Fighter extends Character{
     // Hat die Figur schon angegriffen?
     boolean canattack;
     
-  
+
 }

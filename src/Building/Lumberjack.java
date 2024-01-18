@@ -4,13 +4,15 @@
  */
 package Building;
 
+import Map.player;
+
 /**
  *
  * @author guest-a9khel
  */
 public class Lumberjack extends Building {
     //Abbaugeschwindigkeit des Holzes in holz pro runde
-    double chopspeed;
+    int chopspeed;
 
     public Lumberjack(int xPosition, int yPosition) {
     this.xPosition=xPosition;
@@ -19,11 +21,11 @@ public class Lumberjack extends Building {
     this.healthpoints=3;
     this.buildingrange=4;
     this.buildcost[0]=5;
-    this.chopspeed = 1.0;
+    this.chopspeed = 1;
     }
  
     //anfang jeder runde Holz faellen
-  public void chopchop() {
-      //player.wood = player.wood + chopspeed;
+  public void woodchop(player player) {
+      player.setWood(player.getWood()+chopspeed);
   }
 }

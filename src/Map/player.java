@@ -56,6 +56,30 @@ public class player {
         System.out.println("Position fuer Rathaus muss noch erstellt werden");
         Buildings.add(new Townhall(0,0));
     }
+
+    public int getWood() {
+        return wood;
+    }
+
+    public int getStone() {
+        return stone;
+    }
+
+    public int getFood() {
+        return food;
+    }
+
+    public void setWood(int wood) {
+        this.wood = wood;
+    }
+
+    public void setStone(int stone) {
+        this.stone = stone;
+    }
+
+    public void setFood(int food) {
+        this.food = food;
+    }
     
     
     
