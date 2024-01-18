@@ -89,24 +89,11 @@ public class GUI extends JPanel{
         internal.setBorder(BorderFactory.createLineBorder(InternalBorderColor,4));
         
         tabs.setSize(width,height/3);
-        JPanel panelGrau = new JPanel();
-        JPanel panelBlue = new JPanel();
-        JPanel panelGreen = new JPanel();
-        JPanel panelYellow = new JPanel();
-        JPanel panelPink = new JPanel();
-        JPanel panelBlack = new JPanel();
-        panelGrau.setBackground(Color.GRAY);
-        panelBlue.setBackground(Color.BLUE);
-        panelGreen.setBackground(Color.GREEN);
-        panelYellow.setBackground(Color.YELLOW);
-        panelPink.setBackground(Color.PINK);
-        panelBlack.setBackground(Color.BLACK);
-        tabs.addTab("Ich bin grau", panelGrau);
-        tabs.addTab("Ich bin blau", panelBlue);
-        tabs.addTab("Ich bin grün", panelGreen);
-        tabs.addTab("Ich bin gelb", panelYellow);
-        tabs.addTab("Ich bin pink", panelPink);
-        tabs.addTab("Ich bin schwarz", panelBlack);
+        JPanel panelBuildings = new JPanel();
+        panelBuildings.setBackground(Color.GRAY);
+        JPanel panelTroops = new JPanel();
+        tabs.addTab("Gebäude", panelBuildings);
+        tabs.addTab("Truppen", panelTroops);
         tabs.setVisible(true);
         
         internal.add(tabs);
