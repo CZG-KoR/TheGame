@@ -71,6 +71,15 @@ public class Map {
         }
     }
     
+    public void addSource(int a, int xsource, int ysource) {
+        for(int x = 0; x<xsource; x++){
+            for(int y = 0; x<ysource; y++) {
+                if(a+xsource >= getWidth() || a+ysource >= getHeight()) continue;
+                setT(xsource, ysource, "water");
+            }
+        }
+    }
+    
     public void setT(int xcoord, int ycoord, String TerrainName){
         getFeld(xcoord, ycoord).setT(TerrainName);
     }
