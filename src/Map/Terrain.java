@@ -36,6 +36,22 @@ public class Terrain {
                 this.rangemultiplier = 1;
                 this.terrainpicture = ImageLoader.imageA[0];
                 break;
+                
+            case "forest":
+                this.rangemultiplier = 1;
+                this.terrainpicture = ImageLoader.imageA[1];
+                break;
+                
+            case "desert":
+                this.rangemultiplier = 1;
+                this.terrainpicture = ImageLoader.imageA[2];
+                break;
+                
+            case "water":
+                this.rangemultiplier = 1;
+                this.terrainpicture = ImageLoader.imageA[3];
+                break;
+                
             default:
                 throw new AssertionError();
         }

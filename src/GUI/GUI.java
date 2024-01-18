@@ -60,24 +60,22 @@ public class GUI extends JPanel{
         
         //immer ganz unten
         window.pack();
-        M = new Map(8,8);
+        M = new Map(50,50);
     }
     
     
     //painComponent; erst schwarzer Hintergrund
     @Override
     public void paintComponent(Graphics g) {
-            Color InterfaceBackground = new Color(209,188,138);
-            g.setColor(InterfaceBackground);
-            g.fillRect(100, 100, 300, 50);
-            botBar();
-
-
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                   // g.drawImage(M.getTerrainPicture(i, j), 100*i, 100, null);
+            for (int i = 0; i < M.getWidth(); i++) {
+                for (int j = 0; j < M.getHeight(); j++) {
+                    g.drawImage(M.get(i, j).getT().getPicture(), 64*i, 64*j, null);
                 }
             }
+            Color InterfaceBackground = new Color(209,188,138);
+            g.setColor(InterfaceBackground);
+            g.fillRect(0, 0, 300, 50);
+            botBar();
        }
     
     private static void botBar(){
