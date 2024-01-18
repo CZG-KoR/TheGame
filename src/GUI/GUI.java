@@ -18,6 +18,9 @@ import javax.swing.JTabbedPane;
 import Map.Map;
 import Map.Terrain;
 import Map.ImageLoader;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 /**
  *
@@ -27,7 +30,7 @@ public class GUI extends JPanel{
     //komplette Größe des Bildschirms
     static final int width = Toolkit.getDefaultToolkit().getScreenSize().width;
     static final int height = Toolkit.getDefaultToolkit().getScreenSize().height;
-    
+    static Timer t;
     static Map M;
 
     static JInternalFrame internal = new JInternalFrame();
@@ -44,8 +47,9 @@ public class GUI extends JPanel{
     }
     
     public static void main(String[] args) {
-        ImageLoader imageload = new ImageLoader();
-        GUI g = new GUI();
+        ImageLoader imageload = new ImageLoader(); //als 1.
+        M = new Map(50,50); //als 2.
+        GUI g = new GUI(); //als 3. immer
         JFrame window = new JFrame();
         window.setTitle("TheGame");
         window.setPreferredSize(new Dimension(width, height));
@@ -58,9 +62,18 @@ public class GUI extends JPanel{
         window.add(internal);
         
         
+        
         //immer ganz unten
         window.pack();
-        M = new Map(50,50);
+        M.setT(3, 3, "water");
+        t = new Timer(60, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                g.repaint();
+            }
+        });
+        //t.start();
+        g.repaint();
     }
     
     
