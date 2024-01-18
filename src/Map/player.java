@@ -61,20 +61,21 @@ public class player {
         return wood;
     }
 
-    public void setWood(int wood) {
-        this.wood = wood;
-    }
 
     public int getStone() {
         return stone;
     }
 
-    public void setStone(int stone) {
-        this.stone = stone;
-    }
-
     public int getFood() {
         return food;
+    }
+
+    public void setWood(int wood) {
+        this.wood = wood;
+    }
+
+    public void setStone(int stone) {
+        this.stone = stone;
     }
 
     public void setFood(int food) {

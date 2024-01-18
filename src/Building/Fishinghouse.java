@@ -12,7 +12,7 @@ import Map.player;
  */
 public class Fishinghouse extends Building{
     //wie lumberjack
-    double fishingspeed;
+    int fishingspeed;
     
     public Fishinghouse(int xPosition, int yPosition) {
     this.xPosition=xPosition;
@@ -41,7 +41,7 @@ public class Fishinghouse extends Building{
     }
     
     //Anfang jede Runde fischen
-    public void fish() {
-        //player.food = player.food + fishingspeed;
+    public void fish(player player) {
+        player.setWood(player.getWood()+fishingspeed);
     }
 }

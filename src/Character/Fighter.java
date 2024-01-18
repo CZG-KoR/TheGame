@@ -22,5 +22,5 @@ public abstract class Fighter extends Character{
         super(playername);
     }
     
-  
+
 }
