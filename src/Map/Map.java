@@ -74,20 +74,15 @@ public class Map {
         this.setT(3, 3, "water");
         
         Random r = new Random();
+        
+        
+        Noise n = new Noise(r, (float) 0.6, width, height);
+        n.initialise();
         for(int x = 0; x<width; x++){
             for(int y = 0; y < height; y++){
-                if(r.nextBoolean()){
-                    this.setT(x, y, "water");
-                }
+                if(n.getNoiseAt(x, y) > (float) 0.2) this.setT(x, y, "water");
             }
         }
-        
-        for(int x = 1; x<width-1; x++){
-            for(int y = 1; y < height-1; y++){
-                if(this.getTerrainName(x, y) == "grass" && getSorroundingTerrain(x, y, "grass") >= 7) this.setT(x, y, "water");
-                if(getSorroundingTerrain(x, y, "grass") >= 5) this.setT(x, y, "grass");
-            }
-        } 
     }
     
     public int getSorroundingTerrain(int x, int y, String name){
