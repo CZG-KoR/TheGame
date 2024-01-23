@@ -19,6 +19,10 @@ public class Noise {
 
     /** Plasma fractal grid */
     private float[][] grid_;
+    
+    public float getNoiseAt(int x, int y){
+        return this.grid_[x][y];
+    }
 
 
     /** Generate a noise source based upon the midpoint displacement fractal.
