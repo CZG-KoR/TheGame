@@ -63,8 +63,7 @@ public class Feld {
     }
     
     public void setT(String TerrainName) {
-        Terrain T = new Terrain(TerrainName);
-        this.t = t;
+        this.t = new Terrain(TerrainName);
     }
     
 }

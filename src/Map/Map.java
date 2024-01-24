@@ -7,6 +7,7 @@ package Map;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -69,6 +70,33 @@ public class Map {
             //fügt neue Zeile hinzu
             this.Felder.add(Zeile);
         }
+        
+        this.setT(3, 3, "water");
+        
+        Random r = new Random();
+        
+        
+        Noise n = new Noise(r, (float) 2, width, height);
+        n.initialise();
+        for(int x = 0; x<width; x++){
+            for(int y = 0; y < height; y++){
+                if(n.getNoiseAt(x, y) > (float) 0.3) this.setT(x, y, "water");
+            }
+        }
+    }
+    
+    public int getSorroundingTerrain(int x, int y, String name){
+        int counter = 0;
+        if(x != 0 && this.getTerrainName(x-1, y).equals(name)) counter++;
+        if(y != 0 && this.getTerrainName(x, y-1).equals(name)) counter++;
+        if(x != 0 && y != 0 && this.getTerrainName(x-1, y-1).equals(name)) counter++;
+        if(x < width-1 && this.getTerrainName(x+1, y).equals(name)) counter++;
+        if(y < height-1 && this.getTerrainName(x, y+1).equals(name)) counter++;
+        if(x < width-1 && y != 0 && this.getTerrainName(x+1, y-1).equals(name)) counter++;
+        if(y < height-1 && x != 0 && this.getTerrainName(x-1, y+1).equals(name)) counter++;
+        if(y < height-1 && x < width-1 && this.getTerrainName(x+1, y+1).equals(name)) counter++;
+        
+        return counter;
     }
     
     public void addSource(int a, int xsource, int ysource) {
