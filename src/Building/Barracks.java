@@ -53,6 +53,10 @@ public class Barracks extends Building{
     }
     
     public void GenerateFigther2(player player) {
+        // ApoRed (das heißt Red!) ist der Opa
+        // Hasen machen nicht immer dieselben stepper sie usen auch andere stepper um ihren Horizont zu weiten, denn ein Hase ohne wissen ist nur ein Go.
+        // Vorbilder zu sneaken kommt immer nice, aber selbst zu seinem eigenen Vorbild zu werden ist das Ziel eines Hasen
+        
         // Wood und Stone und Food vom player
         int wood = player.getWood();
         int stone = player.getStone();
