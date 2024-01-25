@@ -37,6 +37,9 @@ public class player {
     //Nahrung des Spielers
     int food=0;
     
+    //Kills eines Spielers (wie viele Truppen er getötet hat)
+    int kills=0;
+    
     
     //Charaktere und Gebaeude eines Spielers
     ArrayList<Character> Characters= new ArrayList();
@@ -70,6 +73,10 @@ public class player {
         return food;
     }
 
+    public int getKills() {
+        return kills;
+    }
+
     public void setWood(int wood) {
         this.wood = wood;
     }
@@ -81,6 +88,12 @@ public class player {
     public void setFood(int food) {
         this.food = food;
     }
+
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
+    
+    
     
 
     public int getBuilderAmount(int x, int y){

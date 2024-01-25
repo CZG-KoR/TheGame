@@ -10,6 +10,8 @@ import Map.player;
  */
 public abstract class MainCharacter extends Hero{
     
+    int debt=0;
+    
     public MainCharacter(String playername) {
         super(playername);
         this.info="ApoRed (das heißt Red!) ist der Opa\n" +
@@ -22,5 +24,17 @@ public abstract class MainCharacter extends Hero{
         player.setFood(player.getFood()+5);
         player.setStone(player.getStone()+5);
         player.setWood(player.getWood()+5);
+        debt=debt+5;
     }
+    
+    // ultimate (Insi-Modus) kehrt deine Schulden in Ressourcen um und outplayed Vater Staat. Es zährt allerdings an den Kräften des MainCharacter, weswegen es Nahrung benötigt
+    public void ultimate(player player){
+        if (debt>50 && player.getFood()>=10) {
+            player.setWood(player.getWood()+debt);
+            player.setWood(player.getWood()+debt);
+            player.setFood(player.getFood()-10);
+            debt=0;
+        }
+    }
+    
 }
