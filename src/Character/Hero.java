@@ -21,5 +21,7 @@ public abstract class Hero extends Character{
     
     //jeder Held hat eine Fähigkeit
     public abstract void ability();
+    //jeder Held hat eine Ult die er (einmal oder so) benutzen kann unter bestimmten Bedingungen
+    public abstract void ultimate();
     
 }
