@@ -82,6 +82,18 @@ public class player {
         this.food = food;
     }
     
-    
+    public int getBuilderAmount(int x, int y){
+        // Gibt die Anzahl der Builder an einem Feld an
+        int sum=0;
+        for (int i = 0; i < Characters.size(); i++) {
+            if (Characters.get(i) instanceof Builder) {
+                Builder b = (Builder) (Characters.get(i));
+                if (b.getxPosition() == x && b.getyPosition() == y) {
+                    sum++;
+                }
+            }
+        }
+        return sum;
+    }
     
 }

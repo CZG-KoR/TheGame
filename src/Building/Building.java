@@ -24,9 +24,15 @@ public abstract class Building {
     //int buildcredits;
     //int creditsperround;
     
-
+    // braucht man eigentlich nicht
     int[] buildcost = new int[2];
-
+    
+    public void build(player player, int x, int y) {
+        buildtime-=player.getBuilderAmount(x, y);
+        if (buildtime<0) {
+            buildtime = 0;
+        }
+    }
     
     // Position
     int xPosition;
