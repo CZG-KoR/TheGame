@@ -24,7 +24,7 @@ public class ImageLoader {
                 case 2 ->
                     Toolkit.getDefaultToolkit().getImage("src/GUI/res/desert.png");
                 case 3 ->
-                    Toolkit.getDefaultToolkit().getImage("src/GUI/res/testfighter.png");
+                    Toolkit.getDefaultToolkit().getImage("src/GUI/res/ocean.png");
                 default ->
                     Toolkit.getDefaultToolkit().getImage("src/GUI/res/grass.png");
             };
