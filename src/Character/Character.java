@@ -22,7 +22,8 @@ public abstract class Character implements killable {
     boolean canmove;
     // Motivation
     int motivation;
-
+    // Abstand den man laufen kann
+    int moverange;
     // Position
     int xPosition;
     int yPosition;
@@ -33,6 +34,8 @@ public abstract class Character implements killable {
     public Character(String playername) {
         this.playername = playername;
     }
+    
+    boolean alive = true;
 
     // Bewegung muss für die einzelnen Charaktere definiert werden
     public abstract void move();
@@ -52,7 +55,7 @@ public abstract class Character implements killable {
             }
 
             if (figh2.healthpoints <= 0) {
-                figh2.killed();
+                figh2.alive = false;
             }
 
             if (figh2.canattack && figh2.healthpoints > 0) {
@@ -60,6 +63,10 @@ public abstract class Character implements killable {
                     figh1.healthpoints = figh1.healthpoints - figh2.attackrating * figh2.motivation;
                 }
 
+            }
+            
+            if(figh1.healthpoints <= 0){
+                figh1.alive = false;
             }
         }
 
@@ -72,7 +79,7 @@ public abstract class Character implements killable {
             }
 
             if (char2.healthpoints <= 0) {
-                char2.killed();
+                char2.alive = false;
             }
         }
 
@@ -86,24 +93,15 @@ public abstract class Character implements killable {
             }
 
             if (char1.healthpoints <= 0) {
-                char1.killed();
+                char1.alive = false;
             }
         }
 
     }
 
-    @Override
-    public void killed() {
-        //   throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        //Entfernen aus Liste des Spielers
-//        for (int i = 0; i < players.size(); i++) {
-//            if(players.get(i).playername.equals(this.playername)){
-//                players.get(i).Characters.remove(this);
-//            }
-//        }
-
-        //Tötungsanimation
-    }
+//    public void killed() {
+//     
+//    }
 
     //noch zu testen
       public void movementrange(int xposition, int yposition, Character chara, Map map) {
@@ -140,4 +138,20 @@ public abstract class Character implements killable {
           return movementr;
       }
 
+
+
+    public boolean getalive() {
+        return alive;
+    }
+
+
+
+    public int getxPosition() {
+        return xPosition;
+    }
+
+    public int getyPosition() {
+        return yPosition;
+    }
+    
 }
