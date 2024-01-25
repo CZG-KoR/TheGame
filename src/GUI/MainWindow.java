@@ -47,6 +47,9 @@ public class MainWindow {
         Tilemap tM = new Tilemap(WIDTH, HEIGHT, m);
         layer.add(tM, 1000);
         
+        window.addMouseListener(tM);
+        window.addMouseMotionListener(tM);
+        
         layer.setVisible(true);      
         window.add(layer);
         
