@@ -73,11 +73,12 @@ public class Map {
                 
         Random r = new Random();
         
-        Noise n = new Noise(r, (float) 2, width, height);
+        Noise n = new Noise(r, (float) 4, width, height);
         n.initialise();
         for(int x = 0; x<width; x++){
             for(int y = 0; y < height; y++){
-                if(n.getNoiseAt(x, y) < (float) 0) this.setT(x, y, "water");
+                if(n.getNoiseAt(x, y) < (float) 0.06) this.setT(x, y, "water");
+                if(n.getNoiseAt(x, y) > (float) 1.5) this.setT(x, y, "desert");
             }
         }
         
