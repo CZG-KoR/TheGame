@@ -10,7 +10,7 @@ import Map.player;
  */
 /**
  *
- * @author guest-7gls9j
+ * @author Ambrosius, Jonte, Cedric
  */
 public abstract class Character implements killable {
 
@@ -106,35 +106,37 @@ public abstract class Character implements killable {
     }
 
     //noch zu testen
-      public void movementrange(int xposition, int yposition, Character chara, Map map) {
+    //Map nicht uebergeben, sondern public zugreifen koennen
+      public void movementrange(int xposition, int yposition, Map map) {
       ArrayList<int[]> movementr = new ArrayList<>();
       //movementr.add(new int[]{2,3});
-      movementr = movementrange2(xposition, yposition, map, chara, movementr);
+      movementr = movementrange2(xposition, yposition, map, movementr);
+      
   }
       
-      public ArrayList<int[]> movementrange2(int xposition, int yposition,Map map, Character chara, ArrayList<int[]> movementr) {
-          if (map.getFeld(xPosition, yPosition).getHeight()>chara.movement) {
+      public ArrayList<int[]> movementrange2(int xposition, int yposition, Map map, ArrayList<int[]> movementr) {
+          if (map.getFeld(xPosition, yPosition).getHeight()>movement) {
               return movementr;
           }
-          if (map.getFeld(xPosition+1, yPosition).getHeight()<=chara.movement) {
-              chara.movement = chara.movement - map.getFeld(xPosition+1, yPosition).getHeight();
+          if (map.getFeld(xPosition+1, yPosition).getHeight()<=movement) {
+              movement = movement - map.getFeld(xPosition+1, yPosition).getHeight();
               movementr.add(new int[]{xPosition+1, yPosition});
-              movementrange2(xposition+1, yposition, map, chara, movementr);
+              movementrange2(xposition+1, yposition, map, movementr);
           }
-          if (map.getFeld(xPosition-1, yPosition).getHeight()<=chara.movement) {
-              chara.movement = chara.movement - map.getFeld(xPosition-1, yPosition).getHeight();
+          if (map.getFeld(xPosition-1, yPosition).getHeight()<=movement) {
+              movement = movement - map.getFeld(xPosition-1, yPosition).getHeight();
               movementr.add(new int[]{xPosition-1, yPosition});
-              movementrange2(xposition-1, yposition, map, chara, movementr);
+              movementrange2(xposition-1, yposition, map, movementr);
           }
-          if (map.getFeld(xPosition, yPosition+1).getHeight()<=chara.movement) {
-              chara.movement = chara.movement - map.getFeld(xPosition, yPosition+1).getHeight();
+          if (map.getFeld(xPosition, yPosition+1).getHeight()<=movement) {
+              movement = movement - map.getFeld(xPosition, yPosition+1).getHeight();
               movementr.add(new int[]{xPosition, yPosition+1});
-              movementrange2(xposition, yposition+1, map, chara, movementr);
+              movementrange2(xposition, yposition+1, map, movementr);
           }
-          if (map.getFeld(xPosition+1, yPosition-1).getHeight()<chara.movement) {
-              chara.movement = chara.movement - map.getFeld(xPosition, yPosition-1).getHeight();
+          if (map.getFeld(xPosition+1, yPosition-1).getHeight()<movement) {
+              movement = movement - map.getFeld(xPosition, yPosition-1).getHeight();
               movementr.add(new int[]{xPosition, yPosition-1});
-              movementrange2(xposition, yposition-1, map, chara, movementr);
+              movementrange2(xposition, yposition-1, map, movementr);
           }
           //Rueckgabe ist Arraylist aus Arrays, Laenge 2, in der alle Koordinatenduos der belaufbaren Felder gespeichert sind, können doppelt vorkommen
           return movementr;
