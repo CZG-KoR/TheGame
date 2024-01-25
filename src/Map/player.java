@@ -83,7 +83,7 @@ public class player {
     }
     
     // Am Ende des Zuges schauen, ob noch alles "lebt" und damit angezeigt werden muss
-    public void checkElements(player p){
+    public static void checkElements(player p){
         // check ob noch alle Gebäude "leben"
         for (int i = 0; i < p.Characters.size(); i++) {
             if(!p.Characters.get(i).getalive()){
