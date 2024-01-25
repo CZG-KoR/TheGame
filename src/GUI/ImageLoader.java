@@ -1,12 +1,15 @@
+package GUI;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Map;
+
 
 import java.awt.Image;
 import java.awt.Toolkit;
 
+//ImageLoader jetzt in GUI, weil auch Character gezeichnet werden müssen
 public class ImageLoader {
 
     public static Image[] imageA = new Image[4];

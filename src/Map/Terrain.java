@@ -4,11 +4,10 @@ package Map;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+import GUI.ImageLoader;
 import Building.Building;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 
 /**
  * verschiedene Terrains erstellen
@@ -58,11 +57,6 @@ public class Terrain {
       
     }
     
-    
-    
-
-
-
     public String getName() {
         return terrainname;
     }
