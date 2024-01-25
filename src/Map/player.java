@@ -82,6 +82,23 @@ public class player {
         this.food = food;
     }
     
+    // Am Ende des Zuges schauen, ob noch alles "lebt" und damit angezeigt werden muss
+    public void checkElements(player p){
+        // check ob noch alle Gebäude "leben"
+        for (int i = 0; i < p.Characters.size(); i++) {
+            if(!p.Characters.get(i).getalive()){
+                p.Characters.remove(i);
+            }
+        }
+        
+        //check ob noch alle Gebäude "leben"
+//        for (int i = 0; i < p.Buildings.size(); i++) {
+//            if(!p.Buildings.get(i).getalive()){
+//                p.Buildings.remove(i);
+//            }
+//        }
+    }
+    
     
     
 }
