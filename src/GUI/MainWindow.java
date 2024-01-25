@@ -47,6 +47,9 @@ public class MainWindow {
         Tilemap tM = new Tilemap(WIDTH, HEIGHT, m);
         layer.add(tM, 1000);
         
+        window.addMouseListener(tM);
+        window.addMouseMotionListener(tM);
+        
         layer.setVisible(true);      
         window.add(layer);
         
@@ -57,7 +60,7 @@ public class MainWindow {
         
         //----------------------------------------------------//
         // Timer für Zeichnen der Map -> Zeichnung jetzt unabhängig von StatBar  
-        Timer t = new Timer(1000, new ActionListener() {
+        Timer t = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 tM.repaint();
