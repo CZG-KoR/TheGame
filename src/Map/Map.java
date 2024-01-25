@@ -70,17 +70,15 @@ public class Map {
             //fügt neue Zeile hinzu
             this.Felder.add(Zeile);
         }
-        
-        this.setT(3, 3, "water");
-        
+                
         Random r = new Random();
-        
         
         Noise n = new Noise(r, (float) 2, width, height);
         n.initialise();
         for(int x = 0; x<width; x++){
             for(int y = 0; y < height; y++){
-                if(n.getNoiseAt(x, y) > (float) 0.3) this.setT(x, y, "water");
+                System.out.println(n.getNoiseAt(x, y));
+                if(n.getNoiseAt(x, y) < (float) 0) this.setT(x, y, "water");
             }
         }
     }
@@ -99,12 +97,9 @@ public class Map {
         return counter;
     }
     
-    public void addSource(int a, int xsource, int ysource) {
-        for(int x = 0; x<xsource; x++){
-            for(int y = 0; x<ysource; y++) {
-                if(a+xsource >= getWidth() || a+ysource >= getHeight()) continue;
-                setT(xsource, ysource, "water");
-            }
+    public void replace(ArrayList<ArrayList<Integer>> coordinates,String TerrainNametoPlace){
+        for(ArrayList<Integer> v : coordinates){
+            this.setT(v.get(0), v.get(1), TerrainNametoPlace);
         }
     }
     
