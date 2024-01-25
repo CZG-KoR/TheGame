@@ -70,19 +70,42 @@ public class Map {
             //fügt neue Zeile hinzu
             this.Felder.add(Zeile);
         }
-        
-        this.setT(3, 3, "water");
-        
+                
         Random r = new Random();
         
-        
-        Noise n = new Noise(r, (float) 2, width, height);
+        Noise n = new Noise(r, (float) 10, width, height);
         n.initialise();
         for(int x = 0; x<width; x++){
             for(int y = 0; y < height; y++){
-                if(n.getNoiseAt(x, y) > (float) 0.3) this.setT(x, y, "water");
+                if(n.getNoiseAt(x, y) < (float) 0.8) this.setT(x, y, "desert");
+                if(n.getNoiseAt(x, y) < (float) 0.48) this.setT(x, y, "water");
+                if(n.getNoiseAt(x, y) > (float) 3.5) this.setT(x, y, "forest");
+                
             }
         }
+        
+        //water-pruning
+        /*
+        löscht Wasserfelder, wenn limit Anzahl an anderen darum ist 
+        Sodass kleine "Pfützen" wegfallen
+        */
+        waterpruning(2);
+        
+    }
+    
+    public void waterpruning(int limit){
+        ArrayList<ArrayList<Integer>> tempList = new ArrayList<ArrayList<Integer>>();
+        for(int x = 0; x<width; x++){
+            for(int y = 0; y < height; y++){
+                ArrayList<Integer> localList = new ArrayList<Integer>();
+                if(this.getTerrainName(x, y).equals("water") && getSorroundingTerrain(x, y, "grass")+getSorroundingTerrain(x, y, "desert") > limit){
+                    localList.add(x);
+                    localList.add(y);
+                    tempList.add(localList);
+                }
+            }
+        }
+        this.replace(tempList, "grass");
     }
     
     public int getSorroundingTerrain(int x, int y, String name){
@@ -99,12 +122,9 @@ public class Map {
         return counter;
     }
     
-    public void addSource(int a, int xsource, int ysource) {
-        for(int x = 0; x<xsource; x++){
-            for(int y = 0; x<ysource; y++) {
-                if(a+xsource >= getWidth() || a+ysource >= getHeight()) continue;
-                setT(xsource, ysource, "water");
-            }
+    public void replace(ArrayList<ArrayList<Integer>> coordinates,String TerrainNametoPlace){
+        for(ArrayList<Integer> v : coordinates){
+            this.setT(v.get(0), v.get(1), TerrainNametoPlace);
         }
     }
     
