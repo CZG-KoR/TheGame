@@ -34,6 +34,8 @@ public abstract class Character implements killable {
     public Character(String playername) {
         this.playername = playername;
     }
+    
+    boolean alive = true;
 
     // Bewegung muss für die einzelnen Charaktere definiert werden
     public abstract void move();
@@ -53,7 +55,7 @@ public abstract class Character implements killable {
             }
 
             if (figh2.healthpoints <= 0) {
-                figh2.killed();
+                figh2.alive = false;
             }
 
             if (figh2.canattack && figh2.healthpoints > 0) {
@@ -61,6 +63,10 @@ public abstract class Character implements killable {
                     figh1.healthpoints = figh1.healthpoints - figh2.attackrating * figh2.motivation;
                 }
 
+            }
+            
+            if(figh1.healthpoints <= 0){
+                figh1.alive = false;
             }
         }
 
@@ -73,7 +79,7 @@ public abstract class Character implements killable {
             }
 
             if (char2.healthpoints <= 0) {
-                char2.killed();
+                char2.alive = false;
             }
         }
 
@@ -87,58 +93,58 @@ public abstract class Character implements killable {
             }
 
             if (char1.healthpoints <= 0) {
-                char1.killed();
+                char1.alive = false;
             }
         }
 
     }
 
-    @Override
-    public void killed() {
-        //   throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        //Entfernen aus Liste des Spielers
-//        for (int i = 0; i < players.size(); i++) {
-//            if(players.get(i).playername.equals(this.playername)){
-//                players.get(i).Characters.remove(this);
-//            }
-//        }
+//    public void killed() {
+//     
+//    }
 
-        //Tötungsanimation
+    //noch zu testen
+      public void movementrange(int xposition, int yposition, Character chara, Map map) {
+      ArrayList<int[]> movementr = new ArrayList<>();
+      //movementr.add(new int[]{2,3});
+      movementr = movementrange2(xposition, yposition, map, chara, movementr);
+  }
+      
+      public ArrayList<int[]> movementrange2(int xposition, int yposition,Map map, Character chara, ArrayList<int[]> movementr) {
+          if (map.getFeld(xPosition, yPosition).getHeight()>chara.movement) {
+              return movementr;
+          }
+          if (map.getFeld(xPosition+1, yPosition).getHeight()<=chara.movement) {
+              chara.movement = chara.movement - map.getFeld(xPosition+1, yPosition).getHeight();
+              movementr.add(new int[]{xPosition+1, yPosition});
+              movementrange2(xposition+1, yposition, map, chara, movementr);
+          }
+          if (map.getFeld(xPosition-1, yPosition).getHeight()<=chara.movement) {
+              chara.movement = chara.movement - map.getFeld(xPosition-1, yPosition).getHeight();
+              movementr.add(new int[]{xPosition-1, yPosition});
+              movementrange2(xposition-1, yposition, map, chara, movementr);
+          }
+          if (map.getFeld(xPosition, yPosition+1).getHeight()<=chara.movement) {
+              chara.movement = chara.movement - map.getFeld(xPosition, yPosition+1).getHeight();
+              movementr.add(new int[]{xPosition, yPosition+1});
+              movementrange2(xposition, yposition+1, map, chara, movementr);
+          }
+          if (map.getFeld(xPosition+1, yPosition-1).getHeight()<chara.movement) {
+              chara.movement = chara.movement - map.getFeld(xPosition, yPosition-1).getHeight();
+              movementr.add(new int[]{xPosition, yPosition-1});
+              movementrange2(xposition, yposition-1, map, chara, movementr);
+          }
+          //Rueckgabe ist Arraylist aus Arrays, Laenge 2, in der alle Koordinatenduos der belaufbaren Felder gespeichert sind, können doppelt vorkommen
+          return movementr;
+      }
+
+
+
+    public boolean getalive() {
+        return alive;
     }
 
-    //noch nicht fertig(jonte):
-    public void movementrange(int xposition, int yposition, Character chara, Map map) {
-        ArrayList<int[]> movementr = new ArrayList<>();
-        movementr.add(new int[]{2, 3});
-        // movementr = movementrange2(xposition, yposition, map, chara, movementr);
-    }
 
-    /*
-    public ArrayList<ArrayList<Integer>> movementrange2(int xposition, int yposition, Map map, Character chara, ArrayList<ArrayList<Integer>> movementr) {
-        if (map.get(xPosition, yPosition).getHeight() > chara.movement) {
-            return movementr;
-        }
-        if (map.get(xPosition + 1, yPosition).getHeight() < chara.movement) {
-            chara.movement = chara.movement - map.get(xPosition + 1, yPosition).getHeight();
-
-            //movementr.add()
-            movementrange2(xposition + 1, yposition, map, chara, movementr);
-        }
-        if (map.get(xPosition - 1, yPosition).getHeight() < chara.movement) {
-            chara.movement = chara.movement - map.get(xPosition + 1, yPosition).getHeight();
-            movementrange2(xposition - 1, yposition, map, chara, movementr);
-        }
-        if (map.get(xPosition, yPosition + 1).getHeight() < chara.movement) {
-            chara.movement = chara.movement - map.get(xPosition + 1, yPosition).getHeight();
-            movementrange2(xposition, yposition + 1, map, chara, movementr);
-        }
-        if (map.get(xPosition + 1, yPosition - 1).getHeight() < chara.movement) {
-            chara.movement = chara.movement - map.get(xPosition + 1, yPosition).getHeight();
-            movementrange2(xposition, yposition - 1, map, chara, movementr);
-        }
-        return movementr;
-    }
-    */
 
     public int getxPosition() {
         return xPosition;
@@ -147,6 +153,5 @@ public abstract class Character implements killable {
     public int getyPosition() {
         return yPosition;
     }
-    
     
 }

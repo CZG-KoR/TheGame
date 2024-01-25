@@ -16,7 +16,7 @@ public abstract class Fighter extends Character{
     // Angriffsreichweite
     int attackrange;
     // Hat die Figur schon angegriffen?
-    boolean canattack;
+    boolean canattack=false;
 
     public Fighter(String playername) {
         super(playername);
