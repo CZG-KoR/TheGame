@@ -22,7 +22,8 @@ public abstract class Character implements killable {
     boolean canmove;
     // Motivation
     int motivation;
-
+    // Abstand den man laufen kann
+    int moverange;
     // Position
     int xPosition;
     int yPosition;
@@ -143,4 +144,14 @@ public abstract class Character implements killable {
         return alive;
     }
 
+
+
+    public int getxPosition() {
+        return xPosition;
+    }
+
+    public int getyPosition() {
+        return yPosition;
+    }
+    
 }
