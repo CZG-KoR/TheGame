@@ -77,10 +77,23 @@ public class Map {
         n.initialise();
         for(int x = 0; x<width; x++){
             for(int y = 0; y < height; y++){
-                System.out.println(n.getNoiseAt(x, y));
                 if(n.getNoiseAt(x, y) < (float) 0) this.setT(x, y, "water");
             }
         }
+        
+        //water-pruning
+        ArrayList<ArrayList<Integer>> tempList = new ArrayList<ArrayList<Integer>>();
+        for(int x = 0; x<width; x++){
+            for(int y = 0; y < height; y++){
+                ArrayList<Integer> localList = new ArrayList<Integer>();
+                if(getSorroundingTerrain(x, y, "grass") > 3){
+                    localList.add(x);
+                    localList.add(y);
+                    tempList.add(localList);
+                }
+            }
+        }
+        this.replace(tempList, "grass");
     }
     
     public int getSorroundingTerrain(int x, int y, String name){
