@@ -42,7 +42,6 @@ public class MainWindow {
         Bar b = new Bar(WIDTH, HEIGHT);
         // Element, Ebenenwert (je höher, desto weiter oben)
         layer.add(b,2000);
-
         // Spielfeld
         Tilemap tM = new Tilemap(WIDTH, HEIGHT, m);
         layer.add(tM, 1000);
@@ -68,6 +67,5 @@ public class MainWindow {
         });
         
         t.start();
-
     }
 }

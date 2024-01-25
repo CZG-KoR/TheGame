@@ -7,7 +7,9 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -28,7 +30,7 @@ public class Bar extends JInternalFrame{
         this.setBorder(BorderFactory.createLineBorder(InternalBorderColor,4));
         
         // widht -8 für "sauberen" Rahmen
-        tabs.setPreferredSize(new Dimension(width-10,height/3));
+        tabs.setPreferredSize(new Dimension(width-100,height/3));
         JPanel panelBuildings = new JPanel();
         panelBuildings.setBackground(Color.GRAY);
         JPanel panelTroops = new JPanel();
@@ -39,8 +41,14 @@ public class Bar extends JInternalFrame{
         this.add(tabs);
         this.requestFocus();
         
+        JButton close = new JButton();
+        close.setPreferredSize(new Dimension(50,50));
+        close.setLocation(0, 0);
+        //close.setText("close");
+        close.setVisible(true);
+        this.add(close);
+        
         // immer am Ende
         this.setVisible(true);
     }   
-    
 }
