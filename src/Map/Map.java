@@ -73,21 +73,32 @@ public class Map {
                 
         Random r = new Random();
         
-        Noise n = new Noise(r, (float) 4, width, height);
+        Noise n = new Noise(r, (float) 10, width, height);
         n.initialise();
         for(int x = 0; x<width; x++){
             for(int y = 0; y < height; y++){
-                if(n.getNoiseAt(x, y) < (float) 0.06) this.setT(x, y, "water");
-                if(n.getNoiseAt(x, y) > (float) 1.5) this.setT(x, y, "desert");
+                if(n.getNoiseAt(x, y) < (float) 0.8) this.setT(x, y, "desert");
+                if(n.getNoiseAt(x, y) < (float) 0.48) this.setT(x, y, "water");
+                if(n.getNoiseAt(x, y) > (float) 3.5) this.setT(x, y, "forest");
+                
             }
         }
         
         //water-pruning
+        /*
+        löscht Wasserfelder, wenn limit Anzahl an anderen darum ist 
+        Sodass kleine "Pfützen" wegfallen
+        */
+        waterpruning(2);
+        
+    }
+    
+    public void waterpruning(int limit){
         ArrayList<ArrayList<Integer>> tempList = new ArrayList<ArrayList<Integer>>();
         for(int x = 0; x<width; x++){
             for(int y = 0; y < height; y++){
                 ArrayList<Integer> localList = new ArrayList<Integer>();
-                if(getSorroundingTerrain(x, y, "grass") > 3){
+                if(this.getTerrainName(x, y).equals("water") && getSorroundingTerrain(x, y, "grass")+getSorroundingTerrain(x, y, "desert") > limit){
                     localList.add(x);
                     localList.add(y);
                     tempList.add(localList);
