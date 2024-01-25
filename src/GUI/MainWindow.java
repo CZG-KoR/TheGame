@@ -60,7 +60,7 @@ public class MainWindow {
         
         //----------------------------------------------------//
         // Timer für Zeichnen der Map -> Zeichnung jetzt unabhängig von StatBar  
-        Timer t = new Timer(1000, new ActionListener() {
+        Timer t = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 tM.repaint();
