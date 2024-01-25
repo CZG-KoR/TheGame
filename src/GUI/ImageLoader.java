@@ -20,11 +20,11 @@ public class ImageLoader {
                 case 0 ->
                     Toolkit.getDefaultToolkit().getImage("src/GUI/res/grass.png");
                 case 1 ->
-                    Toolkit.getDefaultToolkit().getImage("src/GUI/res/grass.png");
+                    Toolkit.getDefaultToolkit().getImage("src/GUI/res/forest.png");
                 case 2 ->
-                    Toolkit.getDefaultToolkit().getImage("src/GUI/res/grass.png");
+                    Toolkit.getDefaultToolkit().getImage("src/GUI/res/desert.png");
                 case 3 ->
-                    Toolkit.getDefaultToolkit().getImage("src/GUI/res/grass.png");
+                    Toolkit.getDefaultToolkit().getImage("src/GUI/res/ocean.png");
                 default ->
                     Toolkit.getDefaultToolkit().getImage("src/GUI/res/grass.png");
             };
