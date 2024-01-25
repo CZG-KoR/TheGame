@@ -21,11 +21,11 @@ public class Map {
     * Jede Arraylist<Feld> steht für eine Spalte (gleiche x-Koordinate)
     * */
 
-    ArrayList<ArrayList<Feld>> Felder;
+    static ArrayList<ArrayList<Feld>> Felder;
 
     //Dimensionen des Feldes
-    int height;
-    int width;
+    static int height;
+    static int width;
 
     public Map(int heigth, int width) {
         this.height = heigth;
