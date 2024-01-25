@@ -6,7 +6,7 @@ package Character;
 
 /**
  *
- * @author guest-mqvcjc
+ * @author Cedric
  */
 public class Warrior extends Fighter{
 
@@ -26,7 +26,9 @@ public class Warrior extends Fighter{
 
     @Override
     public void move() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //Anzeigen der movementrange fuer den Charakter
+        //movementrange(xPosition, yPosition, );
     }
     
 }
