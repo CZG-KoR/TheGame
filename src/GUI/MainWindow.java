@@ -10,6 +10,8 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -73,6 +75,26 @@ public class MainWindow {
                 close.setEnabled(true);
             }
         });
+        //MenuBar
+        EscapeMenu eM = new EscapeMenu();
+        window.add(eM);
+        window.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                System.out.println("no");
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == 27) {eM.setVisible(true); eM.setEnabled(true);}
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                System.out.println("no again");
+            }
+        });
+        window.add(eM);
         // Spielfeld
         Tilemap tM = new Tilemap(WIDTH, HEIGHT, m);
         layer.add(tM, 1000);
