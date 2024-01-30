@@ -1,8 +1,8 @@
 package launcher;
 
-import gui.MainWindow;
-import map.Map;
-import map.Player;
+import GUI.MainWindow;
+import Map.Map;
+import Map.Player;
 
 import javax.swing.SwingUtilities;
 

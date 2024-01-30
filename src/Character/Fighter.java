@@ -1,4 +1,4 @@
-package character;
+package Character;
 
 public abstract class Fighter extends Character {
     // Angriffswert

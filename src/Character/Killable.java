@@ -1,4 +1,4 @@
-package character;
+package Character;
 
 public interface Killable {
     // Method, wenn etwas zerstört/getötet wird

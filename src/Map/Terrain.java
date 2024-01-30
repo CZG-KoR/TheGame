@@ -1,6 +1,6 @@
-package map;
+package Map;
 
-import building.Building;
+import Building.Building;
 import tools.MiscUtils;
 
 import java.awt.Image;
