@@ -15,9 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 public class Bar extends JInternalFrame{
-
+int width, height;
     public Bar(int width, int height) {
         super();
+        this.width = width;
+        this.height = height;
         JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
 
         this.setSize(width, height/3);
@@ -41,14 +43,27 @@ public class Bar extends JInternalFrame{
         this.add(tabs);
         this.requestFocus();
         
-        JButton close = new JButton();
-        close.setPreferredSize(new Dimension(50,50));
-        close.setLocation(0, 0);
-        //close.setText("close");
-        close.setVisible(true);
-        this.add(close);
         
         // immer am Ende
         this.setVisible(true);
     }   
+    
+    public JButton closeBarButton(){
+        JButton close = new JButton();
+        close.setLocation(width -50,height - height/3 -20);
+        close.setText("X");
+        close.setSize(50, 20);
+        close.setVisible(true);
+        return close;
+    }
+    
+    
+    public JButton openBarButton(){
+        JButton open = new JButton();
+        open.setLocation(width -50,height -20);
+        open.setText("^");
+        open.setSize(50, 20);
+        open.setVisible(true);
+        return open;
+    }
 }

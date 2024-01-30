@@ -10,6 +10,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
@@ -32,7 +33,7 @@ public class MainWindow {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 3
         window.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));//zentriert
         window.setExtendedState(JFrame.MAXIMIZED_BOTH);//fullsize
-        //window.setUndecorated(true);//entfernt topbar von window (fullscreen)
+        window.setUndecorated(true);//entfernt topbar von window (fullscreen)
         
         //Zeichenebenen anelegen
         JLayeredPane layer = new JLayeredPane();
@@ -42,6 +43,36 @@ public class MainWindow {
         Bar b = new Bar(WIDTH, HEIGHT);
         // Element, Ebenenwert (je höher, desto weiter oben)
         layer.add(b,2000);
+        //CloseButton; schließt Bar
+        JButton close = b.closeBarButton();
+        layer.add(close);
+        //OpenButton; öffnet Bar, wenn Bar offen: OpenButton nicht aktiviert und unsichtbar, wenn geschlossen: sichtbar
+        JButton open = b.openBarButton();
+        open.setVisible(false);
+        open.setEnabled(false);
+        layer.add(open);
+        close.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                b.setVisible(false);
+                b.setEnabled(false);
+                close.setVisible(false);
+                close.setEnabled(false);
+                open.setVisible(true);
+                open.setEnabled(true);
+            }
+        });
+        open.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                b.setVisible(true);
+                b.setEnabled(true);
+                open.setVisible(false);
+                open.setEnabled(false);
+                close.setVisible(true);
+                close.setEnabled(true);
+            }
+        });
         // Spielfeld
         Tilemap tM = new Tilemap(WIDTH, HEIGHT, m);
         layer.add(tM, 1000);
