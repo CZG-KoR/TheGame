@@ -1,15 +1,7 @@
-package Building;
+package building;
 
-import Map.player;
+import map.Player;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-/**
- *
- * @author guest-mlyj9e
- */
 public class Wheatfield extends Building {
 
     //Feld gibt Motivationsboost durch "Nahrung"
@@ -31,7 +23,7 @@ public class Wheatfield extends Building {
         // this.TeamId=TeamId;
     }
 
-    public boolean buildable(player player) {
+    public boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();

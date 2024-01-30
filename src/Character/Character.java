@@ -1,36 +1,33 @@
-package Character;
+package character;
 
-import Map.Map;
+import map.Map;
+import tools.MiscUtils;
+
 import java.util.ArrayList;
-import Map.player;
+import java.util.List;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-/**
- *
- * @author guest-7gls9j
- */
-public abstract class Character implements killable {
+public abstract class Character implements Killable {
 
     // Anzahl an Leben für ein Character bis dieser "entfernt" wird
-    int healthpoints;
+    protected int healthpoints;
     // Bewegungsreichweite
-    int movement;
+    protected int movement;
     // Wurde die Figur schon bewegt?
-    boolean canmove;
+    protected boolean canmove;
     // Motivation
-    int motivation;
-
+    protected int motivation;
+    // Abstand den man laufen kann
+    protected int moverange;
     // Position
-    int xPosition;
-    int yPosition;
+    protected int xPosition;
+    protected int yPosition;
 
-    //Spieler zu dem Character gehoert
-    String playername;
+    // Spieler zu dem Character gehoert
+    private String playername;
 
-    public Character(String playername) {
+    protected boolean alive = true;
+
+    protected Character(String playername) {
         this.playername = playername;
     }
 
@@ -40,104 +37,109 @@ public abstract class Character implements killable {
     // Kampf
     public void fight(Character char1, Character char2) {
         if (char1.playername.equals(char2.playername)) {
-            return;   //Fehlercode ausgeben
+            return; // Fehlercode ausgeben
         }
+
         if (char1 instanceof Fighter && char2 instanceof Fighter) {
             Fighter figh1 = (Fighter) (char1);
             Fighter figh2 = (Fighter) (char2);
-            if (figh1.canattack) {
-                if (figh1.attackrange <= (int) (Math.sqrt((figh1.xPosition - figh2.xPosition) * (figh1.xPosition - figh2.xPosition) + (figh1.yPosition - figh2.yPosition) * (figh1.yPosition - figh2.yPosition)))) {
-                    figh2.healthpoints = figh2.healthpoints - figh1.attackrating * figh1.motivation;
-                }
+
+            if (figh1.canattack && figh1.attackrange <= (int) MiscUtils.distance(figh1, figh2)) {
+                figh2.healthpoints = figh2.healthpoints - figh1.attackrating * figh1.motivation;
             }
 
             if (figh2.healthpoints <= 0) {
-                figh2.killed();
+                figh2.alive = false;
             }
 
-            if (figh2.canattack && figh2.healthpoints > 0) {
-                if (figh2.attackrange <= (int) (Math.sqrt((figh1.xPosition - figh2.xPosition) * (figh1.xPosition - figh2.xPosition) + (figh1.yPosition - figh2.yPosition) * (figh1.yPosition - figh2.yPosition)))) {
-                    figh1.healthpoints = figh1.healthpoints - figh2.attackrating * figh2.motivation;
-                }
+            if (figh2.canattack && figh2.attackrange <= (int) MiscUtils.distance(figh1, figh2)) {
+                figh1.healthpoints = figh1.healthpoints - figh2.attackrating * figh2.motivation;
+            }
 
+            if (figh1.healthpoints <= 0) {
+                figh1.alive = false;
             }
         }
 
         if (char1 instanceof Fighter && char2 instanceof Builder) {
             Fighter figh1 = (Fighter) (char1);
-            if (figh1.canattack) {
-                if (figh1.attackrange <= (int) (Math.sqrt((figh1.xPosition - char2.xPosition) * (figh1.xPosition - char2.xPosition) + (figh1.yPosition - char2.yPosition) * (figh1.yPosition - char2.yPosition)))) {
-                    char2.healthpoints = char2.healthpoints - figh1.attackrating * figh1.motivation;
-                }
+            if (figh1.canattack && figh1.attackrange <= (int) MiscUtils.distance(figh1, char2)) {
+                char2.healthpoints = char2.healthpoints - figh1.attackrating * figh1.motivation;                
             }
 
             if (char2.healthpoints <= 0) {
-                char2.killed();
+                char2.alive = false;
             }
         }
 
         if (char1 instanceof Builder && char2 instanceof Fighter) {
             Fighter figh2 = (Fighter) (char2);
-            if (figh2.canattack) {
-                if (figh2.attackrange <= (int) (Math.sqrt((char1.xPosition - figh2.xPosition) * (char1.xPosition - figh2.xPosition) + (char1.yPosition - figh2.yPosition) * (char1.yPosition - figh2.yPosition)))) {
-                    char1.healthpoints = char1.healthpoints - figh2.attackrating * figh2.motivation;
-                }
-
+            if (figh2.canattack && figh2.attackrange <= (int) MiscUtils.distance(char1, figh2)) {
+                char1.healthpoints = char1.healthpoints - figh2.attackrating * figh2.motivation;                
             }
 
             if (char1.healthpoints <= 0) {
-                char1.killed();
+                char1.alive = false;
             }
         }
 
     }
 
-    @Override
-    public void killed() {
-        //   throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        //Entfernen aus Liste des Spielers
-//        for (int i = 0; i < players.size(); i++) {
-//            if(players.get(i).playername.equals(this.playername)){
-//                players.get(i).Characters.remove(this);
-//            }
-//        }
+    // public void killed() {
+    //
+    // }
 
-        //Tötungsanimation
+    // noch zu testen
+    // Map nicht uebergeben, sondern public zugreifen koennen
+    public void movementrange(int xposition, int yposition, Map map) {
+        List<int[]> movementr = new ArrayList<>();
+        // movementr.add(new int[]{2,3});
+        movementr = movementrange2(xposition, yposition, map, movementr);
     }
 
-    //noch zu testen
-      public void movementrange(int xposition, int yposition, Character chara, Map map) {
-      ArrayList<int[]> movementr = new ArrayList<>();
-      //movementr.add(new int[]{2,3});
-      movementr = movementrange2(xposition, yposition, map, chara, movementr);
-  }
-      
-      public ArrayList<int[]> movementrange2(int xposition, int yposition,Map map, Character chara, ArrayList<int[]> movementr) {
-          if (map.getFeld(xPosition, yPosition).getHeight()>chara.movement) {
-              return movementr;
-          }
-          if (map.getFeld(xPosition+1, yPosition).getHeight()<=chara.movement) {
-              chara.movement = chara.movement - map.getFeld(xPosition+1, yPosition).getHeight();
-              movementr.add(new int[]{xPosition+1, yPosition});
-              movementrange2(xposition+1, yposition, map, chara, movementr);
-          }
-          if (map.getFeld(xPosition-1, yPosition).getHeight()<=chara.movement) {
-              chara.movement = chara.movement - map.getFeld(xPosition-1, yPosition).getHeight();
-              movementr.add(new int[]{xPosition-1, yPosition});
-              movementrange2(xposition-1, yposition, map, chara, movementr);
-          }
-          if (map.getFeld(xPosition, yPosition+1).getHeight()<=chara.movement) {
-              chara.movement = chara.movement - map.getFeld(xPosition, yPosition+1).getHeight();
-              movementr.add(new int[]{xPosition, yPosition+1});
-              movementrange2(xposition, yposition+1, map, chara, movementr);
-          }
-          if (map.getFeld(xPosition+1, yPosition-1).getHeight()<chara.movement) {
-              chara.movement = chara.movement - map.getFeld(xPosition, yPosition-1).getHeight();
-              movementr.add(new int[]{xPosition, yPosition-1});
-              movementrange2(xposition, yposition-1, map, chara, movementr);
-          }
-          //Rueckgabe ist Arraylist aus Arrays, Laenge 2, in der alle Koordinatenduos der belaufbaren Felder gespeichert sind, können doppelt vorkommen
-          return movementr;
-      }
+    public List<int[]> movementrange2(int xposition, int yposition, Map map, List<int[]> movementr) {
+        if (map.getFeld(xPosition, yPosition).getHeight() > movement) {
+            return movementr;
+        }
+
+        if (map.getFeld(xPosition + 1, yPosition).getHeight() <= movement) {
+            movement = movement - map.getFeld(xPosition + 1, yPosition).getHeight();
+            movementr.add(new int[] { xPosition + 1, yPosition });
+            movementrange2(xposition + 1, yposition, map, movementr);
+        }
+
+        if (map.getFeld(xPosition - 1, yPosition).getHeight() <= movement) {
+            movement = movement - map.getFeld(xPosition - 1, yPosition).getHeight();
+            movementr.add(new int[] { xPosition - 1, yPosition });
+            movementrange2(xposition - 1, yposition, map, movementr);
+        }
+
+        if (map.getFeld(xPosition, yPosition + 1).getHeight() <= movement) {
+            movement = movement - map.getFeld(xPosition, yPosition + 1).getHeight();
+            movementr.add(new int[] { xPosition, yPosition + 1 });
+            movementrange2(xposition, yposition + 1, map, movementr);
+        }
+
+        if (map.getFeld(xPosition + 1, yPosition - 1).getHeight() < movement) {
+            movement = movement - map.getFeld(xPosition, yPosition - 1).getHeight();
+            movementr.add(new int[] { xPosition, yPosition - 1 });
+            movementrange2(xposition, yposition - 1, map, movementr);
+        }
+        // Rueckgabe ist Arraylist aus Arrays, Laenge 2, in der alle Koordinatenduos der
+        // belaufbaren Felder gespeichert sind, können doppelt vorkommen
+        return movementr;
+    }
+
+    public boolean getalive() {
+        return alive;
+    }
+
+    public int getXPosition() {
+        return xPosition;
+    }
+
+    public int getYPosition() {
+        return yPosition;
+    }
 
 }
