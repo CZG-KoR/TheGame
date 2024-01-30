@@ -53,6 +53,21 @@ public class Player {
         System.out.println("Position fuer Rathaus muss noch erstellt werden");
         buildings.add(new Townhall(0, 0));
     }
+    
+    public Character getCharacter(int x, int y){
+        
+        for (Character c : characters) {
+            
+            if (c.getXPosition() == x && c.getYPosition() == y){
+                return c;
+            }
+            
+        }
+        
+        return null;
+    }
+
+
 
     public int getCredits() {
         return credits;
