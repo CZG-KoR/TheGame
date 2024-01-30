@@ -1,30 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Building;
+package building;
 
-import Map.player;
+import map.Player;
 
-/**
- *
- * @author guest-a9khel
- */
-public class Fishinghouse extends Building{
-    //wie lumberjack
-    int fishingspeed;
-    
+public class Fishinghouse extends Building {
+    // wie lumberjack
+    private int fishingspeed;
+
     public Fishinghouse(int xPosition, int yPosition) {
-    this.xPosition=xPosition;
-    this.yPosition=yPosition;
-    this.buildtime=4;
-    this.healthpoints=2;
-    this.buildingrange=3;
-    this.buildcost[0]=5;
-    this.fishingspeed = 2;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.buildtime = 4;
+        this.healthpoints = 2;
+        this.buildingrange = 3;
+        this.buildcost[0] = 5;
+        this.fishingspeed = 2;
     }
-    
-    public boolean buildable(player player) {
+
+    public boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();
@@ -39,9 +31,10 @@ public class Fishinghouse extends Building{
         // bei false, soll das Gebäude nicht gebaut werden
         return false;
     }
-    
-    //Anfang jede Runde fischen
-    public void fish(player player) {
-        player.setWood(player.getWood()+fishingspeed);
+
+    // Anfang jede Runde fischen
+    public void fish(Player player) {
+        //! wait der dude fängt Holz?
+        player.setWood(player.getWood() + fishingspeed);
     }
 }
