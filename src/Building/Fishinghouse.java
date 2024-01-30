@@ -35,6 +35,6 @@ public class Fishinghouse extends Building {
     // Anfang jede Runde fischen
     public void fish(Player player) {
         //! wait der dude fängt Holz?
-        player.setWood(player.getWood() + fishingspeed);
+        player.setFood(player.getFood() + fishingspeed);
     }
 }
