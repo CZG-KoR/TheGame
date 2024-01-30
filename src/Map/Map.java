@@ -1,4 +1,4 @@
-package map;
+package Map;
 
 import java.awt.Image;
 import java.util.ArrayList;

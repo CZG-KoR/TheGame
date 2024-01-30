@@ -1,6 +1,6 @@
-package building;
+package Building;
 
-import map.Player;
+import Map.Player;
 
 public class Barracks extends Building {
 

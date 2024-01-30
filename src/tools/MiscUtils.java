@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
-import character.Character;
+import Character.Character;
 
 public class MiscUtils {
 

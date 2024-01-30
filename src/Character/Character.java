@@ -1,6 +1,6 @@
-package character;
+package Character;
 
-import map.Map;
+import Map.Map;
 import tools.MiscUtils;
 
 import java.util.ArrayList;

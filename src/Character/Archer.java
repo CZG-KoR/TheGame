@@ -1,4 +1,4 @@
-package character;
+package Character;
 
 public class Archer extends Fighter {
 

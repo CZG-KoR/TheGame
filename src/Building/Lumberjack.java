@@ -1,6 +1,6 @@
-package building;
+package Building;
 
-import map.Player;
+import Map.Player;
 
 public class Lumberjack extends Building {
     // Abbaugeschwindigkeit des Holzes in holz pro runde

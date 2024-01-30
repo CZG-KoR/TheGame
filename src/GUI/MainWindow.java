@@ -1,6 +1,6 @@
-package gui;
+package GUI;
 
-import map.Map;
+import Map.Map;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;

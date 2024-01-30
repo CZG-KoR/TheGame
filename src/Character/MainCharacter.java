@@ -1,6 +1,6 @@
-package character;
+package Character;
 
-import map.Player;
+import Map.Player;
 
 public abstract class MainCharacter extends Hero {
 

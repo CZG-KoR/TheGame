@@ -1,9 +1,9 @@
-package map;
+package Map;
 
-import building.Building;
-import building.Townhall;
-import character.Builder;
-import character.Character;
+import Building.Building;
+import Building.Townhall;
+import Character.Builder;
+import Character.Character;
 
 import java.util.ArrayList;
 
