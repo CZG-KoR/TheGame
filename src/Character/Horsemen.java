@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Character;
+package character;
 
-/**
- *
- * @author guest-mfscil
- */
 public class Horsemen extends Fighter{
 
     public Horsemen(String playername, int x, int y) {
@@ -24,7 +16,12 @@ public class Horsemen extends Fighter{
 
     @Override
     public void move() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void killed() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

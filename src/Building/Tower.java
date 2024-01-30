@@ -1,21 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Building;
-import Map.player;
-import Building.Townhall;
-/**
- *
- * @author guest-djdvz9
- */
+package building;
+
+import map.Player;
+
 public class Tower extends Building {
     //Upgrade level des Towers
-    int level;
+    private int level;
     //maxlevel erhöht sich mit Rathauslevel
-    int maxlevel;
+    
     //automatisches angreifen mit bestimmten schaden
-    int attackingstrength;
+    private int attackingstrength;
 
     public Tower(int xPosition, int yPosition) {
         this.xPosition = xPosition;
@@ -28,7 +21,7 @@ public class Tower extends Building {
         this.attackingstrength = 1;
     }
     
-    public boolean buildable(player player) {
+    public boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();
@@ -44,10 +37,12 @@ public class Tower extends Building {
         return false;
     }
 
-    public void Upgrade(player player, Townhall Townhall) {
+    //! player wird nicht in der Methode verwendet
+    public void upgrade(Player player, Townhall townhall) {
+        int maxlevel;
         // maxlevel soll progress des townhalls mal 1 sein
-        maxlevel = Townhall.progress;
-        if (this.level < this.maxlevel) {
+        maxlevel = townhall.progress;
+        if (this.level < maxlevel) {
             if (this.level == 0) {
                 level++;
                 this.attackingstrength++;

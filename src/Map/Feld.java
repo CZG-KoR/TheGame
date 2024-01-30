@@ -1,30 +1,21 @@
-package Map;
+package map;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author guest-7gls9j
- */
 public class Feld {
     // Terrain, Beschaffen des Feldes
-    Terrain t;
-    
+    private Terrain t;
+
     // Höhe des Feldes, (Flat, Hilly, Mountainous)
-    int height;
-   
-    // Besetzt?   
-    boolean occupied;
-    
+    private int height;
+
+    // Besetzt?
+    private boolean occupied;
+
     // möglich da hin zu bewegen, nachdem Figur angeklickt wurde
-    boolean highlighted;
-    
+    private boolean highlighted;
+
     // Position
-    int xPosition;
-    int yPosition;
+    private int xPosition;
+    private int yPosition;
 
     public Feld(Terrain t, int height, int xPosition, int yPosition) {
         this.t = t;
@@ -37,7 +28,7 @@ public class Feld {
     public Terrain getT() {
         return t;
     }
-    
+
     public String getTerrainName() {
         return t.getName();
     }
@@ -61,9 +52,9 @@ public class Feld {
     public int getyPosition() {
         return yPosition;
     }
-    
-    public void setT(String TerrainName) {
-        this.t = new Terrain(TerrainName);
+
+    public void setT(String terrainName) {
+        this.t = new Terrain(terrainName);
     }
-    
+
 }

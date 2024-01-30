@@ -1,30 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Building;
+package building;
 
-import Map.player;
+import map.Player;
 
-/**
- *
- * @author guest-a9khel
- */
 public class Lumberjack extends Building {
-    //Abbaugeschwindigkeit des Holzes in holz pro runde
-    int chopspeed;
+    // Abbaugeschwindigkeit des Holzes in holz pro runde
+    private int chopspeed;
 
     public Lumberjack(int xPosition, int yPosition) {
-    this.xPosition=xPosition;
-    this.yPosition=yPosition;
-    this.buildtime=3;
-    this.healthpoints=3;
-    this.buildingrange=4;
-    this.buildcost[0]=5;
-    this.chopspeed = 1;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.buildtime = 3;
+        this.healthpoints = 3;
+        this.buildingrange = 4;
+        this.buildcost[0] = 5;
+        this.chopspeed = 1;
     }
-    
-    public boolean buildable(player player) {
+
+    public boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();
@@ -39,9 +31,9 @@ public class Lumberjack extends Building {
         // bei false, soll das Gebäude nicht gebaut werden
         return false;
     }
- 
-    //anfang jeder runde Holz faellen
-  public void woodchop(player player) {
-      player.setWood(player.getWood()+chopspeed);
-  }
+
+    // anfang jeder runde Holz faellen
+    public void woodchop(Player player) {
+        player.setWood(player.getWood() + chopspeed);
+    }
 }
