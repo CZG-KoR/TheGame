@@ -1,25 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Building;
-import Map.player;
+package building;
 
-/**
- *
- * @author guest-ayeskk
- */
-public class Mine extends Building{
-    
+import map.Player;
+
+public class Mine extends Building {
+
     public Mine(int xPosition, int yPosition) {
-    this.xPosition=xPosition;
-    this.yPosition=yPosition;
-    this.buildtime=2;
-    this.healthpoints=2;
-    this.buildingrange=2;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.buildtime = 2;
+        this.healthpoints = 2;
+        this.buildingrange = 2;
     }
-    
-    public boolean buildable(player player) {
+
+    public boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();
@@ -34,10 +27,10 @@ public class Mine extends Building{
         // bei false, soll das Gebäude nicht gebaut werden
         return false;
     }
-    
-    public void mine(player player){
+
+    public void mine(Player player) {
         // stone um 1 erhöhen
-        player.setStone(player.getStone()+1);
+        player.setStone(player.getStone() + 1);
         // in der Nähe von Bergen o.ä. mehr ressourcen bekommen
-    } 
+    }
 }

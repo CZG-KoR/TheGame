@@ -1,22 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Character;
+package character;
 
-/**
- *
- * @author guest-o5esoa
- */
 public abstract class Hero extends Character{
 
-    String info;
+    protected String info;
    
     //int cooldown; ????
     
-    public Hero(String playername) {
+    protected Hero(String playername) {
         super(playername);
-        this.info=info;
+        //! Das hat keinen Effekt (Info sollte vermutlich Parameter der Klasse sein)
+        this.info = info;
     }
     
     //jeder Held hat eine Fähigkeit

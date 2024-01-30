@@ -1,68 +1,70 @@
-package Map;
+package map;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-import GUI.ImageLoader;
-import Building.Building;
+import building.Building;
+import tools.MiscUtils;
+
 import java.awt.Image;
+import java.util.List;
 import java.util.ArrayList;
 
-/**
- * verschiedene Terrains erstellen
- *
- * @author guest-7gls9j
- */
 public class Terrain {
 
-    //Name
-    String terrainname;
+    private static final Image[] imageA = MiscUtils.loadImages("src/gui/res/terrain");
+    // Name
+    private String terrainname;
 
-    //Eigenschaften eines Terrains
-    int rangemultiplier;               //maximale Laufweite auf einem Terrain (muss noch gemacht werden, wenn Truppen bekannt)
+    // Eigenschaften eines Terrains
+    private int rangemultiplier; // maximale Laufweite auf einem Terrain (muss noch gemacht werden, wenn Truppen bekannt)    
 
-    //Gebaude, die auf Terrain gebaut werden koennen
-    ArrayList<Building> buildablebuildings = new ArrayList();  //(muss noch gemacht werden, wenn Gebäude bekannt)
+    // Gebaude, die auf Terrain gebaut werden koennen
+    private ArrayList<Building> buildablebuildings = new ArrayList<>(); // (muss noch gemacht werden, wenn Gebäude bekannt)    
 
-    //Bild für das Terrain
-    Image terrainpicture;
+    // Bild für das Terrain
+    private Image terrainpicture;
 
     public Terrain(String terrainname) {
         this.terrainname = terrainname;
         switch (terrainname) {
             case "grass":
                 this.rangemultiplier = 1;
-                this.terrainpicture = ImageLoader.imageA[0];
+                this.terrainpicture = imageA[0];
                 break;
-                
+
             case "forest":
                 this.rangemultiplier = 1;
-                this.terrainpicture = ImageLoader.imageA[1];
+                this.terrainpicture = imageA[1];
                 break;
-                
+
             case "desert":
                 this.rangemultiplier = 1;
-                this.terrainpicture = ImageLoader.imageA[2];
+                this.terrainpicture = imageA[2];
                 break;
-                
+
             case "water":
                 this.rangemultiplier = 1;
-                this.terrainpicture = ImageLoader.imageA[3];
+                this.terrainpicture = imageA[3];
                 break;
-                
+
             default:
                 throw new AssertionError();
         }
-      
+
     }
-    
+
     public String getName() {
         return terrainname;
     }
 
     public Image getPicture() {
         return terrainpicture;
+    }
+
+    public int getRangemultiplier() {
+        return rangemultiplier;
+    }
+
+    public List<Building> getBuildablebuildings() {
+        return buildablebuildings;
     }
 
 }

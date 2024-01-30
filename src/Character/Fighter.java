@@ -1,26 +1,16 @@
-package Character;
+package character;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author guest-7gls9j
- */
-public abstract class Fighter extends Character{
+public abstract class Fighter extends Character {
     // Angriffswert
-    int attackrating;
-    
-    // Angriffsreichweite
-    int attackrange;
-    // Hat die Figur schon angegriffen?
-    boolean canattack=false;
+    protected int attackrating;
 
-    public Fighter(String playername) {
+    // Angriffsreichweite
+    protected int attackrange;
+    // Hat die Figur schon angegriffen?
+    protected boolean canattack = false;
+
+    protected Fighter(String playername) {
         super(playername);
     }
-    
 
 }

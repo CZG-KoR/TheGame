@@ -1,31 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Building;
+package building;
 
-import Map.player;
+import map.Player;
 
-/**
- *
- * @author guest-zhpwcu
- */
-public class Theatre extends Building{
+public class Theatre extends Building {
     // Das Gebäude dient der Unterhaltung des Volkes
-    
+
     // gibt Motivationsboost durch Unterhaltung
-    double motivationboost;
-    
+    protected double motivationboost;
+
     public Theatre(int xPosition, int yPosition) {
-    this.xPosition=xPosition;
-    this.yPosition=yPosition;
-    this.buildtime=2;
-    this.healthpoints=2;
-    this.buildingrange=2;
-    this.motivationboost = 1.0;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.buildtime = 2;
+        this.healthpoints = 2;
+        this.buildingrange = 2;
+        this.motivationboost = 1.0;
     }
-    
-    public boolean buildable(player player) {
+
+    public boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();
@@ -40,6 +32,5 @@ public class Theatre extends Building{
         // bei false, soll das Gebäude nicht gebaut werden
         return false;
     }
-    
 
 }
