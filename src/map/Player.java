@@ -98,6 +98,10 @@ public class Player {
         this.kills = kills;
     }
 
+    public String getPlayername() {
+        return playername;
+    }
+    
     public int getBuilderAmount(int x, int y) {
         // Gibt die Anzahl der Builder an einem Feld an
         int sum = 0;
