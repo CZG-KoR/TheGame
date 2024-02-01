@@ -12,9 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.basic.BasicArrowButton;
 import launcher.Start;
 import map.Player;
-
 
 public class Bar extends JInternalFrame {
 
@@ -91,8 +91,8 @@ public class Bar extends JInternalFrame {
         this.setVisible(true);
     }
 
-    public JButton closeBarButton() {
-        JButton close = new JButton();
+    public BasicArrowButton closeBarButton() {
+        BasicArrowButton close = new BasicArrowButton(BasicArrowButton.SOUTH);
         close.setLocation(width - 50, height - height / 3 - 20);
         close.setText("v");
         close.setSize(50, 20);
@@ -100,10 +100,9 @@ public class Bar extends JInternalFrame {
         return close;
     }
 
-    public JButton openBarButton() {
-        JButton open = new JButton();
+    public BasicArrowButton openBarButton() {
+        BasicArrowButton open = new BasicArrowButton(BasicArrowButton.NORTH);
         open.setLocation(width - 50, height - 20);
-        open.setText("^");
         open.setSize(50, 20);
         open.setVisible(true);
         return open;

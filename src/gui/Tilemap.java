@@ -63,7 +63,6 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -78,12 +77,10 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -111,7 +108,6 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
