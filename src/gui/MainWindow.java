@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import map.Map;
 
 import java.awt.Dimension;
@@ -13,8 +14,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
+import javax.swing.JLabel;
 
 public class MainWindow {
+    
+    static JLabel AtTurn;
 
     public MainWindow(Map m) {
 
@@ -70,6 +74,13 @@ public class MainWindow {
                 close.setEnabled(true);
             }
         });
+       
+        // Anzeige wer am Zug ist    
+        AtTurn = b.AtTurn();
+        layer.add(AtTurn);
+        
+        
+
         // Spielfeld
         Tilemap tM = new Tilemap(WIDTH, HEIGHT, m);
         layer.add(tM, 1000);
@@ -77,7 +88,7 @@ public class MainWindow {
         // ----------------------------------------------------//
         // Timer für Zeichnen der Map -> Zeichnung jetzt unabhängig von StatBar
         Timer t = new Timer(10, e -> tM.repaint());
-
+      
         //MenuBar
         EscapeMenu eM = new EscapeMenu();
         window.addKeyListener(new KeyListener() {
@@ -112,11 +123,11 @@ public class MainWindow {
 
         layer.setVisible(true);
         window.add(layer);
-
         // immer unter allen Darstellungselementen
         window.setVisible(true);
         window.pack();
 
         t.start();
     }
+    
 }

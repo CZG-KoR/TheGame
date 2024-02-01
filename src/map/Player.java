@@ -4,6 +4,7 @@ import building.Building;
 import building.Townhall;
 import character.Builder;
 import character.Character;
+import java.awt.Color;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class Player {
     private int creditsperround;
 
     // Farbe des Spielers fuer Animation
-    private String colour;
+    private Color colour;
 
     // Holz des Spielers
     private int wood = 0;
@@ -33,12 +34,16 @@ public class Player {
 
     // Kills eines Spielers (wie viele Truppen er getötet hat)
     private int kills = 0;
+    
+    // Ist der Spieler am Zug
+    private boolean atTurn = false;
+
 
     // Charaktere und Gebaeude eines Spielers
     private ArrayList<Character> characters = new ArrayList<>();
     private ArrayList<Building> buildings = new ArrayList<>();
 
-    public Player(String playername, String colour) {
+    public Player(String playername, Color colour) {
         this.playername = playername;
         this.colour = colour;
 
@@ -62,7 +67,7 @@ public class Player {
         return creditsperround;
     }
 
-    public String getColour() {
+    public Color getColour() {
         return colour;
     }
 
@@ -132,6 +137,15 @@ public class Player {
         // p.Buildings.remove(i);
         // }
         // }
+    }
+    
+    
+    public boolean isAtTurn() {
+        return atTurn;
+    }
+
+    public void setAtTurn(boolean atTurn) {
+        this.atTurn = atTurn;
     }
 
 }
