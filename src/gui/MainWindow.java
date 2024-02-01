@@ -28,7 +28,9 @@ public class MainWindow {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 3
         window.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));// zentriert
         window.setExtendedState(JFrame.MAXIMIZED_BOTH);// fullsize
-         window.setUndecorated(true);//entfernt topbar von window (fullscreen)
+        window.setUndecorated(true);//entfernt topbar von window (fullscreen)
+        window.setFocusable(true);//für KeyListener
+        window.setFocusTraversalKeysEnabled(false);
 
         // Zeichenebenen anelegen
         JLayeredPane layer = new JLayeredPane();
@@ -38,7 +40,7 @@ public class MainWindow {
         Bar b = new Bar(WIDTH, HEIGHT);
         // Element, Ebenenwert (je höher, desto weiter oben)
         layer.add(b, 2000);
-                //CloseButton; schließt Bar
+        //CloseButton; schließt Bar
         JButton close = b.closeBarButton();
         layer.add(close);
         //OpenButton; öffnet Bar, wenn Bar offen: OpenButton nicht aktiviert und unsichtbar, wenn geschlossen: sichtbar
@@ -68,30 +70,43 @@ public class MainWindow {
                 close.setEnabled(true);
             }
         });
-        //MenuBar
-        EscapeMenu eM = new EscapeMenu();
-        window.add(eM);
-        window.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                System.out.println("no");
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == 27) {eM.setVisible(true); eM.setEnabled(true);}
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                System.out.println("no again");
-            }
-        });
-        window.add(eM);
         // Spielfeld
         Tilemap tM = new Tilemap(WIDTH, HEIGHT, m);
         layer.add(tM, 1000);
 
+        // ----------------------------------------------------//
+        // Timer für Zeichnen der Map -> Zeichnung jetzt unabhängig von StatBar
+        Timer t = new Timer(10, e -> tM.repaint());
+
+        //MenuBar
+        EscapeMenu eM = new EscapeMenu();
+        window.addKeyListener(new KeyListener() {
+            boolean eMopen = false;
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE && !eMopen) {
+                    t.stop();
+                    eM.setVisible(true);
+                    eM.setEnabled(true);
+                    eMopen = true;
+                }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE && eMopen){
+                    eM.setVisible(false);
+                    eM.setEnabled(false);
+                    eMopen = false;
+                    t.restart();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
+        layer.add(eM);
+        
         window.addMouseListener(tM);
         window.addMouseMotionListener(tM);
 
@@ -101,10 +116,6 @@ public class MainWindow {
         // immer unter allen Darstellungselementen
         window.setVisible(true);
         window.pack();
-
-        // ----------------------------------------------------//
-        // Timer für Zeichnen der Map -> Zeichnung jetzt unabhängig von StatBar
-        Timer t = new Timer(10, e -> tM.repaint());
 
         t.start();
     }
