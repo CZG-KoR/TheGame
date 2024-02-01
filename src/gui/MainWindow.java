@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import map.Map;
 
 import java.awt.Dimension;
@@ -13,8 +14,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
+import javax.swing.JLabel;
 
 public class MainWindow {
+    
+    static JLabel AtTurn;
 
     public MainWindow(Map m) {
 
@@ -68,6 +72,13 @@ public class MainWindow {
                 close.setEnabled(true);
             }
         });
+        
+        // Anzeige wer am Zug ist    
+        AtTurn = b.AtTurn();
+        layer.add(AtTurn);
+        
+        
+        
         //MenuBar
         EscapeMenu eM = new EscapeMenu();
         window.add(eM);
@@ -97,7 +108,6 @@ public class MainWindow {
 
         layer.setVisible(true);
         window.add(layer);
-
         // immer unter allen Darstellungselementen
         window.setVisible(true);
         window.pack();
@@ -108,4 +118,5 @@ public class MainWindow {
 
         t.start();
     }
+    
 }
