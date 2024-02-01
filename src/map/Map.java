@@ -27,7 +27,7 @@ public class Map {
 
     // GET-Function
     public Feld getFeld(int xcoord, int ycoord) {
-        return this.felder.get(xcoord).get(ycoord);
+        return felder.get(xcoord).get(ycoord);
     }
 
     public String getTerrainName(int xcoord, int ycoord) {
@@ -128,7 +128,8 @@ public class Map {
     }
 
     public void setT(int xcoord, int ycoord, String terrainName) {
-        getFeld(xcoord, ycoord).setT(terrainName);
+        felder.get(xcoord).remove(ycoord);
+        felder.get(xcoord).add(ycoord, new Feld(new Terrain(terrainName),1,xcoord,ycoord));
     }
 
     public Image getTerrainPicture(int xcoord, int ycoord) {
