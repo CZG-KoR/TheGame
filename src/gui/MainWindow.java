@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Color;
 import map.Map;
 
 import java.awt.Dimension;
@@ -11,10 +10,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
 import javax.swing.JLabel;
+import javax.swing.KeyStroke;
 
 public class MainWindow {
     
@@ -89,9 +90,6 @@ public class MainWindow {
         AtTurn = b.AtTurn();
         layer.add(AtTurn);
         
-        
-
-        
 
         // ----------------------------------------------------//
         // Timer für Zeichnen der Map -> Zeichnung jetzt unabhängig von StatBar
@@ -100,6 +98,22 @@ public class MainWindow {
         
         //MenuBar
         EscapeMenu eM = new EscapeMenu();
+        layer.add(eM, 3000);
+        layer.setLayer(eM,9999);
+        JButton eB = new JButton();
+        eB.setSize(100,200);
+        eB.setLocation(0,0);
+        eB.setText("(ノಠ益ಠ)ノ彡┻━┻");
+        eB.setVisible(true);
+        eB.setEnabled(true);
+        eM.add(eB);
+        eB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                window.dispose();
+            }
+        });
+        layer.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESC"), "blub");
         window.addKeyListener(new KeyListener() {
             boolean eMopen = false;
             @Override
@@ -112,10 +126,14 @@ public class MainWindow {
                     t.stop();
                     eM.setVisible(true);
                     eM.setEnabled(true);
+                    close.setEnabled(false);
+                    open.setEnabled(false);
                     eMopen = true;
                 }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE && eMopen){
                     eM.setVisible(false);
                     eM.setEnabled(false);
+                    close.setEnabled(true);
+                    open.setEnabled(true);
                     eMopen = false;
                     t.restart();
                 }
@@ -125,8 +143,6 @@ public class MainWindow {
             public void keyReleased(KeyEvent e) {
             }
         });
-        layer.add(eM);
-        
         window.addMouseListener(tM);
         window.addMouseMotionListener(tM);
 
