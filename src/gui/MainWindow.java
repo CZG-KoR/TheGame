@@ -53,6 +53,14 @@ public class MainWindow {
         open.setVisible(false);
         open.setEnabled(false);
         layer.add(open);
+        
+        
+        // Spielfeld
+        Tilemap tM = new Tilemap(WIDTH, HEIGHT, m, b);
+        layer.add(tM, 1000);
+        
+        
+        // Actin Listener für open und close Buttons
         close.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,6 +70,7 @@ public class MainWindow {
                 close.setEnabled(false);
                 open.setVisible(true);
                 open.setEnabled(true);
+                tM.limitCamera();
             }
         });
         open.addActionListener(new ActionListener() {
@@ -73,6 +82,7 @@ public class MainWindow {
                 open.setEnabled(false);
                 close.setVisible(true);
                 close.setEnabled(true);
+                tM.barOpened();
             }
         });
        
@@ -80,15 +90,12 @@ public class MainWindow {
         AtTurn = b.AtTurn();
         layer.add(AtTurn);
         
-        
 
-        // Spielfeld
-        Tilemap tM = new Tilemap(WIDTH, HEIGHT, m);
-        layer.add(tM,1000);
         // ----------------------------------------------------//
         // Timer für Zeichnen der Map -> Zeichnung jetzt unabhängig von StatBar
         Timer t = new Timer(10, e -> tM.repaint());
-      
+        
+        
         //MenuBar
         EscapeMenu eM = new EscapeMenu();
         layer.add(eM, 3000);

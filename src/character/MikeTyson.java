@@ -18,5 +18,5 @@ public abstract class MikeTyson extends Hero {
             // erzeugen von zehn standardfightern
         }
     }
-
+    
 }
