@@ -55,8 +55,35 @@ public class Player {
         //! x: 0, y:0 für kein Error beim Constructor, sollte vermutlich anders gesetzt werden
         characters.add(new Builder(0, 0, this.playername));
 
+
         System.out.println("Position fuer Rathaus muss noch erstellt werden");
         buildings.add(new Townhall(0, 0));
+    }
+    
+    public Character getCharacter(int x, int y){
+        
+        for (Character c : characters) {
+            
+            if (c.getXPosition() == x && c.getYPosition() == y){
+                return c;
+            }
+            
+        }
+        
+        return null;
+    }
+    
+    public Building getBuilding(int x, int y){
+        
+        for (Building b : buildings) {
+            
+            if (b.getxPosition() == x && b.getyPosition() == y){
+                return b;
+            }
+            
+        }
+        
+        return null;
     }
 
     public int getCredits() {
