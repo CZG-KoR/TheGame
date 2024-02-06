@@ -1,7 +1,10 @@
 package launcher;
 
+import character.Fighter;
+import character.Warrior;
 import gui.MainWindow;
 import java.awt.Color;
+import java.util.List;
 import map.Map;
 import map.Player;
 import music.Music;
@@ -39,7 +42,17 @@ public class Start {
         m.playSound();
                 
         // neuer Thread, wenn alles geladen ist
-        SwingUtilities.invokeLater(() -> new MainWindow(new Map(50, 50)));
+        Map map = new Map(50, 50);
+        SwingUtilities.invokeLater(() -> new MainWindow(map));
+        
+        //Test der movement-Methode
+        Warrior w = new Warrior("dfg",0,0);
+        w.movementrange(w.getXPosition(), w.getYPosition(), map);
+        
+        for (int i = 0; i < w.getMovementrange().size(); i++) {
+            System.out.println(w.getMovementrange().get(i)[0]+"  "+w.getMovementrange().get(i)[1]);
+        }
+        
     }
     
     public static Player[] getPlayers(){
