@@ -4,6 +4,7 @@ import gui.MainWindow;
 import java.awt.Color;
 import map.Map;
 import map.Player;
+import music.Music;
 
 import javax.swing.SwingUtilities;
 
@@ -34,7 +35,8 @@ public class Start {
         // Erster Spieler fängt an
         spieler1.setAtTurn(true);
         
-        
+        Music m = new Music();
+        m.playSound();
                 
         // neuer Thread, wenn alles geladen ist
         SwingUtilities.invokeLater(() -> new MainWindow(new Map(50, 50)));
