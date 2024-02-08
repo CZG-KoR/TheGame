@@ -120,6 +120,16 @@ public class Map {
 
         return counter;
     }
+    
+    public int getAmountofTerrain(String name){
+        int counter = 0;
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if(this.getTerrainName(x, y).equals(name)) counter++;
+            }
+        }
+        return counter;
+    }
 
     public void replace(List<ArrayList<Integer>> coordinates, String terrainNametoPlace) {
         for (ArrayList<Integer> v : coordinates) {
