@@ -92,6 +92,10 @@ public abstract class Character implements Killable {
 
     }
 
+    public String getPlayername() {
+        return playername;
+    }
+
     // public void killed() {
     //
     // }
