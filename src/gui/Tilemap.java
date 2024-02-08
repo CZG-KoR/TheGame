@@ -92,7 +92,18 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
             g.setColor(Color.magenta);
             g.drawRect(64 * selectedFeld.getXPosition() + camX, 64 * selectedFeld.getYPosition() + camY, 64, 64);
         }
-        
+        for (int i = 0; i < players.length; i++) {
+            if(players[i].isAtTurn() && selectedCharacter != null){
+                if(players[i].getPlayername().equals(selectedCharacter.getPlayername())){
+                    selectedCharacter.movementrange(selectedCharacter.getXPosition(), selectedCharacter.getYPosition(), m);
+                    for (int j = 0; j < selectedCharacter.getMovementrange().size(); j++) {
+                        g.setColor(players[i].getColour());
+                        g.drawRect(64 * selectedCharacter.getMovementrange().get(j)[0] + camX, 64 * selectedCharacter.getMovementrange().get(j)[1] + camY, 64, 64);
+                        
+                    }
+                }
+            }
+        }
         g.drawImage(a.getCurImg(curTime), 1, 1, null);
         
         //g.drawImage(Toolkit.getDefaultToolkit().getImage("src/GUI/res/ResourceBar.png"), 0, 0, null);
