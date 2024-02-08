@@ -1,7 +1,13 @@
 package character;
 
+import java.awt.Image;
+import tools.MiscUtils;
+
 public class Warrior extends Fighter {
 
+    private static final Image[] imageA = MiscUtils.loadImages("src/gui/res");
+    private Image picture;
+    
     public Warrior(String playername, int x, int y) {
         super(playername);
 
@@ -11,6 +17,8 @@ public class Warrior extends Fighter {
         motivation = 1;
         attackrating = 2;
         attackrange = 1;
+        picture = imageA[0];
+        
 
         xPosition = x;
         yPosition = y;
@@ -26,6 +34,10 @@ public class Warrior extends Fighter {
     @Override
     public void killed() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public Image getPicture() {
+        return picture;
     }
 
 }
