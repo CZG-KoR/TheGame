@@ -1,5 +1,7 @@
 package character;
 
+import java.awt.Image;
+
 public class Builder extends Character {
 
     // der Builder muss nur auf einem nicht fertigem Gebäude stehen
@@ -22,6 +24,11 @@ public class Builder extends Character {
     @Override
     public void killed() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Image getPicture() {
+        return picture;
     }
 
 }
