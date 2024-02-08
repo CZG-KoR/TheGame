@@ -46,13 +46,12 @@ public class Start {
         SwingUtilities.invokeLater(() -> new MainWindow(map));
         
         //Test der movement-Methode
-        Warrior w = new Warrior("Spieler1",25,25);
-        players[0].setCharacter(w);
-        w.movementrange(w.getXPosition(), w.getYPosition(), map);
-        
-        for (int i = 0; i < w.getMovementrange().size(); i++) {
-            System.out.println(w.getMovementrange().get(i)[0]+"  "+w.getMovementrange().get(i)[1]);
-        }
+//        Warrior w = new Warrior("dfg",49,49);
+//        w.movementrange(w.getXPosition(), w.getYPosition(), map);
+//        
+//        for (int i = 0; i < w.getMovementrange().size(); i++) {
+//            System.out.println(w.getMovementrange().get(i)[0]+"  "+w.getMovementrange().get(i)[1]);
+//        }
         
     }
     

@@ -1,7 +1,5 @@
 package character;
 
-import java.awt.Image;
-
 public class Horsemen extends Fighter{
 
     public Horsemen(String playername, int x, int y) {
@@ -27,8 +25,9 @@ public class Horsemen extends Fighter{
     }
 
     @Override
-    public Image getPicture() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void blockedterrains() {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.getBlockedterrains().add("water");
     }
     
 }

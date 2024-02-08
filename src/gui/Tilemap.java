@@ -17,6 +17,7 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import launcher.Start;
+import static launcher.Start.players;
 import map.Feld;
 import map.Player;
 import tools.MiscUtils;
@@ -76,6 +77,12 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 
             }
         }
+        for (int i = 0; i < players.length; i++) {
+            for (int j = 0; j < players[i].getCharacterAmount(); j++) {
+                g.drawImage(players[i].getCharacterPicture(j), players[i].getCharacter(j).getXPosition() * 64 + camX, players[i].getCharacter(j).getXPosition() * 64 + camY, null);
+            }
+            
+        }
         
         // zeichne markierungen für von maus berührte felder
         g.setColor(Color.DARK_GRAY);
@@ -83,14 +90,27 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         
         if (selectedFeld != null){
             g.setColor(Color.magenta);
-            g.drawRect(64 * selectedFeld.getxPosition() + camX, 64 * selectedFeld.getyPosition() + camY, 64, 64);
+            g.drawRect(64 * selectedFeld.getXPosition() + camX, 64 * selectedFeld.getYPosition() + camY, 64, 64);
         }
-        
+        for (int i = 0; i < players.length; i++) {
+            if(players[i].isAtTurn() && selectedCharacter != null){
+                if(players[i].getPlayername().equals(selectedCharacter.getPlayername())){
+                    selectedCharacter.movementrange(selectedCharacter.getXPosition(), selectedCharacter.getYPosition(), m);
+                    for (int j = 0; j < selectedCharacter.getMovementrange().size(); j++) {
+                        g.setColor(players[i].getColour());
+                        g.drawRect(64 * selectedCharacter.getMovementrange().get(j)[0] + camX, 64 * selectedCharacter.getMovementrange().get(j)[1] + camY, 64, 64);
+                        
+                    }
+                }
+            }
+        }
         g.drawImage(a.getCurImg(curTime), 1, 1, null);
         
         //g.drawImage(Toolkit.getDefaultToolkit().getImage("src/GUI/res/ResourceBar.png"), 0, 0, null);
         
     }
+    
+    
     
     //Grenze für scroll
     private int clamp(int a, int min, int max){

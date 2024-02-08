@@ -37,6 +37,11 @@ public class Feld {
         return height;
     }
 
+    //nur zu Testzwecken
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public boolean isOccupied() {
         return occupied;
     }
@@ -45,11 +50,11 @@ public class Feld {
         return highlighted;
     }
 
-    public int getXPosition() {
+    public int getxPosition() {
         return xPosition;
     }
 
-    public int getYPosition() {
+    public int getyPosition() {
         return yPosition;
     }
 

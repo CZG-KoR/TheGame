@@ -90,7 +90,10 @@ public class MainWindow {
        
         // Anzeige wer am Zug ist    
         AtTurn = b.AtTurn();
+
         layer.add(AtTurn,4000);
+        layer.setLayer(AtTurn, 4000);
+
         
 
         // ----------------------------------------------------//

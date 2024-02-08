@@ -1,10 +1,12 @@
 package character;
 
+import java.awt.Image;
 import map.Map;
 import tools.MiscUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import static launcher.Start.players;
 
 public abstract class Character implements Killable {
 
@@ -21,6 +23,8 @@ public abstract class Character implements Killable {
     // Position
     protected int xPosition;
     protected int yPosition;
+    
+    protected Image picture;
     
     //Movementrange, die bei jedem Zug neu berechnet werden muss
     protected ArrayList<int[]> movementrange = new ArrayList();
@@ -86,6 +90,10 @@ public abstract class Character implements Killable {
             }
         }
 
+    }
+
+    public String getPlayername() {
+        return playername;
     }
 
     // public void killed() {
@@ -169,6 +177,8 @@ public abstract class Character implements Killable {
     public List<int[]> getMovementrange() {
         return movementrange;
     }
+
+    public abstract Image getPicture();
     
     
 
