@@ -5,6 +5,7 @@ import building.Townhall;
 import character.Builder;
 import character.Character;
 import java.awt.Color;
+import java.awt.Image;
 
 import java.util.ArrayList;
 
@@ -173,6 +174,26 @@ public class Player {
 
     public void setAtTurn(boolean atTurn) {
         this.atTurn = atTurn;
+    }
+    // Bild des Charakters
+    public Image getCharacterPicture(int i){
+        return characters.get(i).getPicture();
+    }
+    // Anzahl Charaktere/Gebäude + Rückgabe character an einer Stelle im Array
+    public int getCharacterAmount(){
+        return characters.size();
+    }
+    
+    public int getBuildingAmount(){
+        return buildings.size();
+    }
+    
+    public Character getCharacter(int i){
+        return characters.get(i);
+    }
+    
+    public void setCharacter(Character c){
+        characters.add(c);
     }
 
 }

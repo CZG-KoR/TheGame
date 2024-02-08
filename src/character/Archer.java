@@ -1,5 +1,7 @@
 package character;
 
+import java.awt.Image;
+
 public class Archer extends Fighter {
 
     public Archer(String playername, int x, int y) {
@@ -22,6 +24,11 @@ public class Archer extends Fighter {
     @Override
     public void killed() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Image getPicture() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
