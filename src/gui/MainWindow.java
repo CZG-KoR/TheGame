@@ -8,13 +8,15 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.beans.PropertyChangeListener;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 public class MainWindow {
@@ -88,8 +90,10 @@ public class MainWindow {
        
         // Anzeige wer am Zug ist    
         AtTurn = b.AtTurn();
-        layer.add(AtTurn);
-        layer.setLayer(AtTurn, 9999);
+
+        layer.add(AtTurn,4000);
+        layer.setLayer(AtTurn, 4000);
+
         
 
         // ----------------------------------------------------//
@@ -102,7 +106,7 @@ public class MainWindow {
         layer.add(eM, 3000);
         layer.setLayer(eM,9999);
         JButton eB = new JButton();
-        eB.setSize(100,200);
+        eB.setSize(200,100);
         eB.setLocation(0,0);
         eB.setText("(ノಠ益ಠ)ノ彡┻━┻");
         eB.setVisible(true);
@@ -112,25 +116,46 @@ public class MainWindow {
             @Override
             public void actionPerformed(ActionEvent e) {
                 window.dispose();
+                System.exit(0);
             }
         });
-        layer.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESC"), "blub");
-        window.addKeyListener(new KeyListener() {
-            boolean eMopen = false;
+        Action keyListener = new Action() {
             @Override
-            public void keyTyped(KeyEvent e) {
+            public Object getValue(String key) {
+                return "ESC";
             }
 
             @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE && !eMopen) {
+            public void putValue(String key, Object value) {
+            }
+
+            @Override
+            public void setEnabled(boolean b) {
+            }
+
+            @Override
+            public boolean isEnabled() {
+                return true;
+            }
+
+            @Override
+            public void addPropertyChangeListener(PropertyChangeListener listener) {
+            }
+
+            @Override
+            public void removePropertyChangeListener(PropertyChangeListener listener) {
+            }
+            boolean eMopen = false; 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!eMopen) {
                     t.stop();
                     eM.setVisible(true);
                     eM.setEnabled(true);
                     close.setEnabled(false);
                     open.setEnabled(false);
                     eMopen = true;
-                }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE && eMopen){
+                }else if(eMopen){
                     eM.setVisible(false);
                     eM.setEnabled(false);
                     close.setEnabled(true);
@@ -139,11 +164,40 @@ public class MainWindow {
                     t.restart();
                 }
             }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        });
+        };
+        //Inputebene für KeyStrokes etc.
+        JPanel inputPanel = (JPanel) window.getContentPane();
+        window.getContentPane().add(layer);
+        inputPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0),"EscapeButton");
+        inputPanel.getActionMap().put("EscapeButton",keyListener);
+//        window.addKeyListener(new KeyListener() {
+//            boolean eMopen = false;
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//            }
+//
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//                if (e.getKeyCode() == KeyEvent.VK_ESCAPE && !eMopen) {
+//                    t.stop();
+//                    eM.setVisible(true);
+//                    eM.setEnabled(true);
+//                    close.setEnabled(false);
+//                    open.setEnabled(false);
+//                    eMopen = true;
+//                }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE && eMopen){
+//                    eM.setVisible(false);
+//                    eM.setEnabled(false);
+//                    close.setEnabled(true);
+//                    open.setEnabled(true);
+//                    eMopen = false;
+//                    t.restart();
+//                }
+//            }
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//            }
+//        });
         window.addMouseListener(tM);
         window.addMouseMotionListener(tM);
 

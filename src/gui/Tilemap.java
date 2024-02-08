@@ -58,7 +58,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         
         
         // Testweise Animationen erstellen
-        Image[] imageA = MiscUtils.loadImages("src/gui/res/terrain");
+        Image[] imageA = MiscUtils.loadImages("src/gui/res/warrior1/walk");
         a = new Animation(imageA);
         
 
