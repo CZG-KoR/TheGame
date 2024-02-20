@@ -68,7 +68,7 @@ public class Map {
                     this.setT(x, y, "desert");
                 if (n.getNoiseAt(x, y) < (float) 0.48)
                     this.setT(x, y, "water");
-                if (n.getNoiseAt(x, y) > (float) 3.5)
+                if (n.getNoiseAt(x, y) > (float) 3.7)
                     this.setT(x, y, "forest");
 
             }
@@ -85,7 +85,9 @@ public class Map {
         LandTerrains.add("forest");
         LandTerrains.add("desert");
         
-        Pruning("water", 1, LandTerrains, "grass");
+        Pruning("water", 1, LandTerrains, "desert");
+        
+        removeSingles();
         
         //Insel-Protokoll
         /*
@@ -142,6 +144,33 @@ public class Map {
             counter++;
 
         return counter;
+    }
+    
+    public void removeSingles(){
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if(isAlone(x, y)){
+                    this.setT(x, y, mostcommonNeighbor(x, y));
+                }
+            }
+        }
+    }
+    
+    public String mostcommonNeighbor(int x, int y){
+        String[] ts = {"water", "desert", "grass", "forest"};
+        int max = 0;
+        String MaximumName = "water";
+        for(int i = 0; i < ts.length; i++){
+            if(getSorroundingTerrain(x, y, ts[i]) > max){
+                MaximumName = ts[i];
+                max = getSorroundingTerrain(x, y, ts[i]);
+            }
+        }
+        return MaximumName;
+    }
+    
+    public boolean isAlone(int x, int y){
+        return getSorroundingTerrain(x, y, getTerrainName(x, y)) <= 1;
     }
     
     public int getAmountofTerrain(String name){
