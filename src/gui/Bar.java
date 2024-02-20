@@ -56,6 +56,9 @@ public class Bar extends JInternalFrame {
                             Thread.sleep(100);
                         } catch (InterruptedException ex) {
                         }
+                        for (int q = 0; q < players[i].getCharacterAmount(); q++) {
+                            players[i].setCharacterMovementAllowed(q);
+                        }
                         players[i].setAtTurn(false);
                         if(i+1 == players.length){
                             players[0].setAtTurn(true);
