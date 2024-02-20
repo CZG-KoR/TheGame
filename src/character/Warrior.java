@@ -40,4 +40,9 @@ public class Warrior extends Fighter {
         return picture;
     }
 
+    @Override
+    public void blockedterrains() {
+        this.getBlockedterrains().add("water");
+    }
+
 }
