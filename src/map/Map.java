@@ -79,26 +79,49 @@ public class Map {
          * löscht Wasserfelder, wenn limit Anzahl an anderen darum ist
          * Sodass kleine "Pfützen" wegfallen
          */
-        waterpruning(2);
-
+        
+        ArrayList<String> LandTerrains = new ArrayList<String>();
+        LandTerrains.add("grass");
+        LandTerrains.add("forest");
+        LandTerrains.add("desert");
+        
+        Pruning("water", 1, LandTerrains, "grass");
+        
+        //Insel-Protokoll
+        /*
+            falls so viel wasser da ist >=1500 -> erstellung einer Insel & vergrößerung von Landmassen
+        */
+        
+        if(this.getAmountofTerrain("water") >= 1500){
+            //System.out.println("too much water");
+        }
     }
 
-    public void waterpruning(int limit) {
+
+    
+    public void Pruning(String toReplace, int limit, ArrayList<String> triggerTerrain, String toPlace){
         ArrayList<ArrayList<Integer>> tempList = new ArrayList<>();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 ArrayList<Integer> localList = new ArrayList<>();
-                if (this.getTerrainName(x, y).equals("water")
-                        && getSorroundingTerrain(x, y, "grass") + getSorroundingTerrain(x, y, "desert") > limit) {
+                if (this.getTerrainName(x, y).equals(toReplace) && getSorroundingTerrains(x, y, triggerTerrain) >= limit) {
                     localList.add(x);
                     localList.add(y);
                     tempList.add(localList);
                 }
             }
         }
-        this.replace(tempList, "grass");
+        this.replace(tempList, toPlace);
     }
-
+    
+    public int getSorroundingTerrains(int x, int y, ArrayList<String> Terrains){
+        int result = 0;
+        for(int i = 0; i <= Terrains.size()-1; i++){
+            result += getSorroundingTerrain(x, y, Terrains.get(i));
+        }
+        return result;
+    }
+    
     public int getSorroundingTerrain(int x, int y, String name) {
         int counter = 0;
         if (x != 0 && this.getTerrainName(x - 1, y).equals(name))
