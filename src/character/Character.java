@@ -15,7 +15,7 @@ public abstract class Character implements Killable {
     // Bewegungsreichweite
     protected int movement;
     // Wurde die Figur schon bewegt?
-    protected boolean canmove;
+    protected boolean canmove = true;
     // Motivation
     protected int motivation;
     // Abstand den man laufen kann
@@ -38,8 +38,14 @@ public abstract class Character implements Killable {
         this.playername = playername;
     }
 
-    // Bewegung muss für die einzelnen Charaktere definiert werden
-    public abstract void move();
+    public boolean isCanmove() {
+        return canmove;
+    }
+
+    public void setCanmove(boolean canmove) {
+        this.canmove = canmove;
+    }
+
 
     // Kampf
     public void fight(Character char1, Character char2) {
@@ -95,15 +101,21 @@ public abstract class Character implements Killable {
     public String getPlayername() {
         return playername;
     }
+    public void setxPosition(int xPosition) {
+        this.xPosition = xPosition;
+    }
 
     // public void killed() {
     //
     // }
-
     // noch zu testen
     // Map nicht uebergeben, sondern public zugreifen koennen
+    public void setyPosition(int yPosition) {
+        this.yPosition = yPosition;
+    }
+
     public void movementrange(int xposition, int yposition, Map map) {
-//        List<int[]> movementr = new ArrayList<>();
+        //        List<int[]> movementr = new ArrayList<>();
         // movementr.add(new int[]{2,3});
         movementrange.clear();
         movementrange = movementrange2(this.getXPosition(), this.getYPosition(), map, movement, movementrange);
@@ -112,24 +124,20 @@ public abstract class Character implements Killable {
     }
 
     public ArrayList<int[]> movementrange2(int xposition, int yposition, Map map, int movement, ArrayList<int[]> movementr) {
-        System.out.println("movement"+movement);
+        
 //        if (map.getFeld(xPosition, yPosition).getHeight() > movement) {
 //            return movementr;
 //        }
         if(movement==0) return movementr;
 //
 //Test, ob betrachtetes Feld bereits betrachtet wurde
-        int[] lol = new int[2];
-        lol[0]=0;
-        lol[1]=0;
-        movementr.add(lol);
-       if(movementr.contains(lol)) System.out.println("hello");
+        
        
         if(xposition+1<map.getWidth() && !movementr.contains(new int[]{xposition + 1, yposition})){
         if (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight())<= movement) {
 //            System.out.println("xpos "+(xPosition+1));
             movementr.add(new int[] { xposition + 1, yposition });
-            System.out.println("1i  "+movement);
+            
             movementrange2(xposition + 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
         }
         }
@@ -137,7 +145,7 @@ public abstract class Character implements Killable {
         if(xposition-1>=0 && !movementr.contains(new int[]{xposition - 1, yposition})){
         if (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
             movementr.add(new int[] { xposition - 1, yposition });
-            System.out.println("3i  "+movement);
+            
             movementrange2(xposition - 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
         }
         }
@@ -145,7 +153,7 @@ public abstract class Character implements Killable {
         if(yposition+1<map.getHeight() && !movementr.contains(new int[]{xposition, yposition+1})){
         if (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
             movementr.add(new int[] { xposition, yposition + 1 });
-            System.out.println("2i  "+movement);
+          
             movementrange2(xposition, yposition + 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
         }
         }
@@ -153,7 +161,7 @@ public abstract class Character implements Killable {
         if(yposition-1>=0 && !movementr.contains(new int[]{xposition, yposition-1})){
         if (1+Math.abs(map.getFeld(xposition + 1, yposition - 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
             movementr.add(new int[] { xposition, yposition - 1 });
-            System.out.println("4i  "+movement);
+            
             movementrange2(xposition, yposition - 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition - 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
         }
         }
@@ -180,6 +188,6 @@ public abstract class Character implements Killable {
 
     public abstract Image getPicture();
     
-    
+    public abstract void move();
 
 }
