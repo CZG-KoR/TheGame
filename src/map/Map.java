@@ -95,11 +95,26 @@ public class Map {
         */
         
         if(this.getAmountofTerrain("water") >= 1500){
-            //System.out.println("too much water");
+            IslandProtocoll();
         }
     }
 
-
+    public void IslandProtocoll(){
+        int[] quadraticWaterSum = {0, 0};
+        int N = 0;
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if(getTerrainName(x, y).equals("water")){
+                    quadraticWaterSum[0] += x*x;
+                    quadraticWaterSum[1] += y*y;
+                    N++;
+                }
+            }
+        }
+        quadraticWaterSum[0] = (int) Math.sqrt(quadraticWaterSum[0]/N);
+        quadraticWaterSum[1] = (int) Math.sqrt(quadraticWaterSum[1]/N);
+        System.out.println(quadraticWaterSum[0] + "," + quadraticWaterSum[1]);
+    }
     
     public void Pruning(String toReplace, int limit, ArrayList<String> triggerTerrain, String toPlace){
         ArrayList<ArrayList<Integer>> tempList = new ArrayList<>();
