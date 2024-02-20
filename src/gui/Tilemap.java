@@ -79,7 +79,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         }
         for (int i = 0; i < players.length; i++) {
             for (int j = 0; j < players[i].getCharacterAmount(); j++) {
-                g.drawImage(players[i].getCharacterPicture(j), players[i].getCharacter(j).getXPosition() * 64 + camX, players[i].getCharacter(j).getXPosition() * 64 + camY, null);
+                g.drawImage(players[i].getCharacterPicture(j), players[i].getCharacter(j).getXPosition() * 64 + camX, players[i].getCharacter(j).getYPosition() * 64 + camY, null);
             }
             
         }
@@ -94,13 +94,18 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         }
         for (int i = 0; i < players.length; i++) {
             if(players[i].isAtTurn() && selectedCharacter != null){
-                if(players[i].getPlayername().equals(selectedCharacter.getPlayername())){
+                if(players[i].getPlayername().equals(selectedCharacter.getPlayername()) && selectedCharacter.isCanmove()){
                     selectedCharacter.movementrange(selectedCharacter.getXPosition(), selectedCharacter.getYPosition(), m);
+ //                   selectedCharacter.attackrange(selectedCharacter.getXPosition(), selectedCharacter.getYPosition(), m);
                     for (int j = 0; j < selectedCharacter.getMovementrange().size(); j++) {
                         g.setColor(players[i].getColour());
                         g.drawRect(64 * selectedCharacter.getMovementrange().get(j)[0] + camX, 64 * selectedCharacter.getMovementrange().get(j)[1] + camY, 64, 64);
                         
                     }
+//                    for (int j = 0; j < selectedCharacter.getAttackrange().size(); j++) {
+//                        g.setColor(Color.red);
+//                        g.drawRect(64 * selectedCharacter.getAttackrange().get(j)[0] + camX, 64 * selectedCharacter.getAttackrange().get(j)[1] + camY, 64, 64);
+//                    }
                 }
             }
         }
@@ -168,11 +173,34 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         
     }
     
+    private void movetoPositon() {
+        for (int i = 0; i < players.length; i++) {
+            if(players[i].isAtTurn() && selectedCharacter != null){
+                if(players[i].getPlayername().equals(selectedCharacter.getPlayername()) && selectedCharacter.isCanmove()){
+                    selectedCharacter.movementrange(selectedCharacter.getXPosition(), selectedCharacter.getYPosition(), m);
+                    for (int j = 0; j < selectedCharacter.getMovementrange().size(); j++) {
+                        if(selectedCharacter.getMovementrange().get(j)[0] == hoveredX && selectedCharacter.getMovementrange().get(j)[1] == hoveredY){
+                            selectedCharacter.setxPosition(hoveredX);
+                            selectedCharacter.setyPosition(hoveredY);
+                            selectedCharacter.setCanmove(false);
+                            return;
+                        }
+                        
+                        
+                    }
+                }
+            }
+        }
+    }
+    
 
     @Override
     public void mouseClicked(MouseEvent e) {
         // angeklicktes Feld auswählen
         selectedFeld = m.getFeld(hoveredX, hoveredY);
+        
+        // Bewegung zur Position
+        movetoPositon();
         
         // angeklickte Character finden
         setSelectedCharacter();
@@ -250,4 +278,6 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
     public void mouseWheelMoved(MouseWheelEvent e) {
         //tileSize -= e.getUnitsToScroll();
     }
+
+    
 }
