@@ -196,4 +196,7 @@ public class Player {
         characters.add(c);
     }
 
+    public void setCharacterMovementAllowed(int i){
+        characters.get(i).setCanmove(true);
+    }
 }
