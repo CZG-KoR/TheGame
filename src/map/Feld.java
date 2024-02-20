@@ -41,6 +41,13 @@ public class Feld {
         return occupied;
     }
 
+    //Testzwecke, muss eigentlich wieder entfernt werden
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
+    }
+    
+    
+
     public boolean isHighlighted() {
         return highlighted;
     }
