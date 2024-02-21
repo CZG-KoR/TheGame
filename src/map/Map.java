@@ -68,7 +68,7 @@ public class Map {
                     this.setT(x, y, "desert");
                 if (n.getNoiseAt(x, y) < (float) 0.48)
                     this.setT(x, y, "water");
-                if (n.getNoiseAt(x, y) > (float) 3.5)
+                if (n.getNoiseAt(x, y) > (float) 3.7)
                     this.setT(x, y, "forest");
 
             }
@@ -79,26 +79,66 @@ public class Map {
          * löscht Wasserfelder, wenn limit Anzahl an anderen darum ist
          * Sodass kleine "Pfützen" wegfallen
          */
-        waterpruning(2);
-
+        
+        ArrayList<String> LandTerrains = new ArrayList<String>();
+        LandTerrains.add("grass");
+        LandTerrains.add("forest");
+        LandTerrains.add("desert");
+        
+        Pruning("water", 1, LandTerrains, "desert");
+        
+        removeSingles();
+        
+        //Insel-Protokoll
+        /*
+            falls so viel wasser da ist >=1500 -> erstellung einer Insel & vergrößerung von Landmassen
+        */
+        
+        if(this.getAmountofTerrain("water") >= 1500){
+            IslandProtocoll();
+        }
     }
 
-    public void waterpruning(int limit) {
+    public void IslandProtocoll(){
+        int[] quadraticWaterSum = {0, 0};
+        int N = 0;
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if(getTerrainName(x, y).equals("water")){
+                    quadraticWaterSum[0] += x*x;
+                    quadraticWaterSum[1] += y*y;
+                    N++;
+                }
+            }
+        }
+        quadraticWaterSum[0] = (int) Math.sqrt(quadraticWaterSum[0]/N);
+        quadraticWaterSum[1] = (int) Math.sqrt(quadraticWaterSum[1]/N);
+        System.out.println(quadraticWaterSum[0] + "," + quadraticWaterSum[1]);
+    }
+    
+    public void Pruning(String toReplace, int limit, ArrayList<String> triggerTerrain, String toPlace){
         ArrayList<ArrayList<Integer>> tempList = new ArrayList<>();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 ArrayList<Integer> localList = new ArrayList<>();
-                if (this.getTerrainName(x, y).equals("water")
-                        && getSorroundingTerrain(x, y, "grass") + getSorroundingTerrain(x, y, "desert") > limit) {
+                if (this.getTerrainName(x, y).equals(toReplace) && getSorroundingTerrains(x, y, triggerTerrain) >= limit) {
                     localList.add(x);
                     localList.add(y);
                     tempList.add(localList);
                 }
             }
         }
-        this.replace(tempList, "grass");
+        this.replace(tempList, toPlace);
     }
-
+    
+    public int getSorroundingTerrains(int x, int y, ArrayList<String> Terrains){
+        int result = 0;
+        for(int i = 0; i <= Terrains.size()-1; i++){
+            result += getSorroundingTerrain(x, y, Terrains.get(i));
+        }
+        return result;
+    }
+    
     public int getSorroundingTerrain(int x, int y, String name) {
         int counter = 0;
         if (x != 0 && this.getTerrainName(x - 1, y).equals(name))
@@ -118,6 +158,43 @@ public class Map {
         if (y < height - 1 && x < width - 1 && this.getTerrainName(x + 1, y + 1).equals(name))
             counter++;
 
+        return counter;
+    }
+    
+    public void removeSingles(){
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if(isAlone(x, y)){
+                    this.setT(x, y, mostcommonNeighbor(x, y));
+                }
+            }
+        }
+    }
+    
+    public String mostcommonNeighbor(int x, int y){
+        String[] ts = {"water", "desert", "grass", "forest"};
+        int max = 0;
+        String MaximumName = "water";
+        for(int i = 0; i < ts.length; i++){
+            if(getSorroundingTerrain(x, y, ts[i]) > max){
+                MaximumName = ts[i];
+                max = getSorroundingTerrain(x, y, ts[i]);
+            }
+        }
+        return MaximumName;
+    }
+    
+    public boolean isAlone(int x, int y){
+        return getSorroundingTerrain(x, y, getTerrainName(x, y)) <= 1;
+    }
+    
+    public int getAmountofTerrain(String name){
+        int counter = 0;
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if(this.getTerrainName(x, y).equals(name)) counter++;
+            }
+        }
         return counter;
     }
 
