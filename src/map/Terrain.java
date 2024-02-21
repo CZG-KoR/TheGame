@@ -25,7 +25,7 @@ public class Terrain {
     public Terrain(String terrainname) {
         this.terrainname = terrainname;
         switch (terrainname) {
-            case "grass":
+            case "desert":
                 this.rangemultiplier = 1;
                 this.terrainpicture = imageA[0];
                 break;
@@ -35,7 +35,7 @@ public class Terrain {
                 this.terrainpicture = imageA[1];
                 break;
 
-            case "desert":
+            case "grass":
                 this.rangemultiplier = 1;
                 this.terrainpicture = imageA[2];
                 break;
@@ -43,6 +43,11 @@ public class Terrain {
             case "water":
                 this.rangemultiplier = 1;
                 this.terrainpicture = imageA[3];
+                break;
+                
+            case "mountain":
+                this.rangemultiplier =2;
+                this.terrainpicture = imageA[4];
                 break;
 
             default:

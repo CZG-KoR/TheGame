@@ -30,7 +30,7 @@ public class Start {
         //Reihenfolge wichtig!
 
         //Init der Spieler + des Spielerarrays
-        Player spieler1 = new Player("Spieler1", Color.cyan);
+        Player spieler1 = new Player("Spieler1", Color.BLUE);
         Player spieler2 = new Player("Spieler2", Color.RED);
         players[0] = spieler1;
         players[1] = spieler2;
@@ -47,12 +47,18 @@ public class Start {
         
         //Test der movement-Methode
         Warrior w = new Warrior("Spieler1",25,25);
+        map.getFeld(25, 25).setOccupied(true);
         players[0].setCharacter(w);
-        w.movementrange(w.getXPosition(), w.getYPosition(), map);
+        Warrior v = new Warrior("Spieler1",25,26);
+        map.getFeld(25, 26).setOccupied(true);
+        players[1].setCharacter(v);
         
-        for (int i = 0; i < w.getMovementrange().size(); i++) {
-            System.out.println(w.getMovementrange().get(i)[0]+"  "+w.getMovementrange().get(i)[1]);
+        w.movementrange(w.getXPosition(), w.getYPosition(), map);
+        w.attackrange(w.getXPosition(), w.getYPosition(), map);
+        for (int i = 0; i < w.getAttackrange().size(); i++) {
+            System.out.println(w.getAttackrange().get(i)[0]+"  "+w.getAttackrange().get(i)[1]);
         }
+        
         
     }
     

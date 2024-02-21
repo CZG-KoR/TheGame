@@ -38,6 +38,9 @@ public class Player {
     
     // Ist der Spieler am Zug
     private boolean atTurn = false;
+    
+    // motivation, hat effekt auf kampfwerte etc (vllt bauspeed)
+    private double motivation =1;
 
 
     // Charaktere und Gebaeude eines Spielers
@@ -134,6 +137,10 @@ public class Player {
     public String getPlayername() {
         return playername;
     }
+
+    public double getMotivation() {
+        return motivation;
+    }
     
     public int getBuilderAmount(int x, int y) {
         // Gibt die Anzahl der Builder an einem Feld an
@@ -192,11 +199,27 @@ public class Player {
         return characters.get(i);
     }
     
+    public String getFightercharacter(Character charac) {
+    if(characters.contains(charac)) {
+        return playername;
+    }else{
+        return null;
+    }
+}
+    
     public void setCharacter(Character c){
         characters.add(c);
     }
 
+
     public void setCharacterMovementAllowed(int i){
         characters.get(i).setCanmove(true);
     }
+
+    public void setMotivation(double motivation) {
+        this.motivation = motivation;
+    }
+    
+
+
 }

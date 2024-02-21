@@ -37,13 +37,23 @@ public class Fishinghouse extends Building {
     }
 
     // Anfang jede Runde fischen
+    // alle drei Runden zwei runden ueberfischt
+    int zael = 0;
     public void fish(Player player) {
-        player.setFood(player.getFood() + fishingspeed);
+        if (zael<3) {
+            player.setFood(player.getFood() + fishingspeed*3);
+        } else {
+            player.setFood(player.getFood() + fishingspeed);
+        }
+        if (zael==4) {
+            zael=0;
+        }
+        
     }
     private boolean waters(int xPosition, int yPosition, Map m) {
-        for (int i = xPosition - 1; i < 3; i++) {
-            for (int j = yPosition - 1; j < 3; j++) {
-                if (m.getFeld(j, j).getTerrainName().equals("water")) {
+        for (int i = xPosition - 1; i < xPosition +2; i++) {
+            for (int j = yPosition - 1; j < yPosition+2; j++) {
+                if (m.getFeld(i, j).getTerrainName().equals("water")) {
                     return true;
                 }
             }

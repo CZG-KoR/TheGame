@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -36,11 +37,199 @@ public class Bar extends JInternalFrame {
         this.setBorder(BorderFactory.createLineBorder(internalBorderColor, 4));
 
         // widht -8 für "sauberen" Rahmen
-        tabs.setPreferredSize(new Dimension(width - 100, height / 3));
+        tabs.setPreferredSize(new Dimension(width - 8, height / 3));
+        
+        //Tab für Gebeude
         JPanel panelBuildings = new JPanel();
-        panelBuildings.setBackground(Color.GRAY);
+        panelBuildings.setLayout(null);
+        
+        JButton barracksButton = new JButton();
+        barracksButton.setIcon(new ImageIcon("src/gui/res/"));
+        barracksButton.setText("Barracks");
+        barracksButton.setVerticalTextPosition(JButton.BOTTOM);
+        barracksButton.setHorizontalTextPosition(JButton.CENTER);
+        barracksButton.setSize(new Dimension(200,200));
+        barracksButton.setLocation(0,0);
+           barracksButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                       System.out.println("warriorButton pressed");
+            }
+        });
+        panelBuildings.add(barracksButton);
+        
+        JButton fishingButton = new JButton();
+        fishingButton.setIcon(new ImageIcon("src/gui/res/"));
+        fishingButton.setText("Fish");
+        fishingButton.setVerticalTextPosition(JButton.BOTTOM);
+        fishingButton.setHorizontalTextPosition(JButton.CENTER);
+        fishingButton.setSize(new Dimension(200,200));
+        fishingButton.setLocation(200, 0);
+           fishingButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                       System.out.println("warriorButton pressed");
+            }
+        });
+        panelBuildings.add(fishingButton);
+        
+        JButton lumberjackButton = new JButton();
+        lumberjackButton.setIcon(new ImageIcon("src/gui/res/"));
+        lumberjackButton.setText("Lumberjack");
+        lumberjackButton.setVerticalTextPosition(JButton.BOTTOM);
+        lumberjackButton.setHorizontalTextPosition(JButton.CENTER);
+        lumberjackButton.setSize(new Dimension(200,200));
+        lumberjackButton.setLocation(400,0);
+           lumberjackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                       System.out.println("warriorButton pressed");
+            }
+        });
+        panelBuildings.add(lumberjackButton);
+        
+        JButton mineButton = new JButton();
+        mineButton.setIcon(new ImageIcon("src/gui/res/"));
+        mineButton.setText("Mine");
+        mineButton.setVerticalTextPosition(JButton.BOTTOM);
+        mineButton.setHorizontalTextPosition(JButton.CENTER);
+        mineButton.setSize(new Dimension(200,200));
+        mineButton.setLocation(600,0);
+           mineButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                       System.out.println("warriorButton pressed");
+            }
+        });
+        panelBuildings.add(mineButton);
+        
+        JButton theatreButton = new JButton();
+        theatreButton.setIcon(new ImageIcon("src/gui/res/"));
+        theatreButton.setText("Theatre");
+        theatreButton.setVerticalTextPosition(JButton.BOTTOM);
+        theatreButton.setHorizontalTextPosition(JButton.CENTER);
+        theatreButton.setSize(new Dimension(200,200));
+        theatreButton.setLocation(800, 0);
+           theatreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                       System.out.println("warriorButton pressed");
+            }
+        });
+        panelBuildings.add(theatreButton);
+        
+        JButton tower = new JButton();
+        tower.setIcon(new ImageIcon("src/gui/res/"));
+        tower.setText("Tower");
+        tower.setVerticalTextPosition(JButton.BOTTOM);
+        tower.setHorizontalTextPosition(JButton.CENTER);
+        tower.setSize(new Dimension(200,200));
+        tower.setLocation(1000,0);
+           tower.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                       System.out.println("warriorButton pressed");
+            }
+        });
+        panelBuildings.add(tower);
+        
+        JButton townhallButton = new JButton();
+        townhallButton.setIcon(new ImageIcon("src/gui/res/"));
+        townhallButton.setText("Townhall");
+        townhallButton.setVerticalTextPosition(JButton.BOTTOM);
+        townhallButton.setHorizontalTextPosition(JButton.CENTER);
+        townhallButton.setSize(new Dimension(200,200));
+        townhallButton.setLocation(1200,0);
+           townhallButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                       System.out.println("warriorButton pressed");
+            }
+        });
+        panelBuildings.add(townhallButton);
+        
+        JButton wheatfieldButton = new JButton();
+        wheatfieldButton.setIcon(new ImageIcon("src/gui/res/"));
+        wheatfieldButton.setText("Wheatfield");
+        wheatfieldButton.setVerticalTextPosition(JButton.BOTTOM);
+        wheatfieldButton.setHorizontalTextPosition(JButton.CENTER);
+        wheatfieldButton.setSize(new Dimension(200,200));
+        wheatfieldButton.setLocation(1400,0);
+           wheatfieldButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                       System.out.println("warriorButton pressed");
+            }
+        });
+        panelBuildings.add(wheatfieldButton);
+        
+        
+        
+        
+        //Tab für die Auswahl von Truppen
         JPanel panelTroops = new JPanel();
- 
+        panelTroops.setLayout(null);
+        
+        JButton warriorButton = new JButton();
+        warriorButton.setIcon(new ImageIcon("src/gui/res/warrior1/idle/idle_1.png"));
+        warriorButton.setText("test");
+        warriorButton.setVerticalTextPosition(JButton.BOTTOM);
+        warriorButton.setHorizontalTextPosition(JButton.CENTER);
+        warriorButton.setSize(new Dimension(200,200));
+        warriorButton.setLocation(0,0);
+           warriorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                       System.out.println("warriorButton pressed");
+            }
+        });
+        panelTroops.add(warriorButton);
+        
+        JButton archer = new JButton();
+        archer.setIcon(new ImageIcon("src/gui/res/"));
+        archer.setText("archer");
+        archer.setVerticalTextPosition(JButton.BOTTOM);
+        archer.setHorizontalTextPosition(JButton.CENTER);
+        archer.setSize(new Dimension(200,200));
+        archer.setLocation(200,0);
+           archer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                       System.out.println("archer pressed");
+            }
+        });
+        panelTroops.add(archer);
+        
+        JButton catapult = new JButton();
+        catapult.setIcon(new ImageIcon("src/gui/res/"));
+        catapult.setText("catapult");
+        catapult.setVerticalTextPosition(JButton.BOTTOM);
+        catapult.setHorizontalTextPosition(JButton.CENTER);
+        catapult.setSize(new Dimension(200,200));
+        catapult.setLocation(400,0);
+           warriorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                       System.out.println("catapult pressed");
+            }
+        });
+        panelTroops.add(catapult);
+        
+        JButton horse = new JButton();
+        horse.setIcon(new ImageIcon("src/gui/res/"));
+        horse.setText("horse");
+        horse.setVerticalTextPosition(JButton.BOTTOM);
+        horse.setHorizontalTextPosition(JButton.CENTER);
+        horse.setSize(new Dimension(200,200));
+        horse.setLocation(600,0);
+           horse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                       System.out.println("horse pressed");
+            }
+        });
+        panelTroops.add(horse);
+        
         // Tab für das Beenden eines Zuges
         JPanel panelTurn = new JPanel();
         JButton EndTurn = new JButton("End Turn");

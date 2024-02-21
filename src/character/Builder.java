@@ -14,6 +14,7 @@ public class Builder extends Character {
         canmove = true;
         motivation = 1;
         moverange = 3;
+        attackrange=0;
     }
 
     @Override
@@ -29,6 +30,11 @@ public class Builder extends Character {
     @Override
     public Image getPicture() {
         return picture;
+    }
+    
+    @Override
+    public void blockedterrains() {
+        this.getBlockedterrains().add("water");
     }
 
 }

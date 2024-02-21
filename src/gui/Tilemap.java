@@ -14,6 +14,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.Arrays;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import launcher.Start;
@@ -30,10 +31,8 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
     int camY = 0;
     int hoveredX = 0;
     int hoveredY = 0;
+
     
-    int curTime;
-    
-    Animation a;
     
     Feld selectedFeld;
     character.Character selectedCharacter;
@@ -57,9 +56,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         camY = -(m.getHeight() * 64) / 4;
         
         
-        // Testweise Animationen erstellen
-        Image[] imageA = MiscUtils.loadImages("src/gui/res/warrior1/walk");
-        a = new Animation(imageA);
+        
         
 
     }
@@ -69,14 +66,15 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        curTime += 1;
-
+        // Map zeichnen
         for (int i = 0; i < m.getWidth(); i++) {
             for (int j = 0; j < m.getHeight(); j++) {
                 g.drawImage(m.getTerrainPicture(i, j), 64 * i + camX, 64 * j + camY, null);
                 
             }
         }
+        
+        // Charaktere zeichnen
         for (int i = 0; i < players.length; i++) {
             for (int j = 0; j < players[i].getCharacterAmount(); j++) {
                 g.drawImage(players[i].getCharacterPicture(j), players[i].getCharacter(j).getXPosition() * 64 + camX, players[i].getCharacter(j).getYPosition() * 64 + camY, null);
@@ -109,7 +107,6 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 }
             }
         }
-        g.drawImage(a.getCurImg(curTime), 1, 1, null);
         
         //g.drawImage(Toolkit.getDefaultToolkit().getImage("src/GUI/res/ResourceBar.png"), 0, 0, null);
         
