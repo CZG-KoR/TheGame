@@ -1,15 +1,22 @@
 package building;
 
+import map.Map;
 import map.Player;
 
 public class Mine extends Building {
+    private int miningspeed;
 
-    public Mine(int xPosition, int yPosition) {
+    //benoetigt map
+    public Mine(int xPosition, int yPosition, Map m) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.buildtime = 2;
         this.healthpoints = 2;
         this.buildingrange = 2;
+        this.miningspeed = 2;
+        if (mountains(xPosition, yPosition, m)) {
+            this.miningspeed = this.miningspeed *2;
+        }
     }
 
     public boolean buildable(Player player) {
@@ -27,10 +34,19 @@ public class Mine extends Building {
         // bei false, soll das Gebäude nicht gebaut werden
         return false;
     }
-
+        // stone erhoehen
+        //Berge erhoehen effizienzn(in builder enthalten)
     public void mine(Player player) {
-        // stone um 1 erhöhen
-        player.setStone(player.getStone() + 1);
-        // in der Nähe von Bergen o.ä. mehr ressourcen bekommen
+        player.setStone(player.getStone() + miningspeed);
+    }
+    private boolean mountains(int xPosition, int yPosition, Map m) {
+        for (int i = xPosition - 1; i < xPosition +2; i++) {
+            for (int j = yPosition - 1; j < yPosition+2; j++) {
+                if (m.getFeld(i, j).getTerrainName().equals("mountain")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

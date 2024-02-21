@@ -34,7 +34,8 @@ public class Lumberjack extends Building {
         return false;
     }
 
-    // anfang jeder runde Holz faellen
+    // anfang jeder runde Holz faellen 
+    //Wälder nach 6 Runden abgebaut
     //braucht Map um ausgeführt zu werden
     int zaehl = 0;
     public void woodchop(Player player, Map m) {
@@ -49,7 +50,7 @@ public class Lumberjack extends Building {
                 m.setT(forests[0], forests[1], "grass");
                 if (forests(xPosition, yPosition, m) != null) {
                     //wenn rundrum auch wald, dann zaehl = 0 und das als neues bearbeitetes Feld betrachten
-                    zaehl = -1;
+                    zaehl = 0;
                 } else {
                     this.chopspeed = this.chopspeed / 3;
                 }
@@ -61,9 +62,9 @@ public class Lumberjack extends Building {
 
     private int[] forests(int xPosition, int yPosition, Map m) {
         int[] forests = new int[2];
-        for (int i = xPosition - 1; i < 3; i++) {
-            for (int j = yPosition - 1; j < 3; j++) {
-                if (m.getFeld(j, j).getTerrainName().equals("forest")) {
+        for (int i = xPosition - 1; i < xPosition + 2; i++) {
+            for (int j = yPosition - 1; j < yPosition + 2; j++) {
+                if (m.getFeld(i, j).getTerrainName().equals("forest")) {
                     forests[0] = i;
                     forests[1] = j;
                     return forests;

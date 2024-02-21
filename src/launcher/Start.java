@@ -30,7 +30,7 @@ public class Start {
         //Reihenfolge wichtig!
 
         //Init der Spieler + des Spielerarrays
-        Player spieler1 = new Player("Spieler1", Color.cyan);
+        Player spieler1 = new Player("Spieler1", Color.BLUE);
         Player spieler2 = new Player("Spieler2", Color.RED);
         players[0] = spieler1;
         players[1] = spieler2;
