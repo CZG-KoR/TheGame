@@ -1,7 +1,10 @@
 package gui;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.Timer;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,19 +18,47 @@ import java.util.ArrayList;
 public class Animation {
     
     boolean isPlaying = false;
+    boolean playOnce = false;
     int curFrame = 0;
     Image[] images;
-    float speed = 0.0001f;
-    int startTime = 0;
+    int delay;
     
-    public Animation(Image[] images){
+    Timer t;
+    
+    public Animation(Image[] images, int delay){
         this.images = images;
+        this.delay = delay;
+        
+        // Timer
+        t = new Timer(delay, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                
+                curFrame += 1;
+                
+                if (curFrame >= images.length && !playOnce){
+                    curFrame = 0;
+                }
+                
+                if (curFrame >= images.length && playOnce){
+                    curFrame = images.length - 1;
+                    playOnce = false;
+                    stop();
+                }
+                
+                
+            }
+        });
     }
     
     
-    public void start(int curTime){
+    public void start(){
+        
+        
         if (!isPlaying){
-            startTime = curTime;
+            t.start();
+            curFrame = 0;
         }
         
         isPlaying = true;
@@ -35,11 +66,20 @@ public class Animation {
     
     public void stop(){
         isPlaying = false;
+        t.stop();
     }
     
-    public Image getCurImg(int curTime){
+    public void playOnce(){
+        playOnce = true;
+        t.stop();
+        t.start();
+
         
-        curFrame = (curTime - (int)(startTime*speed))%images.length;
+    }
+    
+    public Image getCurImg(){
+        
+        //curFrame = (curTime - (int)(startTime*speed))%images.length;
         
         return images[curFrame];
         

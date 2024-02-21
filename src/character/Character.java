@@ -1,10 +1,12 @@
 package character;
 
+import gui.Animation;
 import java.awt.Image;
 import map.Map;
 import tools.MiscUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import static launcher.Start.players;
 
@@ -24,6 +26,9 @@ public abstract class Character implements Killable {
     protected int xPosition;
     protected int yPosition;
     
+    // Animation
+    protected Animation curAnimation;
+    protected HashMap<String, Animation> animationen;
     protected Image picture;
     
     //Movementrange, die bei jedem Zug neu berechnet werden muss
@@ -36,6 +41,7 @@ public abstract class Character implements Killable {
 
     protected Character(String playername) {
         this.playername = playername;
+        animationen = new HashMap<>();
     }
 
     // Bewegung muss für die einzelnen Charaktere definiert werden
