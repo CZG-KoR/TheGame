@@ -48,4 +48,9 @@ public class Warrior extends Fighter {
         return curAnimation.getCurImg();
     }
 
+    @Override
+    public void blockedterrains() {
+        this.getBlockedterrains().add("water");
+    }
+
 }
