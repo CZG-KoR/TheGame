@@ -21,7 +21,7 @@ public abstract class Character implements Killable {
     protected int attackrange;
     
     // Wurde die Figur schon bewegt?
-    protected boolean canmove;
+    protected boolean canmove = true;
     // Motivation
     protected int motivation;
     // Abstand den man laufen kann
@@ -52,8 +52,14 @@ public abstract class Character implements Killable {
         animationen = new HashMap<>();
     }
 
-    // Bewegung muss für die einzelnen Charaktere definiert werden
-    public abstract void move();
+    public boolean isCanmove() {
+        return canmove;
+    }
+
+    public void setCanmove(boolean canmove) {
+        this.canmove = canmove;
+    }
+
 
     //Festlegen der geblockten Terrains für Charaktere
     public abstract void blockedterrains();
@@ -112,15 +118,21 @@ public abstract class Character implements Killable {
     public String getPlayername() {
         return playername;
     }
+    public void setxPosition(int xPosition) {
+        this.xPosition = xPosition;
+    }
 
     // public void killed() {
     //
     // }
-
     // noch zu testen
     // Map nicht uebergeben, sondern public zugreifen koennen
+    public void setyPosition(int yPosition) {
+        this.yPosition = yPosition;
+    }
+
     public void movementrange(int xposition, int yposition, Map map) {
-//        List<int[]> movementr = new ArrayList<>();
+        //        List<int[]> movementr = new ArrayList<>();
         // movementr.add(new int[]{2,3});
         int[] visited = new int[2];
         
@@ -130,10 +142,26 @@ public abstract class Character implements Killable {
 //        return movementr;
     }
 
-    public ArrayList<int[]> movementrange2(int xposition, int yposition, Map map, int movement, ArrayList<int[]> movementr, int[] visited) {
+
+    public ArrayList<int[]> movementrange2(int xposition, int yposition, Map map, int movement, ArrayList<int[]> movementr) {
+        
+//        if (map.getFeld(xPosition, yPosition).getHeight() > movement) {
+//            return movementr;
+//        }
+        if(movement==0) return movementr;
+//
+//Test, ob betrachtetes Feld bereits betrachtet wurde
+        
+/*
+  Merge conflict - da ich nicht wusste, was die aktuelle Version ist, habe ich die untenstehende ausskommentiert.
+*/
+      
+      
+//   public ArrayList<int[]> movementrange2(int xposition, int yposition, Map map, int movement, ArrayList<int[]> movementr, int[] visited) {
 //        System.out.println("movement"+movement);
         
-        if(movement==0) return movementr;
+//       if(movement==0) return movementr;
+
        
         //Test, ob betrachtetes Feld bereits betrachtet wurde
 //        int[] visited = new int[2];
@@ -150,8 +178,10 @@ public abstract class Character implements Killable {
         if (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight())<= movement) {
 //            System.out.println("xpos "+(xPosition+1));
             movementr.add(new int[] { xposition + 1, yposition });
+            
+            movementrange2(xposition + 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
 //            System.out.println("1i  "+movement);
-            movementrange2(xposition + 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
+            //movementrange2(xposition + 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
         }
             }
         }
@@ -167,8 +197,12 @@ public abstract class Character implements Killable {
             if(!movementr.contains(visited) && !blockedterrains.contains(map.getFeld(xposition-1, yposition).getTerrainName())){
         if (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
             movementr.add(new int[] { xposition - 1, yposition });
+            
+            movementrange2(xposition - 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
+
 //            System.out.println("3i  "+movement);
-            movementrange2(xposition - 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
+           // movementrange2(xposition - 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
+
         }
         }
             }
@@ -183,10 +217,14 @@ public abstract class Character implements Killable {
             if(!movementr.contains(visited) && !blockedterrains.contains(map.getFeld(xposition, yposition+1).getTerrainName())){
         if (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
             movementr.add(new int[] { xposition, yposition + 1 });
+          
+            movementrange2(xposition, yposition + 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
+
 //            System.out.println("2i  "+movement);
-            movementrange2(xposition, yposition + 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
+            //movementrange2(xposition, yposition + 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
         }
             }
+
         }
         }
 
@@ -200,8 +238,13 @@ public abstract class Character implements Killable {
             if(!movementr.contains(visited) && !blockedterrains.contains(map.getFeld(xposition, yposition-1).getTerrainName())){
         if (1+Math.abs(map.getFeld(xposition + 1, yposition - 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
             movementr.add(new int[] { xposition, yposition - 1 });
+
+            
+            movementrange2(xposition, yposition - 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition - 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
+
 //            System.out.println("4i  "+movement);
-            movementrange2(xposition, yposition - 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition - 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
+            //movementrange2(xposition, yposition - 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition - 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
+
         }
             }
         }
@@ -325,6 +368,6 @@ public abstract class Character implements Killable {
 
     public abstract Image getPicture();
     
-    
+    public abstract void move();
 
 }
