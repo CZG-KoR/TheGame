@@ -8,6 +8,8 @@ import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
 import character.Character;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MiscUtils {
 
@@ -17,14 +19,14 @@ public class MiscUtils {
 
     public static Image[] loadImages(String dir) {
         List<Image> imageList = Stream.of(new File(dir).listFiles())
-            .filter(file -> !file.isDirectory())
-            .map(file -> Toolkit.getDefaultToolkit().getImage(file.getPath()))
-            .collect(Collectors.toList());
-
+                .filter(file -> !file.isDirectory()).sorted()
+                .map(file -> Toolkit.getDefaultToolkit().getImage(file.getPath()))
+                .collect(Collectors.toList());
+      
         return imageList.toArray(new Image[0]);
     }
 
     public static double distance(Character c1, Character c2) {
-        return Math.sqrt(Math.pow( (double) c1.getXPosition() - c2.getXPosition(), 2) + Math.pow( (double) c1.getYPosition() - c2.getYPosition(), 2));
+        return Math.sqrt(Math.pow((double) c1.getXPosition() - c2.getXPosition(), 2) + Math.pow((double) c1.getYPosition() - c2.getYPosition(), 2));
     }
 }
