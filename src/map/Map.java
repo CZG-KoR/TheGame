@@ -3,6 +3,7 @@ package map;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Map {
     /*
@@ -80,10 +81,7 @@ public class Map {
          * Sodass kleine "Pfützen" wegfallen
          */
         
-        ArrayList<String> LandTerrains = new ArrayList<String>();
-        LandTerrains.add("grass");
-        LandTerrains.add("forest");
-        LandTerrains.add("desert");
+        String[] LandTerrains = {"grass", "forest", "desert"};
         
         Pruning("water", 1, LandTerrains, "desert");
         
@@ -91,15 +89,17 @@ public class Map {
         
         //Insel-Protokoll
         /*
-            falls so viel wasser da ist >=1500 -> erstellung einer Insel & vergrößerung von Landmassen
+            falls so viel wasser da ist >=1000 -> erstellung einer Insel & vergrößerung von Landmassen
         */
         
-        if(this.getAmountofTerrain("water") >= 1500){
+        while(this.getAmountofTerrain("water") >= 1000){
             IslandProtocoll();
+            System.out.println("A new island appeared!");
         }
     }
 
     public void IslandProtocoll(){
+
         int[] quadraticWaterSum = {0, 0};
         int N = 0;
         for (int x = 0; x < width; x++) {
@@ -113,15 +113,27 @@ public class Map {
         }
         quadraticWaterSum[0] = (int) Math.sqrt(quadraticWaterSum[0]/N);
         quadraticWaterSum[1] = (int) Math.sqrt(quadraticWaterSum[1]/N);
-        System.out.println(quadraticWaterSum[0] + "," + quadraticWaterSum[1]);
+        createIsland(quadraticWaterSum[0], quadraticWaterSum[1], (float) 0.5);
     }
     
-    public void Pruning(String toReplace, int limit, ArrayList<String> triggerTerrain, String toPlace){
+    private void createIsland(int xcoord, int ycoord, float range){
+        Random r = new Random();
+        spray(xcoord-25+r.nextInt(50), ycoord-25+r.nextInt(50), range, "forest");
+        removeSingles();
+        String[] forests = {"forest"};
+        String[] forestngrass = {"forest", "grass"};
+        Pruning("water", 1, forests, "grass");
+        Pruning("water", 1, forestngrass, "desert");
+        Pruning("grass", 4, forests, "forest");
+        Pruning("desert", 4, forests, "desert");
+    }
+    
+    public void Pruning(String toReplace, int limit, String[] triggerTerrain, String toPlace){
         ArrayList<ArrayList<Integer>> tempList = new ArrayList<>();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 ArrayList<Integer> localList = new ArrayList<>();
-                if (this.getTerrainName(x, y).equals(toReplace) && getSorroundingTerrains(x, y, triggerTerrain) >= limit) {
+                if (this.getTerrainName(x, y).equals(toReplace) && getSurroundingTerrains(x, y, triggerTerrain) >= limit) {
                     localList.add(x);
                     localList.add(y);
                     tempList.add(localList);
@@ -131,15 +143,15 @@ public class Map {
         this.replace(tempList, toPlace);
     }
     
-    public int getSorroundingTerrains(int x, int y, ArrayList<String> Terrains){
+    public int getSurroundingTerrains(int x, int y, String[] Terrains){
         int result = 0;
-        for(int i = 0; i <= Terrains.size()-1; i++){
-            result += getSorroundingTerrain(x, y, Terrains.get(i));
+        for(int i = 0; i <= Terrains.length-1; i++){
+            result += getSurroundingTerrain(x, y, Terrains[i]);
         }
         return result;
     }
     
-    public int getSorroundingTerrain(int x, int y, String name) {
+    public int getSurroundingTerrain(int x, int y, String name) {
         int counter = 0;
         if (x != 0 && this.getTerrainName(x - 1, y).equals(name))
             counter++;
@@ -176,16 +188,16 @@ public class Map {
         int max = 0;
         String MaximumName = "water";
         for(int i = 0; i < ts.length; i++){
-            if(getSorroundingTerrain(x, y, ts[i]) > max){
+            if(getSurroundingTerrain(x, y, ts[i]) > max){
                 MaximumName = ts[i];
-                max = getSorroundingTerrain(x, y, ts[i]);
+                max = getSurroundingTerrain(x, y, ts[i]);
             }
         }
         return MaximumName;
     }
     
     public boolean isAlone(int x, int y){
-        return getSorroundingTerrain(x, y, getTerrainName(x, y)) <= 1;
+        return getSurroundingTerrain(x, y, getTerrainName(x, y)) <= 1;
     }
     
     public int getAmountofTerrain(String name){
@@ -204,10 +216,26 @@ public class Map {
         }
     }
 
-    public void setT(int xcoord, int ycoord, String terrainName) {
+    private void setT(int xcoord, int ycoord, String terrainName) {
         felder.get(xcoord).remove(ycoord);
-        felder.get(xcoord).add(ycoord, new Feld(new Terrain(terrainName),1,xcoord,ycoord));
+        felder.get(xcoord).add(ycoord, new Feld(new Terrain(terrainName),0,xcoord,ycoord));
     }
+    
+    private void spray(int xcoord, int ycoord, float range, String terrainName){
+        Random r = new Random();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int distancesq = (xcoord-x)*(xcoord-x) + (ycoord-y)*(ycoord-y);
+                if(x == xcoord && y == ycoord){
+                    this.setT(xcoord, ycoord, terrainName);
+                    continue;
+                }
+                if(range*r.nextInt(100)/(distancesq)>1){
+                    this.setT(x, y, terrainName);
+                }
+            }
+        }
+    } 
 
     public Image getTerrainPicture(int xcoord, int ycoord) {
         return getFeld(xcoord, ycoord).getT().getPicture();
