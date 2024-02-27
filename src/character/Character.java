@@ -149,7 +149,6 @@ public abstract class Character implements Killable {
 //            return movementr;
 //        }
         if(movement==0) return movementr;
-        System.out.println("hi");
 //
 //Test, ob betrachtetes Feld bereits betrachtet wurde
         
