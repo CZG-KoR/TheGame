@@ -77,7 +77,11 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         // Charaktere zeichnen
         for (int i = 0; i < players.length; i++) {
             for (int j = 0; j < players[i].getCharacterAmount(); j++) {
-                g.drawImage(players[i].getCharacterPicture(j), players[i].getCharacter(j).getXPosition() * 64 + camX, players[i].getCharacter(j).getYPosition() * 64 + camY, null);
+                
+                character.Character c = players[i].getCharacter(j);
+                
+                g.drawImage(players[i].getCharacterPicture(j), c.getXPosition() * 64 + camX + c.getDisplacementX(), 
+                        c.getYPosition() * 64 + camY + c.getDisplacementY(), null);
             }
             
         }
@@ -177,9 +181,12 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                     selectedCharacter.movementrange(selectedCharacter.getXPosition(), selectedCharacter.getYPosition(), m);
                     for (int j = 0; j < selectedCharacter.getMovementrange().size(); j++) {
                         if(selectedCharacter.getMovementrange().get(j)[0] == hoveredX && selectedCharacter.getMovementrange().get(j)[1] == hoveredY){
+                            
+                            selectedCharacter.playMoveAnimation(hoveredX, hoveredY);
                             selectedCharacter.setxPosition(hoveredX);
                             selectedCharacter.setyPosition(hoveredY);
                             selectedCharacter.setCanmove(false);
+                            selectedCharacter.playAnimation("walk");
                             return;
                         }
                         
