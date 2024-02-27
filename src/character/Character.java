@@ -143,12 +143,13 @@ public abstract class Character implements Killable {
     }
 
 
-    public ArrayList<int[]> movementrange2(int xposition, int yposition, Map map, int movement, ArrayList<int[]> movementr) {
+    public ArrayList<int[]> movementrange2(int xposition, int yposition, Map map, int movement, ArrayList<int[]> movementr, int[] visited) {
         
 //        if (map.getFeld(xPosition, yPosition).getHeight() > movement) {
 //            return movementr;
 //        }
         if(movement==0) return movementr;
+        System.out.println("hi");
 //
 //Test, ob betrachtetes Feld bereits betrachtet wurde
         
@@ -179,7 +180,7 @@ public abstract class Character implements Killable {
 //            System.out.println("xpos "+(xPosition+1));
             movementr.add(new int[] { xposition + 1, yposition });
             
-            movementrange2(xposition + 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
+            movementrange2(xposition + 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
 //            System.out.println("1i  "+movement);
             //movementrange2(xposition + 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
         }
@@ -198,7 +199,7 @@ public abstract class Character implements Killable {
         if (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
             movementr.add(new int[] { xposition - 1, yposition });
             
-            movementrange2(xposition - 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
+            movementrange2(xposition - 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
 
 //            System.out.println("3i  "+movement);
            // movementrange2(xposition - 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
@@ -218,7 +219,7 @@ public abstract class Character implements Killable {
         if (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
             movementr.add(new int[] { xposition, yposition + 1 });
           
-            movementrange2(xposition, yposition + 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
+            movementrange2(xposition, yposition + 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
 
 //            System.out.println("2i  "+movement);
             //movementrange2(xposition, yposition + 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
@@ -240,7 +241,7 @@ public abstract class Character implements Killable {
             movementr.add(new int[] { xposition, yposition - 1 });
 
             
-            movementrange2(xposition, yposition - 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition - 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
+            movementrange2(xposition, yposition - 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition - 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
 
 //            System.out.println("4i  "+movement);
             //movementrange2(xposition, yposition - 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition - 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
