@@ -22,6 +22,7 @@ import static launcher.Start.players;
 import map.Feld;
 import map.Player;
 import tools.MiscUtils;
+import character.*;
 
 public class Tilemap extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener{
     Map m;
@@ -204,6 +205,17 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         
         // angeklickte Gebäude finden
         setSelectedBuilding();
+        
+        if(selectedBuilding == null && selectedCharacter == null && Bar.getPlacement() != 0){
+            for (int i = 0; i < players.length; i++) {
+                    if(players[i].isAtTurn()){
+                        switch(Bar.getPlacement()){
+                            case 1: players[i].setCharacter(new Warrior(players[i].getPlayername(), hoveredX, hoveredY));
+                                    Bar.setPlacement(0);
+            }
+        }
+            }
+        }
         
         
     }
