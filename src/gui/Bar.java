@@ -3,8 +3,10 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -164,8 +166,6 @@ public class Bar extends JInternalFrame {
         panelBuildings.add(wheatfieldButton);
         
         
-        
-        
         //Tab für die Auswahl von Truppen
         JPanel panelTroops = new JPanel();
         panelTroops.setLayout(null);
@@ -308,8 +308,19 @@ public class Bar extends JInternalFrame {
         AtTurn.setOpaque(true);
         AtTurn.setBackground(Color.cyan);
         AtTurn.setText("Am Zug: Spieler 1");
+        //AtTurn.setHorizontalTextPosition(JLabel.CENTER);
         AtTurn.setVisible(true);
         return AtTurn;
+    }
+    
+    public JPanel minimap(){
+        JPanel minimap = new JPanel();
+        minimap.setLocation(width-50, 0);
+        minimap.setSize(50,50);
+        minimap.setBackground(Color.orange);
+        minimap.setBorder(BorderFactory.createLineBorder(Color.black));
+        minimap.setVisible(true);
+        return minimap;
     }
     
 }
