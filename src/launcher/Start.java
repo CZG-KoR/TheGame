@@ -4,6 +4,7 @@ import character.Fighter;
 import character.Warrior;
 import gui.MainWindow;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import map.Map;
 import map.Player;
@@ -48,17 +49,19 @@ public class Start {
         //Test der movement-Methode
         Warrior w = new Warrior("Spieler1",25,25);
         map.getFeld(25, 25).setOccupied(true);
+        map.getFeld(25, 25).setOccupiedby("Spieler1");
         players[0].setCharacter(w);
-        Warrior v = new Warrior("Spieler1",25,26);
-        map.getFeld(25, 26).setOccupied(true);
+        Warrior v = new Warrior("Spieler1",25,27);
+        map.getFeld(25, 27).setOccupiedby("Spieler2");
+        map.getFeld(25, 27).setOccupied(true);
         players[1].setCharacter(v);
         
         w.movementrange(w.getXPosition(), w.getYPosition(), map);
         w.attackrange(w.getXPosition(), w.getYPosition(), map);
+        
         for (int i = 0; i < w.getAttackrange().size(); i++) {
             System.out.println(w.getAttackrange().get(i)[0]+"  "+w.getAttackrange().get(i)[1]);
         }
-        
         
     }
     

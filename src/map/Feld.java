@@ -9,9 +9,13 @@ public class Feld {
 
     // Besetzt?
     private boolean occupied;
+    
+    //wurde Feld bereits gecheckt
+    private boolean checked;
 
     // möglich da hin zu bewegen, nachdem Figur angeklickt wurde
     private boolean highlighted;
+    private String occupiedby;
 
     // Position
     private int xPosition;
@@ -23,6 +27,8 @@ public class Feld {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         occupied = false;
+        checked=false;
+        occupiedby=null;
     }
 
     public Terrain getT() {
@@ -39,6 +45,22 @@ public class Feld {
 
     public boolean isOccupied() {
         return occupied;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public String getOccupiedby() {
+        return occupiedby;
+    }
+
+    public void setOccupiedby(String occupiedby) {
+        this.occupiedby = occupiedby;
     }
 
     //Testzwecke, muss eigentlich wieder entfernt werden
