@@ -22,6 +22,7 @@ import map.Player;
 public class Bar extends JInternalFrame {
 
     int width, height;
+    static int Placement = 0;
 
     public Bar(int width, int height) {
         super();
@@ -56,6 +57,7 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                        System.out.println("warriorButton pressed");
+                       Placement = 1;
             }
         });
         panelBuildings.add(barracksButton);
@@ -180,6 +182,8 @@ public class Bar extends JInternalFrame {
            warriorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
+        
                        System.out.println("warriorButton pressed");
             }
         });
@@ -207,7 +211,7 @@ public class Bar extends JInternalFrame {
         catapult.setHorizontalTextPosition(JButton.CENTER);
         catapult.setSize(new Dimension(200,200));
         catapult.setLocation(400,0);
-           warriorButton.addActionListener(new ActionListener() {
+           catapult.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                        System.out.println("catapult pressed");
@@ -313,6 +317,14 @@ public class Bar extends JInternalFrame {
         return AtTurn;
     }
     
+
+    public static int getPlacement(){
+        return Placement;
+    }
+    public static void setPlacement(int i){
+        Placement = i;
+    }
+
     public JPanel minimap(){
         JPanel minimap = new JPanel();
         minimap.setLocation(width-50, 0);
@@ -323,4 +335,5 @@ public class Bar extends JInternalFrame {
         return minimap;
     }
     
+
 }
