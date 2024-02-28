@@ -49,8 +49,6 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         this.setSize(new Dimension(width, height));
         this.setLocation(0, 0);
         this.setVisible(true);
-        //Testfall
-        m.setT(3, 3, "desert");
         
         camX = -(m.getWidth() * 64) / 4;
         camY = -(m.getHeight() * 64) / 4;
