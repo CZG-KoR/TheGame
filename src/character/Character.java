@@ -2,12 +2,18 @@ package character;
 
 import gui.Animation;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import map.Map;
 import tools.MiscUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static launcher.Start.players;
 
 public abstract class Character implements Killable {
@@ -35,6 +41,11 @@ public abstract class Character implements Killable {
     protected HashMap<String, Animation> animationen;
     protected Image picture;
     
+    protected int displacementX = 0;
+    protected int displacementY = 0;
+    
+    protected boolean flipped = false;
+    
     protected ArrayList<String> blockedterrains = new ArrayList();
     
     //Movementrange, die bei jedem Zug neu berechnet werden muss
@@ -50,6 +61,58 @@ public abstract class Character implements Killable {
         this.playername = playername;
         blockedterrains();
         animationen = new HashMap<>();
+    }
+    
+     public void playAnimation(String name) {
+
+        if (animationen.containsKey(name)) {
+            curAnimation.stop();
+            curAnimation = animationen.get(name);
+            curAnimation.start();
+        }
+
+    }
+
+    public void playMoveAnimation(int xGoal, int yGoal) {
+
+        int deltaX = (xGoal - xPosition) * 64;
+        int deltaY = (yGoal - yPosition) * 64;
+
+        displacementX -= deltaX;
+        displacementY -= deltaY;
+        
+        if (deltaX < 0){
+            flipped = true;
+        }
+
+        TimerTask tt = new TimerTask() {
+            @Override
+            public void run() {
+                
+                int n = (int)(Math.round(Math.hypot(deltaX, deltaY)/5));
+                playAnimation("walk");
+                
+                for (int i = 0; i < n; i++) {
+
+                    displacementX += deltaX / n;
+                    displacementY += deltaY / n;
+                    
+                    try {
+                        Thread.sleep(20);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+                displacementX = 0;
+                displacementY = 0;
+                playAnimation("idle");
+                flipped = false;
+            }
+        };
+        Timer t = new Timer();
+        t.schedule(tt, 0);
+
     }
 
     public boolean isCanmove() {
@@ -373,9 +436,28 @@ public abstract class Character implements Killable {
     public ArrayList<int[]> getAttackrange() {
         return attackrangel;
     }
+    
 
-    public abstract Image getPicture();
+    public Image getPicture() { 
+        return curAnimation.getCurImg();
+    }
+
+    public boolean isFlipped() {
+        return flipped;
+    }
     
     public abstract void move();
 
+    public int getDisplacementX() {
+        return displacementX;
+    }
+
+    public int getDisplacementY() {
+        return displacementY;
+    }
+
+
+    
 }
+
+
