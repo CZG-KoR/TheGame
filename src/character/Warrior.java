@@ -23,8 +23,8 @@ public class Warrior extends Fighter {
         animationen.put("walk", new Animation(MiscUtils.loadImages("src/gui/res/kaempfer1/walk"), 300));
         
         // curAnimation setzen und starten
-        curAnimation = animationen.get("dead");
-        curAnimation.playOnce();
+        curAnimation = animationen.get("idle");
+        playAnimation("idle");
         
         
 
@@ -44,9 +44,7 @@ public class Warrior extends Fighter {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public Image getPicture() {
-        return curAnimation.getCurImg();
-    }
+    
 
     @Override
     public void blockedterrains() {
