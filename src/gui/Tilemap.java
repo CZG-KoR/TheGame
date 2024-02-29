@@ -76,22 +76,29 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         // Charaktere zeichnen
         for (int i = 0; i < players.length; i++) {
             for (int j = 0; j < players[i].getCharacterAmount(); j++) {
-                g.drawImage(players[i].getCharacterPicture(j), players[i].getCharacter(j).getXPosition() * 64 + camX, players[i].getCharacter(j).getYPosition() * 64 + camY, null);
+                character.Character c = players[i].getCharacter(j);
+
+                g.drawImage(players[i].getCharacterPicture(j), c.getXPosition() * 64 + camX + c.getDisplacementX(), 
+                        c.getYPosition() * 64 + camY + c.getDisplacementY(), null);
             }
             
         }
         
         // zeichne markierungen für von maus berührte felder
-        g.setColor(Color.DARK_GRAY);
+        g.setColor(Color.YELLOW);
         g.drawRect(64 * hoveredX + camX, 64 * hoveredY + camY, 64, 64);
         
         if (selectedFeld != null){
-            g.setColor(Color.magenta);
+            g.setColor(Color.MAGENTA);
             g.drawRect(64 * selectedFeld.getXPosition() + camX, 64 * selectedFeld.getYPosition() + camY, 64, 64);
         }
+        
+        // zeichne felder, die betreten werden können
         for (int i = 0; i < players.length; i++) {
             if(players[i].isAtTurn() && selectedCharacter != null){
                 if(players[i].getPlayername().equals(selectedCharacter.getPlayername()) && selectedCharacter.isCanmove()){
+                    
+                    // movement range bestimmen und betretbare felder markieren
                     selectedCharacter.movementrange(selectedCharacter.getXPosition(), selectedCharacter.getYPosition(), m);
  //                   selectedCharacter.attackrange(selectedCharacter.getXPosition(), selectedCharacter.getYPosition(), m);
                     for (int j = 0; j < selectedCharacter.getMovementrange().size(); j++) {
@@ -176,6 +183,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                     selectedCharacter.movementrange(selectedCharacter.getXPosition(), selectedCharacter.getYPosition(), m);
                     for (int j = 0; j < selectedCharacter.getMovementrange().size(); j++) {
                         if(selectedCharacter.getMovementrange().get(j)[0] == hoveredX && selectedCharacter.getMovementrange().get(j)[1] == hoveredY){
+                            selectedCharacter.playMoveAnimation(hoveredX, hoveredY);
                             selectedCharacter.setxPosition(hoveredX);
                             selectedCharacter.setyPosition(hoveredY);
                             selectedCharacter.setCanmove(false);
