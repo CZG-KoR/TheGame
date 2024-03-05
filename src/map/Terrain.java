@@ -45,9 +45,9 @@ public class Terrain {
                 this.terrainpicture = imageA[3];
                 break;
                 
-            case "mountain":
+            case "light_mountain":
                 this.rangemultiplier =2;
-                this.terrainpicture = imageA[4];
+                this.terrainpicture = imageA[6];
                 break;
 
             default:
