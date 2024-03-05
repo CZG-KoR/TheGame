@@ -47,6 +47,7 @@ public abstract class Character implements Killable {
     protected boolean flipped = false;
     
     protected ArrayList<String> blockedterrains = new ArrayList();
+    protected ArrayList<String> blockedterrainsattack = new ArrayList();
     
     //Movementrange, die bei jedem Zug neu berechnet werden muss
     protected ArrayList<int[]> movementrange = new ArrayList();
@@ -60,6 +61,8 @@ public abstract class Character implements Killable {
     protected Character(String playername) {
         this.playername = playername;
         blockedterrains();
+        blockedterrainsattack();
+        
         animationen = new HashMap<>();
     }
     
@@ -126,6 +129,7 @@ public abstract class Character implements Killable {
 
     //Festlegen der geblockten Terrains für Charaktere
     public abstract void blockedterrains();
+    public abstract void blockedterrainsattack();
     
     // Kampf
     public void fight(Character char1, Character char2) {
@@ -195,10 +199,6 @@ public abstract class Character implements Killable {
     }
 
     public void movementrange(int xposition, int yposition, Map map) {
-        //        List<int[]> movementr = new ArrayList<>();
-        // movementr.add(new int[]{2,3});
-        int[] visited = new int[2];
-        
         movementrange.clear();
         
         //Aufrufen der movementrange
@@ -206,9 +206,9 @@ public abstract class Character implements Killable {
         movementrange = movementrange2(this.getXPosition(), this.getYPosition(), map, movement, movementrange);
         
         //Zuruecksetzen aller moeglicherweise gecheckter Felder auf checked=false
-        for (int i = this.getXPosition()-movement; i < this.getXPosition()+movement; i++) {
+        for (int i = this.getXPosition()-movement; i < this.getXPosition()+movement+1; i++) {
             if(i>=0 && i<=map.getWidth()-1){
-                for (int j = this.getYPosition()-movement; j < this.getYPosition()+movement; j++) {
+                for (int j = this.getYPosition()-movement; j < this.getYPosition()+movement+1; j++) {
                     if(j>=0 && j<=map.getHeight()-1){
                         map.getFeld(i, j).setChecked(false);
                     }
@@ -257,9 +257,6 @@ public abstract class Character implements Killable {
             map.getFeld(xposition-1, yposition).setChecked(true);
             movementrange2(xposition - 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
 
-//            System.out.println("3i  "+movement);
-           // movementrange2(xposition - 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
-
         }
         }
             }
@@ -275,9 +272,7 @@ public abstract class Character implements Killable {
           
             map.getFeld(xposition, yposition+1).setChecked(true);
             movementrange2(xposition, yposition + 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
-
-//            System.out.println("2i  "+movement);
-            //movementrange2(xposition, yposition + 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
+  
         }
             }
 
@@ -336,7 +331,7 @@ public abstract class Character implements Killable {
             
             //Ueberpruefung, ob Charakter auf Terrain des betrachteten Feldes darf und ob Feld frei ist
             
-            if(!map.getFeld(xposition+1, yposition).isChecked() && !blockedterrains.contains(map.getFeld(xposition+1, yposition).getTerrainName())){
+            if(!map.getFeld(xposition+1, yposition).isChecked() && !blockedterrainsattack.contains(map.getFeld(xposition+1, yposition).getTerrainName())){
         if (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight())<= attackrange) {
 
             //Markieren des Feldes als bereits überprueft fuer andere Rekursionen
@@ -356,7 +351,7 @@ public abstract class Character implements Killable {
         
         if(!(xPosition==xposition-1 && yPosition==yposition) && xposition-1>=0){
             
-            if(!map.getFeld(xposition-1, yposition).isChecked() && !blockedterrains.contains(map.getFeld(xposition-1, yposition).getTerrainName())){
+            if(!map.getFeld(xposition-1, yposition).isChecked() && !blockedterrainsattack.contains(map.getFeld(xposition-1, yposition).getTerrainName())){
         if (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= attackrange) {
 
             map.getFeld(xposition-1, yposition).setChecked(true);
@@ -373,7 +368,7 @@ public abstract class Character implements Killable {
 
         if(!(xPosition==xposition && yPosition==yposition+1) && yposition+1<map.getHeight()){
             
-            if(!map.getFeld(xposition, yposition+1).isChecked() && !blockedterrains.contains(map.getFeld(xposition, yposition+1).getTerrainName())){
+            if(!map.getFeld(xposition, yposition+1).isChecked() && !blockedterrainsattack.contains(map.getFeld(xposition, yposition+1).getTerrainName())){
         if (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= attackrange) {
 
             map.getFeld(xposition, yposition+1).setChecked(true);
@@ -393,7 +388,7 @@ public abstract class Character implements Killable {
          if(!(xPosition==xposition && yPosition==yposition-1) && yposition-1>=0){
             
             
-            if(!map.getFeld(xposition, yposition-1).isChecked() && !blockedterrains.contains(map.getFeld(xposition, yposition-1).getTerrainName())){
+            if(!map.getFeld(xposition, yposition-1).isChecked() && !blockedterrainsattack.contains(map.getFeld(xposition, yposition-1).getTerrainName())){
         if (1+Math.abs(map.getFeld(xposition + 1, yposition - 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= attackrange) {
 
             map.getFeld(xposition, yposition-1).setChecked(true);
@@ -426,6 +421,7 @@ public abstract class Character implements Killable {
     }
 
     public List<int[]> getMovementrange() {
+        
         return movementrange;
     }
 
