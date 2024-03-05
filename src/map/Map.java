@@ -93,9 +93,8 @@ public class Map {
             falls so viel wasser da ist >=1000 -> erstellung einer Insel & vergrößerung von Landmassen
         */
         
-        while(this.getAmountofTerrain("water") >= 1000){
-            IslandProtocoll();
-        }
+        while(this.getAmountofTerrain("water") >= 1000) IslandProtocoll();
+        
         
         Pruning("forest", 2, Ocean, "grass");
         Pruning("light_mountain", 1, LowerTerrains, "forest");
@@ -103,8 +102,7 @@ public class Map {
         removeSingles();
     }
 
-    public void IslandProtocoll(){
-
+    private void IslandProtocoll(){
         int[] quadraticWaterSum = {0, 0};
         int N = 0;
         for (int x = 0; x < width; x++) {
@@ -119,6 +117,22 @@ public class Map {
         quadraticWaterSum[0] = (int) Math.sqrt(quadraticWaterSum[0]/N);
         quadraticWaterSum[1] = (int) Math.sqrt(quadraticWaterSum[1]/N);
         createIsland(quadraticWaterSum[0], quadraticWaterSum[1], (float) 0.5);
+    }
+    
+    private void RandomValleyVector(){
+        Random r = new Random();
+        ArrayList<int[]> mountainstiles = new ArrayList<>();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if("light_mountain".equals(this.getTerrainName(x, y))){
+                    int[] a = {x ,y};
+                    mountainstiles.add(a);
+                }
+            }
+        }
+        int[] startpoint = mountainstiles.get(r.nextInt(mountainstiles.size()));
+        double direction = r.nextDouble(2*Math.PI);
+        
     }
     
     private void createIsland(int xcoord, int ycoord, float range){
