@@ -71,7 +71,8 @@ public class Map {
                     this.setT(x, y, "water");
                 if (n.getNoiseAt(x, y) > (float) 3.7)
                     this.setT(x, y, "forest");
-
+                if (n.getNoiseAt(x, y) > (float) 5.0)
+                    this.setT(x, y, "light_mountain");
             }
         }
 
@@ -81,11 +82,11 @@ public class Map {
          * Sodass kleine "Pfützen" wegfallen
          */
         
-        String[] LandTerrains = {"grass", "forest", "desert"};
+        String[] LandTerrains = {"grass", "forest", "desert", "light_mountains"};
+        String[] Ocean = {"water"};
+        String[] LowerTerrains = {"grass", "forest", "desert", "water"};
         
         Pruning("water", 1, LandTerrains, "desert");
-        
-        removeSingles();
         
         //Insel-Protokoll
         /*
@@ -94,8 +95,12 @@ public class Map {
         
         while(this.getAmountofTerrain("water") >= 1000){
             IslandProtocoll();
-            System.out.println("A new island appeared!");
         }
+        
+        Pruning("forest", 2, Ocean, "grass");
+        Pruning("light_mountain", 1, LowerTerrains, "forest");
+        
+        removeSingles();
     }
 
     public void IslandProtocoll(){
@@ -127,6 +132,10 @@ public class Map {
         Pruning("grass", 4, forests, "forest");
         Pruning("desert", 4, forests, "desert");
     }
+    
+    /*
+        löscht alle toReplace Terrains auf der Map, sobald diese an limit oder mehr des triggerTerrains grenzen
+    */
     
     public void Pruning(String toReplace, int limit, String[] triggerTerrain, String toPlace){
         ArrayList<ArrayList<Integer>> tempList = new ArrayList<>();
@@ -216,10 +225,16 @@ public class Map {
         }
     }
 
-    private void setT(int xcoord, int ycoord, String terrainName) {
+    public void setT(int xcoord, int ycoord, String terrainName) {
         felder.get(xcoord).remove(ycoord);
         felder.get(xcoord).add(ycoord, new Feld(new Terrain(terrainName),0,xcoord,ycoord));
     }
+    
+    
+    /*
+    Sprays Terrain on the map
+    in round shape with random distribution
+    */
     
     private void spray(int xcoord, int ycoord, float range, String terrainName){
         Random r = new Random();
