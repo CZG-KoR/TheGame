@@ -116,6 +116,42 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         
         //g.drawImage(Toolkit.getDefaultToolkit().getImage("src/GUI/res/ResourceBar.png"), 0, 0, null);
         
+        //minimap
+        for (int i = 0; i < m.getHeight(); i++) {
+            for (int j = 0; j < m.getWidth(); j++) {
+                switch (m.getTerrainName(j, i)) {
+                    case "desert":
+                        g.setColor(Color.yellow);
+                        break;
+
+                    case "forest":
+                       
+                        g.setColor(new Color(10, 140, 40));
+                        break;
+
+                    case "grass":
+                        g.setColor(Color.green);
+                        break;
+
+                    case "water":
+                        g.setColor(Color.blue);
+                        break;
+
+                    case "mountain":
+                        g.setColor(Color.gray);
+                        break;
+
+                    default:
+                }
+                int minimapscale =5;
+                   
+
+                g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth()*minimapscale + j * minimapscale, i * minimapscale, minimapscale, minimapscale);
+                //g.drawRect(j * minimapscale, i * minimapscale, minimapscale, minimapscale);
+               
+            }
+        }
+        
     }
     
     
