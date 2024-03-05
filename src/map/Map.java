@@ -216,7 +216,7 @@ public class Map {
         }
     }
 
-    private void setT(int xcoord, int ycoord, String terrainName) {
+    public void setT(int xcoord, int ycoord, String terrainName) {
         felder.get(xcoord).remove(ycoord);
         felder.get(xcoord).add(ycoord, new Feld(new Terrain(terrainName),0,xcoord,ycoord));
     }
