@@ -20,12 +20,12 @@ public abstract class Character implements Killable {
 
     // Anzahl an Leben für ein Character bis dieser "entfernt" wird
     protected int healthpoints;
-    // Bewegungsreichweite (niemals hoeher als 8)
+    // Bewegungsreichweite (niemals hoeher als 28)
     protected int movement;
-    
+
     // Angriffsreichweite
     protected int attackrange;
-    
+
     // Wurde die Figur schon bewegt?
     protected boolean canmove = true;
     // Motivation
@@ -35,20 +35,20 @@ public abstract class Character implements Killable {
     // Position
     protected int xPosition;
     protected int yPosition;
-    
+
     // Animation
     protected Animation curAnimation;
     protected HashMap<String, Animation> animationen;
     protected Image picture;
-    
+
     protected int displacementX = 0;
     protected int displacementY = 0;
-    
+
     protected boolean flipped = false;
-    
+
     protected ArrayList<String> blockedterrains = new ArrayList();
     protected ArrayList<String> blockedterrainsattack = new ArrayList();
-    
+
     //Movementrange, die bei jedem Zug neu berechnet werden muss
     protected ArrayList<int[]> movementrange = new ArrayList();
     protected ArrayList<int[]> attackrangel = new ArrayList();
@@ -62,11 +62,11 @@ public abstract class Character implements Killable {
         this.playername = playername;
         blockedterrains();
         blockedterrainsattack();
-        
+
         animationen = new HashMap<>();
     }
-    
-     public void playAnimation(String name) {
+
+    public void playAnimation(String name) {
 
         if (animationen.containsKey(name)) {
             curAnimation.stop();
@@ -83,30 +83,30 @@ public abstract class Character implements Killable {
 
         displacementX -= deltaX;
         displacementY -= deltaY;
-        
-        if (deltaX < 0){
+
+        if (deltaX < 0) {
             flipped = true;
         }
 
         TimerTask tt = new TimerTask() {
             @Override
             public void run() {
-                
-                int n = (int)(Math.round(Math.hypot(deltaX, deltaY)/5));
+
+                int n = (int) (Math.round(Math.hypot(deltaX, deltaY) / 5));
                 playAnimation("walk");
-                
+
                 for (int i = 0; i < n; i++) {
 
                     displacementX += deltaX / n;
                     displacementY += deltaY / n;
-                    
+
                     try {
                         Thread.sleep(20);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                
+
                 displacementX = 0;
                 displacementY = 0;
                 playAnimation("idle");
@@ -126,11 +126,11 @@ public abstract class Character implements Killable {
         this.canmove = canmove;
     }
 
-
     //Festlegen der geblockten Terrains für Charaktere
     public abstract void blockedterrains();
+
     public abstract void blockedterrainsattack();
-    
+
     // Kampf
     public void fight(Character char1, Character char2) {
         if (char1.playername.equals(char2.playername)) {
@@ -161,7 +161,7 @@ public abstract class Character implements Killable {
         if (char1 instanceof Fighter && char2 instanceof Builder) {
             Fighter figh1 = (Fighter) (char1);
             if (figh1.canattack && figh1.attackrange <= (int) MiscUtils.distance(figh1, char2)) {
-                char2.healthpoints = char2.healthpoints - figh1.attackrating * figh1.motivation;                
+                char2.healthpoints = char2.healthpoints - figh1.attackrating * figh1.motivation;
             }
 
             if (char2.healthpoints <= 0) {
@@ -172,7 +172,7 @@ public abstract class Character implements Killable {
         if (char1 instanceof Builder && char2 instanceof Fighter) {
             Fighter figh2 = (Fighter) (char2);
             if (figh2.canattack && figh2.attackrange <= (int) MiscUtils.distance(char1, figh2)) {
-                char1.healthpoints = char1.healthpoints - figh2.attackrating * figh2.motivation;                
+                char1.healthpoints = char1.healthpoints - figh2.attackrating * figh2.motivation;
             }
 
             if (char1.healthpoints <= 0) {
@@ -185,6 +185,7 @@ public abstract class Character implements Killable {
     public String getPlayername() {
         return playername;
     }
+
     public void setxPosition(int xPosition) {
         this.xPosition = xPosition;
     }
@@ -200,16 +201,17 @@ public abstract class Character implements Killable {
 
     public void movementrange(int xposition, int yposition, Map map) {
         movementrange.clear();
-        
+
         //Aufrufen der movementrange
         map.getFeld(xposition, yposition).setChecked(true);
-        movementrange = movementrange2(this.getXPosition(), this.getYPosition(), map, movement, movementrange);
-        
+        movementrange = movementranger2(this.getXPosition(), this.getYPosition(), map, movement, movementrange);
+       // movementrange = movementrangel2(this.getXPosition(), this.getYPosition(), map, movement, movementrange);
+
         //Zuruecksetzen aller moeglicherweise gecheckter Felder auf checked=false
-        for (int i = this.getXPosition()-movement; i < this.getXPosition()+movement+1; i++) {
-            if(i>=0 && i<=map.getWidth()-1){
-                for (int j = this.getYPosition()-movement; j < this.getYPosition()+movement+1; j++) {
-                    if(j>=0 && j<=map.getHeight()-1){
+        for (int i = this.getXPosition() - movement; i < this.getXPosition() + movement + 1; i++) {
+            if (i >= 0 && i <= map.getWidth() - 1) {
+                for (int j = this.getYPosition() - movement; j < this.getYPosition() + movement + 1; j++) {
+                    if (j >= 0 && j <= map.getHeight() - 1) {
                         map.getFeld(i, j).setChecked(false);
                     }
                 }
@@ -217,104 +219,172 @@ public abstract class Character implements Killable {
         }
     }
 
+    public ArrayList<int[]> movementranger2(int xposition, int yposition, Map map, int movement, ArrayList<int[]> movementr) {
 
-    public ArrayList<int[]> movementrange2(int xposition, int yposition, Map map, int movement, ArrayList<int[]> movementr) {
-        
-        if(movement==0) return movementr;
-       
-        //akteulles Feld des Charakters ist keine Zugoption, betrachtetes Feld darf nicht außerhalb map sein
-        if(!(xPosition==xposition+1 && yPosition==yposition) && xposition+1<map.getWidth()){
+        if (movement == 0) {
+            return movementr;
+        }
+        int help = movement;
+        int direction = 0;
+        //aktuelles Feld des Charakters ist keine Zugoption, betrachtetes Feld darf nicht außerhalb map sein
+        if (!(xPosition == xposition + 1 && yPosition == yposition) && xposition + 1 < map.getWidth()) {
             //Pruefen, ob Feld nicht bereits betrachtet wurde, Beschleunigung Rekursion
-            
+
             //Ueberpruefung, ob Charakter auf Terrain des betrachteten Feldes darf und ob Feld frei ist
-            if(!map.getFeld(xposition+1, yposition).isOccupied()){
+            if (!map.getFeld(xposition + 1, yposition).isOccupied()) {
 //                !movementr.contains(visited) && 
-            if(!map.getFeld(xposition+1, yposition).isChecked() && !blockedterrains.contains(map.getFeld(xposition+1, yposition).getTerrainName())){
-        if (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight())<= movement) {
+                if (!map.getFeld(xposition + 1, yposition).isChecked() && !blockedterrains.contains(map.getFeld(xposition + 1, yposition).getTerrainName())) {
+                    if (1 + Math.abs(map.getFeld(xposition + 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
 //            System.out.println("xpos "+(xPosition+1));
-            movementr.add(new int[] { xposition + 1, yposition });
-            
-            //Markieren des Feldes als bereits überprueft fuer andere Rekursionen
-            map.getFeld(xposition+1, yposition).setChecked(true);
-            
-            movementrange2(xposition + 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
+                        
+direction = 1;
+                        movementr.add(new int[]{xposition + 1, yposition});
+
+                        //Markieren des Feldes als bereits überprueft fuer andere Rekursionen
+                        map.getFeld(xposition + 1, yposition).setChecked(true);
+                         
+                        movementranger2(xposition + 1, yposition, map, movement - (1 + Math.abs(map.getFeld(xposition + 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight())), movementr);
 //            System.out.println("1i  "+movement);
-            //movementrange2(xposition + 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
-        }
+                        //movementrange2(xposition + 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
+                    }
+                }
             }
         }
-        }
         
-        
-        if(!(xPosition==xposition-1 && yPosition==yposition) && xposition-1>=0){
+        if (!(xPosition == xposition - 1 && yPosition == yposition) && xposition - 1 >= 0) {
             //Pruefen, ob Feld nicht bereits betrachtet wurde, Beschleunigung Rekursion
-            
-            if(!map.getFeld(xposition-1, yposition).isOccupied()){
-            if(!map.getFeld(xposition-1, yposition).isChecked() && !blockedterrains.contains(map.getFeld(xposition-1, yposition).getTerrainName())){
-        if (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
-            movementr.add(new int[] { xposition - 1, yposition });
-            
-            map.getFeld(xposition-1, yposition).setChecked(true);
-            movementrange2(xposition - 1, yposition, map, movement - (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
+            if (!map.getFeld(xposition - 1, yposition).isOccupied()) {
+                if (!map.getFeld(xposition - 1, yposition).isChecked() && !blockedterrains.contains(map.getFeld(xposition - 1, yposition).getTerrainName())) {
+                    if (1 + Math.abs(map.getFeld(xposition - 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
+                        movementr.add(new int[]{xposition - 1, yposition});
+                        if (direction == 1) {
+                            movement = help;
+                        }
+                        map.getFeld(xposition - 1, yposition).setChecked(true);
+                        movementranger2(xposition - 1, yposition, map, movement - (1 + Math.abs(map.getFeld(xposition - 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight())), movementr);
 
-        }
-        }
+                    }
+                }
             }
         }
 
-        if(!(xPosition==xposition && yPosition==yposition+1) && yposition+1<map.getHeight()){
+        if (!(xPosition == xposition && yPosition == yposition + 1) && yposition + 1 < map.getHeight()) {
             //Pruefen, ob Feld nicht bereits betrachtet wurde, Beschleunigung Rekursion
-            
-            if(!map.getFeld(xposition, yposition+1).isOccupied()){
-            if(!map.getFeld(xposition, yposition+1).isChecked() && !blockedterrains.contains(map.getFeld(xposition, yposition+1).getTerrainName())){
-        if (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
-            movementr.add(new int[] { xposition, yposition + 1 });
-          
-            map.getFeld(xposition, yposition+1).setChecked(true);
-            movementrange2(xposition, yposition + 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
-  
-        }
+
+            if (!map.getFeld(xposition, yposition + 1).isOccupied()) {
+                if (!map.getFeld(xposition, yposition + 1).isChecked() && !blockedterrains.contains(map.getFeld(xposition, yposition + 1).getTerrainName())) {
+                    if (1 + Math.abs(map.getFeld(xposition, yposition + 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
+                        movementr.add(new int[]{xposition, yposition + 1});
+                        direction = 2;
+                        map.getFeld(xposition, yposition + 1).setChecked(true);
+                        movementranger2(xposition, yposition + 1, map, movement - (1 + Math.abs(map.getFeld(xposition, yposition + 1).getHeight() - map.getFeld(xposition, yposition).getHeight())), movementr);
+
+                    }
+                }
+
             }
-
         }
-        }
-
         
-         if(!(xPosition==xposition && yPosition==yposition-1) && yposition-1>=0){
+        if (!(xPosition == xposition && yPosition == yposition - 1) && yposition - 1 >= 0) {
             //Pruefen, ob Feld nicht bereits betrachtet wurde, Beschleunigung Rekursion
-            
-            if(!map.getFeld(xposition, yposition-1).isOccupied()){
-            if(!map.getFeld(xposition, yposition-1).isChecked() && !blockedterrains.contains(map.getFeld(xposition, yposition-1).getTerrainName())){
-        if (1+Math.abs(map.getFeld(xposition + 1, yposition - 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
-            movementr.add(new int[] { xposition, yposition - 1 });
 
-            map.getFeld(xposition, yposition-1).setChecked(true);
-            movementrange2(xposition, yposition - 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition - 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr);
+            if (!map.getFeld(xposition, yposition - 1).isOccupied()) {
+                if (!map.getFeld(xposition, yposition - 1).isChecked() && !blockedterrains.contains(map.getFeld(xposition, yposition - 1).getTerrainName())) {
+                    if (1 + Math.abs(map.getFeld(xposition, yposition - 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
+                        movementr.add(new int[]{xposition, yposition - 1});
+
+                        map.getFeld(xposition, yposition - 1).setChecked(true);
+                        if (direction == 2) {
+                            movement = help;
+                        }
+                        movementranger2(xposition, yposition - 1, map, movement - (1 + Math.abs(map.getFeld(xposition, yposition - 1).getHeight() - map.getFeld(xposition, yposition).getHeight())), movementr);
 
 //            System.out.println("4i  "+movement);
-            //movementrange2(xposition, yposition - 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition - 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
-
-        }
+                        //movementrange2(xposition, yposition - 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition - 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
+                    }
+                }
             }
         }
-         }
         // Rueckgabe ist Arraylist aus Arrays, Laenge 2, in der alle Koordinatenduos der
         // belaufbaren Felder gespeichert sind, können doppelt vorkommen
         return movementr;
     }
+
+//    public ArrayList<int[]> movementrangel2(int xposition, int yposition, Map map, int movement, ArrayList<int[]> movementr) {
+//        if (movement == 0) {
+//            return movementr;
+//        }
+//        
+//        if (!(xPosition == xposition - 1 && yPosition == yposition) && xposition - 1 >= 0) {
+//            //Pruefen, ob Feld nicht bereits betrachtet wurde, Beschleunigung Rekursion
+//            if (!map.getFeld(xposition - 1, yposition).isOccupied()) {
+//                if (!map.getFeld(xposition - 1, yposition).isChecked() && !blockedterrains.contains(map.getFeld(xposition - 1, yposition).getTerrainName())) {
+//                    if (1 + Math.abs(map.getFeld(xposition - 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
+//                        movementr.add(new int[]{xposition - 1, yposition});
+//
+//                        map.getFeld(xposition - 1, yposition).setChecked(true);
+//                        movementrangel2(xposition - 1, yposition, map, movement - (1 + Math.abs(map.getFeld(xposition - 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight())), movementr);
+//
+//                    }
+//                }
+//            }
+////            else{
+////                movementrangel2(xposition-1, yposition, map, movement - (1 + Math.abs(map.getFeld(xposition-1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight())), movementr);
+////            }
+//        }
+//        
+//
+//        if (!(xPosition == xposition && yPosition == yposition + 1) && yposition + 1 < map.getHeight()) {
+//            //Pruefen, ob Feld nicht bereits betrachtet wurde, Beschleunigung Rekursion
+//
+//            if (!map.getFeld(xposition, yposition + 1).isOccupied()) {
+//                if (!map.getFeld(xposition, yposition + 1).isChecked() && !blockedterrains.contains(map.getFeld(xposition, yposition + 1).getTerrainName())) {
+//                    if (1 + Math.abs(map.getFeld(xposition, yposition + 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
+//                        movementr.add(new int[]{xposition, yposition + 1});
+//
+//                        map.getFeld(xposition, yposition + 1).setChecked(true);
+//                        movementrangel2(xposition, yposition + 1, map, movement - (1 + Math.abs(map.getFeld(xposition, yposition + 1).getHeight() - map.getFeld(xposition, yposition).getHeight())), movementr);
+//
+//                    }
+//                }
+//
+//            }
+//        }
+//        
+//        if (!(xPosition == xposition && yPosition == yposition - 1) && yposition - 1 >= 0) {
+//            //Pruefen, ob Feld nicht bereits betrachtet wurde, Beschleunigung Rekursion
+//
+//            if (!map.getFeld(xposition, yposition - 1).isOccupied()) {
+//                if (!map.getFeld(xposition, yposition - 1).isChecked() && !blockedterrains.contains(map.getFeld(xposition, yposition - 1).getTerrainName())) {
+//                    if (1 + Math.abs(map.getFeld(xposition, yposition - 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= movement) {
+//                        movementr.add(new int[]{xposition, yposition - 1});
+//
+//                        map.getFeld(xposition, yposition - 1).setChecked(true);
+//                        movementrangel2(xposition, yposition - 1, map, movement - (1 + Math.abs(map.getFeld(xposition, yposition - 1).getHeight() - map.getFeld(xposition, yposition).getHeight())), movementr);
+//
+////            System.out.println("4i  "+movement);
+//                        //movementrange2(xposition, yposition - 1, map, movement - (1+Math.abs(map.getFeld(xposition, yposition - 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),movementr, visited);
+//                    }
+//                }
+//            }
+//        }
+//        // Rueckgabe ist Arraylist aus Arrays, Laenge 2, in der alle Koordinatenduos der
+//        // belaufbaren Felder gespeichert sind, können doppelt vorkommen
+//        return movementr;
+//    }
     
-     public void attackrange(int xposition, int yposition, Map map) {
+    public void attackrange(int xposition, int yposition, Map map) {
         attackrangel.clear();
-        
+
         //Aufrufen der attackrange
         map.getFeld(xposition, yposition).setChecked(true);
         attackrangel = attackrange2(this.getXPosition(), this.getYPosition(), map, attackrange, attackrangel);
-        
+
         //Zuruecksetzen aller moeglicherweise gecheckter Felder auf checked=false
-        for (int i = this.getXPosition()-movement; i < this.getXPosition()+movement; i++) {
-            if(i>=0 && i<=map.getWidth()-1){
-                for (int j = this.getYPosition()-movement; j < this.getYPosition()+movement; j++) {
-                    if(j>=0 && j<=map.getHeight()-1){
+        for (int i = this.getXPosition() - movement; i < this.getXPosition() + movement; i++) {
+            if (i >= 0 && i <= map.getWidth() - 1) {
+                for (int j = this.getYPosition() - movement; j < this.getYPosition() + movement; j++) {
+                    if (j >= 0 && j <= map.getHeight() - 1) {
                         map.getFeld(i, j).setChecked(false);
                     }
                 }
@@ -323,86 +393,92 @@ public abstract class Character implements Killable {
     }
 
     public ArrayList<int[]> attackrange2(int xposition, int yposition, Map map, int attackrange, ArrayList<int[]> attackr) {
-        
-        if(attackrange==0) return attackr;
-       
+
+        if (attackrange == 0) {
+            return attackr;
+        }
+
         //aktuelles Feld des Charakters ist keine Zugoption, betrachtetes Feld darf nicht außerhalb map sein
-        if(!(xPosition==xposition+1 && yPosition==yposition) && xposition+1<map.getWidth()){
-            
+        if (!(xPosition == xposition + 1 && yPosition == yposition) && xposition + 1 < map.getWidth()) {
+
             //Ueberpruefung, ob Charakter auf Terrain des betrachteten Feldes darf und ob Feld frei ist
-            
-            if(!map.getFeld(xposition+1, yposition).isChecked() && !blockedterrainsattack.contains(map.getFeld(xposition+1, yposition).getTerrainName())){
-        if (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight())<= attackrange) {
+            if (!map.getFeld(xposition + 1, yposition).isChecked() && !blockedterrainsattack.contains(map.getFeld(xposition + 1, yposition).getTerrainName())) {
+                if (1 + Math.abs(map.getFeld(xposition + 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= attackrange) {
 
-            //Markieren des Feldes als bereits überprueft fuer andere Rekursionen
-            map.getFeld(xposition+1, yposition).setChecked(true);
-            
-            //Hinzufuegen des Feldes wenn gegnerischer Spieler auf Feld steht
-            if(map.getFeld(xposition+1, yposition).isOccupied()){
-                if(!map.getFeld(xposition+1, yposition).getOccupiedby().equals(this.playername)) attackr.add(new int[] { xposition + 1, yposition });
-            }
-            
-            attackrange2(xposition + 1, yposition, map, attackrange - (1+Math.abs(map.getFeld(xposition + 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),attackr);
-        }
-            }
-        
-        }
-        
-        
-        if(!(xPosition==xposition-1 && yPosition==yposition) && xposition-1>=0){
-            
-            if(!map.getFeld(xposition-1, yposition).isChecked() && !blockedterrainsattack.contains(map.getFeld(xposition-1, yposition).getTerrainName())){
-        if (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= attackrange) {
+                    //Markieren des Feldes als bereits überprueft fuer andere Rekursionen
+                    map.getFeld(xposition + 1, yposition).setChecked(true);
 
-            map.getFeld(xposition-1, yposition).setChecked(true);
-            
-            //Hinzufuegen des Feldes wenn gegnerischer Spieler auf Feld steht
-            if(map.getFeld(xposition-1, yposition).isOccupied()){
-                if(!map.getFeld(xposition-1, yposition).getOccupiedby().equals(this.playername)) attackr.add(new int[] { xposition - 1, yposition });
+                    //Hinzufuegen des Feldes wenn gegnerischer Spieler auf Feld steht
+                    if (map.getFeld(xposition + 1, yposition).isOccupied()) {
+                        if (!map.getFeld(xposition + 1, yposition).getOccupiedby().equals(this.playername)) {
+                            attackr.add(new int[]{xposition + 1, yposition});
+                        }
+                    }
+
+                    attackrange2(xposition + 1, yposition, map, attackrange - (1 + Math.abs(map.getFeld(xposition + 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight())), attackr);
+                }
             }
-            
-            attackrange2(xposition - 1, yposition, map, attackrange - (1+Math.abs(map.getFeld(xposition - 1, yposition).getHeight()-map.getFeld(xposition, yposition).getHeight())),attackr);
-        }
-        }
+
         }
 
-        if(!(xPosition==xposition && yPosition==yposition+1) && yposition+1<map.getHeight()){
-            
-            if(!map.getFeld(xposition, yposition+1).isChecked() && !blockedterrainsattack.contains(map.getFeld(xposition, yposition+1).getTerrainName())){
-        if (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= attackrange) {
+        if (!(xPosition == xposition - 1 && yPosition == yposition) && xposition - 1 >= 0) {
 
-            map.getFeld(xposition, yposition+1).setChecked(true);
-            
-            //Hinzufuegen des Feldes wenn gegnerischer Spieler auf Feld steht
-            if(map.getFeld(xposition, yposition+1).isOccupied()){
-                if(!map.getFeld(xposition, yposition+1).getOccupiedby().equals(this.playername)) attackr.add(new int[] { xposition, yposition+1});
+            if (!map.getFeld(xposition - 1, yposition).isChecked() && !blockedterrainsattack.contains(map.getFeld(xposition - 1, yposition).getTerrainName())) {
+                if (1 + Math.abs(map.getFeld(xposition - 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= attackrange) {
+
+                    map.getFeld(xposition - 1, yposition).setChecked(true);
+
+                    //Hinzufuegen des Feldes wenn gegnerischer Spieler auf Feld steht
+                    if (map.getFeld(xposition - 1, yposition).isOccupied()) {
+                        if (!map.getFeld(xposition - 1, yposition).getOccupiedby().equals(this.playername)) {
+                            attackr.add(new int[]{xposition - 1, yposition});
+                        }
+                    }
+
+                    attackrange2(xposition - 1, yposition, map, attackrange - (1 + Math.abs(map.getFeld(xposition - 1, yposition).getHeight() - map.getFeld(xposition, yposition).getHeight())), attackr);
+                }
             }
-            
-            attackrange2(xposition, yposition + 1, map, attackrange - (1+Math.abs(map.getFeld(xposition, yposition + 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),attackr);
-        }
-            }
-        
         }
 
-        
-         if(!(xPosition==xposition && yPosition==yposition-1) && yposition-1>=0){
-            
-            
-            if(!map.getFeld(xposition, yposition-1).isChecked() && !blockedterrainsattack.contains(map.getFeld(xposition, yposition-1).getTerrainName())){
-        if (1+Math.abs(map.getFeld(xposition + 1, yposition - 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= attackrange) {
+        if (!(xPosition == xposition && yPosition == yposition + 1) && yposition + 1 < map.getHeight()) {
 
-            map.getFeld(xposition, yposition-1).setChecked(true);
-            
-             //Hinzufuegen des Feldes wenn gegnerischer Spieler auf Feld steht
-            if(map.getFeld(xposition, yposition-1).isOccupied()){
-                if(!map.getFeld(xposition, yposition-1).getOccupiedby().equals(this.playername)) attackr.add(new int[] { xposition, yposition-1});
+            if (!map.getFeld(xposition, yposition + 1).isChecked() && !blockedterrainsattack.contains(map.getFeld(xposition, yposition + 1).getTerrainName())) {
+                if (1 + Math.abs(map.getFeld(xposition, yposition + 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= attackrange) {
+
+                    map.getFeld(xposition, yposition + 1).setChecked(true);
+
+                    //Hinzufuegen des Feldes wenn gegnerischer Spieler auf Feld steht
+                    if (map.getFeld(xposition, yposition + 1).isOccupied()) {
+                        if (!map.getFeld(xposition, yposition + 1).getOccupiedby().equals(this.playername)) {
+                            attackr.add(new int[]{xposition, yposition + 1});
+                        }
+                    }
+
+                    attackrange2(xposition, yposition + 1, map, attackrange - (1 + Math.abs(map.getFeld(xposition, yposition + 1).getHeight() - map.getFeld(xposition, yposition).getHeight())), attackr);
+                }
             }
-            
-            attackrange2(xposition, yposition - 1, map, attackrange - (1+Math.abs(map.getFeld(xposition, yposition - 1).getHeight()-map.getFeld(xposition, yposition).getHeight())),attackr);
+
         }
+
+        if (!(xPosition == xposition && yPosition == yposition - 1) && yposition - 1 >= 0) {
+
+            if (!map.getFeld(xposition, yposition - 1).isChecked() && !blockedterrainsattack.contains(map.getFeld(xposition, yposition - 1).getTerrainName())) {
+                if (1 + Math.abs(map.getFeld(xposition, yposition - 1).getHeight() - map.getFeld(xposition, yposition).getHeight()) <= attackrange) {
+
+                    map.getFeld(xposition, yposition - 1).setChecked(true);
+
+                    //Hinzufuegen des Feldes wenn gegnerischer Spieler auf Feld steht
+                    if (map.getFeld(xposition, yposition - 1).isOccupied()) {
+                        if (!map.getFeld(xposition, yposition - 1).getOccupiedby().equals(this.playername)) {
+                            attackr.add(new int[]{xposition, yposition - 1});
+                        }
+                    }
+
+                    attackrange2(xposition, yposition - 1, map, attackrange - (1 + Math.abs(map.getFeld(xposition, yposition - 1).getHeight() - map.getFeld(xposition, yposition).getHeight())), attackr);
+                }
+            }
+
         }
-            
-         }
         // Rueckgabe ist Arraylist aus Arrays, Laenge 2, in der alle Koordinatenduos der
         // belaufbaren Felder gespeichert sind, können doppelt vorkommen
         return attackr;
@@ -421,7 +497,7 @@ public abstract class Character implements Killable {
     }
 
     public List<int[]> getMovementrange() {
-        
+
         return movementrange;
     }
 
@@ -432,16 +508,15 @@ public abstract class Character implements Killable {
     public ArrayList<int[]> getAttackrange() {
         return attackrangel;
     }
-    
 
-    public Image getPicture() { 
+    public Image getPicture() {
         return curAnimation.getCurImg();
     }
 
     public boolean isFlipped() {
         return flipped;
     }
-    
+
     public abstract void move();
 
     public int getDisplacementX() {
@@ -452,8 +527,4 @@ public abstract class Character implements Killable {
         return displacementY;
     }
 
-
-    
 }
-
-
