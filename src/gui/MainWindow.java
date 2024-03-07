@@ -45,7 +45,7 @@ public class MainWindow {
         layer.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         // bar vor Spielfeld initialisieren
-        Bar b = new Bar(WIDTH, HEIGHT);
+        Bar b = new Bar(WIDTH, HEIGHT, m);
         // Element, Ebenenwert (je höher, desto weiter oben)
         layer.add(b, 2000);
         //CloseButton; schließt Bar

@@ -50,5 +50,10 @@ public class Warrior extends Fighter {
     public void blockedterrains() {
         this.getBlockedterrains().add("water");
     }
+    
+    @Override
+    public void blockedterrainsattack() {
+        this.getBlockedterrains().add("water");
+    }
 
 }

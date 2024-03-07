@@ -32,14 +32,22 @@ public class Theatre extends Building {
         // bei false, soll das Gebäude nicht gebaut werden
         return false;
     }
-    
-    //alle 3 Runden kann für ein Holz und ein Essen Theater gespielt werden -> Motivationsboost
-    public void theatreplay(Player player){
-        if (player.getWood() >= 1 && player.getFood() >= 1) {
-            // Kosten des theaters: 1 wood, 1 food
-            player.setWood(player.getWood() - 1);
-            player.setStone(player.getFood() - 1);
-            player.setMotivation(player.getMotivation() * this.motivationboost);
+
+    //alle 3 oder so, Runden kann für ein Holz und ein Essen Theater gespielt werden -> Motivationsboost
+    int zaehl = 0;
+
+    public void theatreplay(Player player) {
+        if (zaehl == 0) {
+            if (player.getWood() >= 1 && player.getFood() >= 1) {
+                // Kosten des theaters: 1 wood, 1 food
+                player.setWood(player.getWood() - 1);
+                player.setStone(player.getFood() - 1);
+                player.setMotivation(player.getMotivation() * this.motivationboost);
+            }
+        }
+        zaehl++;
+        if (zaehl == 3) {
+            zaehl = 0;
         }
     }
 

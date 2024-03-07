@@ -36,5 +36,10 @@ public class Builder extends Character {
     public void blockedterrains() {
         this.getBlockedterrains().add("water");
     }
+    
+    @Override
+    public void blockedterrainsattack() {
+        this.getBlockedterrains().add("water");
+    }
 
 }
