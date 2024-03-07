@@ -11,7 +11,7 @@ public abstract class Building {
 
     // Reichweitenvergrößerung des Landes
     protected int buildingrange;
-
+    
     // Credits fuer Gebaeude zum Bauen und spaeter pro Runde
     // int buildcredits;
     // int creditsperround;
@@ -38,6 +38,18 @@ public abstract class Building {
         return yPosition;
     }
     
+    public int getbuilding(Building build) {
+        if (build instanceof Lumberjack) {
+            return 1;
+        }
+        if (build instanceof Fishinghouse) {
+            return 2;
+        }
+        if (build instanceof Wheatfield) {
+            return 3;
+        }
+        return 0;
+    }
     
 
 }
