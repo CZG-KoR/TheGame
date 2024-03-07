@@ -96,9 +96,6 @@ public class MainWindow {
         layer.setLayer(AtTurn, 4000);
 
         
-        minimap = b.minimap();
-        layer.add(minimap,4000);
-        layer.setLayer(minimap, 4000);
 
         // ----------------------------------------------------//
         // Timer für Zeichnen der Map -> Zeichnung jetzt unabhängig von StatBar
