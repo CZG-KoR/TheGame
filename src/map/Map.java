@@ -131,7 +131,7 @@ public class Map {
             }
         }
         int[] startpoint = mountainstiles.get(r.nextInt(mountainstiles.size()));
-        double direction = r.nextDouble(2*Math.PI);
+        double direction = r.nextDouble()*2*Math.PI;
         
     }
     
