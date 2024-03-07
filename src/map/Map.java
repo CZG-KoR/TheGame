@@ -71,7 +71,8 @@ public class Map {
                     this.setT(x, y, "water");
                 if (n.getNoiseAt(x, y) > (float) 3.7)
                     this.setT(x, y, "forest");
-
+                if (n.getNoiseAt(x, y) > (float) 5.0)
+                    this.setT(x, y, "light_mountain");
             }
         }
 
@@ -81,25 +82,27 @@ public class Map {
          * Sodass kleine "Pfützen" wegfallen
          */
         
-        String[] LandTerrains = {"grass", "forest", "desert"};
+        String[] LandTerrains = {"grass", "forest", "desert", "light_mountains"};
+        String[] Ocean = {"water"};
+        String[] LowerTerrains = {"grass", "forest", "desert", "water"};
         
         Pruning("water", 1, LandTerrains, "desert");
-        
-        removeSingles();
         
         //Insel-Protokoll
         /*
             falls so viel wasser da ist >=1000 -> erstellung einer Insel & vergrößerung von Landmassen
         */
         
-        while(this.getAmountofTerrain("water") >= 1000){
-            IslandProtocoll();
-            System.out.println("A new island appeared!");
-        }
+        while(this.getAmountofTerrain("water") >= 1000) IslandProtocoll();
+        
+        
+        Pruning("forest", 2, Ocean, "grass");
+        Pruning("light_mountain", 1, LowerTerrains, "forest");
+        
+        removeSingles();
     }
 
-    public void IslandProtocoll(){
-
+    private void IslandProtocoll(){
         int[] quadraticWaterSum = {0, 0};
         int N = 0;
         for (int x = 0; x < width; x++) {
@@ -116,6 +119,22 @@ public class Map {
         createIsland(quadraticWaterSum[0], quadraticWaterSum[1], (float) 0.5);
     }
     
+    private void RandomValleyVector(){
+        Random r = new Random();
+        ArrayList<int[]> mountainstiles = new ArrayList<>();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if("light_mountain".equals(this.getTerrainName(x, y))){
+                    int[] a = {x ,y};
+                    mountainstiles.add(a);
+                }
+            }
+        }
+        int[] startpoint = mountainstiles.get(r.nextInt(mountainstiles.size()));
+        double direction = r.nextDouble()*2*Math.PI;
+        
+    }
+    
     private void createIsland(int xcoord, int ycoord, float range){
         Random r = new Random();
         spray(xcoord-25+r.nextInt(50), ycoord-25+r.nextInt(50), range, "forest");
@@ -127,6 +146,10 @@ public class Map {
         Pruning("grass", 4, forests, "forest");
         Pruning("desert", 4, forests, "desert");
     }
+    
+    /*
+        löscht alle toReplace Terrains auf der Map, sobald diese an limit oder mehr des triggerTerrains grenzen
+    */
     
     public void Pruning(String toReplace, int limit, String[] triggerTerrain, String toPlace){
         ArrayList<ArrayList<Integer>> tempList = new ArrayList<>();
@@ -220,6 +243,12 @@ public class Map {
         felder.get(xcoord).remove(ycoord);
         felder.get(xcoord).add(ycoord, new Feld(new Terrain(terrainName),0,xcoord,ycoord));
     }
+    
+    
+    /*
+    Sprays Terrain on the map
+    in round shape with random distribution
+    */
     
     private void spray(int xcoord, int ycoord, float range, String terrainName){
         Random r = new Random();

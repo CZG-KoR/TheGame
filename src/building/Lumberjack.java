@@ -47,7 +47,7 @@ public class Lumberjack extends Building {
                 }
             }
             if (zaehl == 6 & m.getFeld(forests[0], forests[1]).getTerrainName().equals("forest")) {
-                m.setT(forests[0], forests[1], "grass");
+                //m.setT(forests[0], forests[1], "grass");
                 if (forests(xPosition, yPosition, m) != null) {
                     //wenn rundrum auch wald, dann zaehl = 0 und das als neues bearbeitetes Feld betrachten
                     zaehl = 0;

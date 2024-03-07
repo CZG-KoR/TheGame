@@ -364,14 +364,5 @@ public class Bar extends JInternalFrame {
         Placement = i;
     }
 
-    public JPanel minimap() {
-        JPanel minimap = new JPanel();
-        minimap.setLocation(width - 50, 0);
-        minimap.setSize(50, 50);
-        minimap.setBackground(Color.orange);
-        minimap.setBorder(BorderFactory.createLineBorder(Color.black));
-        minimap.setVisible(true);
-        return minimap;
-    }
 
 }
