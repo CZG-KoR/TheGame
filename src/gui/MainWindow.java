@@ -44,6 +44,7 @@ public class MainWindow {
         JLayeredPane layer = new JLayeredPane();
         layer.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
+        int n = Tilemap.n;
         // bar vor Spielfeld initialisieren
         Bar b = new Bar(WIDTH, HEIGHT, m);
         // Element, Ebenenwert (je höher, desto weiter oben)
@@ -165,7 +166,7 @@ public class MainWindow {
                     t.restart();
                 }
             }
-        };
+        };  
         //Inputebene für KeyStrokes etc.
         JPanel inputPanel = (JPanel) window.getContentPane();
         window.getContentPane().add(layer);
