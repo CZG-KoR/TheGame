@@ -46,7 +46,7 @@ public class MainWindow {
 
         int n = Tilemap.n;
         // bar vor Spielfeld initialisieren
-        Bar b = new Bar(WIDTH, HEIGHT);
+        Bar b = new Bar(WIDTH, HEIGHT, m);
         // Element, Ebenenwert (je höher, desto weiter oben)
         layer.add(b, 2000);
         //CloseButton; schließt Bar
@@ -97,9 +97,6 @@ public class MainWindow {
         layer.setLayer(AtTurn, 4000);
 
         
-        minimap = b.minimap();
-        layer.add(minimap,4000);
-        layer.setLayer(minimap, 4000);
 
         // ----------------------------------------------------//
         // Timer für Zeichnen der Map -> Zeichnung jetzt unabhängig von StatBar

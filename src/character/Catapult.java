@@ -37,5 +37,9 @@ public class Catapult extends Fighter {
     public void blockedterrains() {
         this.getBlockedterrains().add("water");
     }
+    
+    @Override
+    public void blockedterrainsattack() {
+    }
 
 }

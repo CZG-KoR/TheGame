@@ -220,6 +220,9 @@ public class Player {
         this.motivation = motivation;
     }
     
+    public Building getBuilding2 (int i){
+        return buildings.get(i);
+    }
 
 
 }

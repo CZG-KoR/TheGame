@@ -36,4 +36,9 @@ public class Horsemen extends Fighter{
         this.getBlockedterrains().add("water");
     }
     
+    @Override
+    public void blockedterrainsattack() {
+        this.getBlockedterrains().add("water");
+    }
+    
 }
