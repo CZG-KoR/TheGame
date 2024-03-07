@@ -31,6 +31,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
     Map m;
     Bar b;
+    ResourceBar rb;
     Point startPoint;
     int camX = 0;
     int camY = 0;
@@ -48,6 +49,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         super();
         this.m = m;
         this.b = b;
+        this.rb = rb;
         this.setSize(new Dimension(width, height));
         this.setLocation(0, 0);
         this.setVisible(true);
@@ -132,6 +134,13 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
             }
         }
 
+
+        // resourceBar
+        g.drawImage(ResourceBar.getImageA()[0], 0*64, 0, null);
+        g.drawImage(ResourceBar.getImageA()[1], 1*64, 0, null);
+        g.drawImage(ResourceBar.getImageA()[1], 2*64, 0, null);
+        g.drawImage(ResourceBar.getImageA()[2], 3*64, 0, null);
+
         //g.drawImage(Toolkit.getDefaultToolkit().getImage("src/GUI/res/ResourceBar.png"), 0, 0, null);        
         //minimap
         for (int i = 0; i < m.getHeight(); i++) {
@@ -175,7 +184,6 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 }
             }
         }
-        
     }
 
     //Grenze für scroll

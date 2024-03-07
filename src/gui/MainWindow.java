@@ -57,8 +57,7 @@ public class MainWindow {
         open.setVisible(false);
         open.setEnabled(false);
         layer.add(open);
-        
-        
+           
         // Spielfeld
         Tilemap tM = new Tilemap(WIDTH, HEIGHT, m, b);
         layer.add(tM, 1000);
