@@ -51,14 +51,14 @@ public class Start {
         map.getFeld(25, 25).setOccupied(true);
         map.getFeld(25, 25).setOccupiedby("Spieler1");
         players[0].setCharacter(w);
-        Warrior v = new Warrior("Spieler1",25,27);
+        Warrior v = new Warrior("Spieler2",25,27);
         map.getFeld(25, 27).setOccupiedby("Spieler2");
         map.getFeld(25, 27).setOccupied(true);
         players[1].setCharacter(v);
         
         w.movementrange(w.getXPosition(), w.getYPosition(), map);
         w.attackrange(w.getXPosition(), w.getYPosition(), map);
-        
+        System.out.println(w.getAttackrange().size());
         for (int i = 0; i < w.getAttackrange().size(); i++) {
             System.out.println(w.getAttackrange().get(i)[0]+"  "+w.getAttackrange().get(i)[1]);
         }
