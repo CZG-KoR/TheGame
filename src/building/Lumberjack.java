@@ -8,7 +8,8 @@ public class Lumberjack extends Building {
     // Abbaugeschwindigkeit des Holzes in holz pro runde
     private int chopspeed;
 
-    public Lumberjack(int xPosition, int yPosition) {
+    public Lumberjack(String playername, int xPosition, int yPosition) {
+        super(playername); 
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.buildtime = 3;
