@@ -24,6 +24,9 @@ import map.Feld;
 import map.Player;
 import tools.MiscUtils;
 import character.*;
+import building.Building;
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
 
 
 public class Tilemap extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener{
@@ -66,30 +69,33 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
     //painComponent; erst schwarzer Hintergrund
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void paintComponent(Graphics g2) {
+        super.paintComponent(g2);
+        
+        Graphics2D g = (Graphics2D) g2;
 
         // Map zeichnen
         for (int i = 0; i < m.getWidth(); i++) {
             for (int j = 0; j < m.getHeight(); j++) {
 
-                g.drawImage(m.getTerrainPicture(i, j), n * i + camX, n * j + camY, null);
+                g.drawImage(m.getTerrainPicture(i, j), n * i + camX, n * j + camY,n,n, null);
                 
 
             }
         }
 
-        // Charaktere zeichnen
+        // Charaktere und Gebäude zeichnen
         for (int i = 0; i < players.length; i++) {
+            // Charaktere zeichnen
             for (int j = 0; j < players[i].getCharacterAmount(); j++) {
-
-                g.drawImage(players[i].getCharacterPicture(j), players[i].getCharacter(j).getXPosition() * n + camX, players[i].getCharacter(j).getYPosition() * n + camY, null);
-
                 character.Character c = players[i].getCharacter(j);
-
-
+                g.drawImage(players[i].getCharacterPicture(j), c.getXPosition() * n + camX + c.getDisplacementX(), c.getYPosition() * n + camY + c.getDisplacementY(),n,n, null);
             }
-
+            // Gebäude zeichnen
+            for (int j = 0; j < players[i].getBuildingAmount(); j++) {
+                building.Building b = players[i].getBuilding(j);
+                g.drawImage(players[i].getBuilding(j).getImage(b.getImageID()), b.getxPosition() * n + camX, camY + n * b.getyPosition(),n,n, null);
+            }   
         }
 
         // zeichne markierungen für von maus berührte felder
@@ -101,6 +107,28 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
             g.setColor(Color.magenta);
             g.drawRect(n * selectedFeld.getXPosition() + camX, n * selectedFeld.getYPosition() + camY, n, n);
 
+        }
+        
+        // zeichne icon von geplanter Truppe
+        
+        if (b.getPlacement() != null){
+                Image icon = b.getIconImage(b.getPlacement());
+                
+                // Icon zeichen (Transparenz setzen)
+                g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
+                
+                g.drawImage(icon, hoveredX * n + camX, hoveredY * n + camY, null);  
+                
+                g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+                
+                // Rahmen zeichen, zeigt ob platzierbar oder nicht
+                if (characterPlaceable()){
+                    g.setColor(Color.GREEN);
+                } else{
+                    g.setColor(Color.red);
+                }
+
+                g.drawRect(n * hoveredX + camX, n * hoveredY + camY, n, n);
         }
 
         // zeichne felder, die betreten werden können
@@ -164,16 +192,18 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                         break;
 
                     case "light_mountain":
+
                         g.setColor(Color.gray);
                         break;
                         
                     case "dark_mountain":
+                    
                         g.setColor(Color.gray);
                         break;
 
                     default:
                 }
-                int minimapscale =5;
+                int minimapscale =14;
                    
 
                 g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth()*minimapscale + j * minimapscale, i * minimapscale, minimapscale, minimapscale);
@@ -182,7 +212,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 for (int k = 0; k < Start.players.length; k++) {
                     if (Start.players[k].getBuilding(i, j) != null) {
                         g.setColor(Start.players[k].getColour());
-                        g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth()*minimapscale + j * minimapscale, i * minimapscale, minimapscale, minimapscale);
+                        g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth()*minimapscale + i * minimapscale, j * minimapscale, minimapscale, minimapscale);
                     }
                     
                 }
@@ -289,6 +319,14 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
             }
         }
     }
+    
+    public boolean characterPlaceable(){
+        if (selectedBuilding == null && selectedCharacter == null && Bar.getPlacement() != null){
+            return true;
+        }
+        
+        return false;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -304,13 +342,13 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         // angeklickte Gebäude finden
         setSelectedBuilding();
 
-        if (selectedBuilding == null && selectedCharacter == null && Bar.getPlacement() != 0) {
+        if (characterPlaceable()) {
             for (int i = 0; i < players.length; i++) {
                 if (players[i].isAtTurn()) {
                     switch (Bar.getPlacement()) {
-                        case 1:
+                        case "warrior":
                             players[i].setCharacter(new Warrior(players[i].getPlayername(), hoveredX, hoveredY));
-                            Bar.setPlacement(0);
+                            Bar.setPlacement(null);
                     }
                 }
             }
@@ -390,7 +428,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         int rotation = -e.getWheelRotation();
-        if(getN()<64 && rotation>0){
+        if(getN()<128 && rotation>0){
             this.setN(getN()+rotation);
             this.limitCamera();
         } else if(getN()>39 && rotation<0){

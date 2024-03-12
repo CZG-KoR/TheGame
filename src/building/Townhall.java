@@ -1,6 +1,8 @@
 package building;
 
+import java.awt.Image;
 import map.Player;
+import tools.MiscUtils;
 
 public class Townhall extends Building {
 
@@ -10,7 +12,8 @@ public class Townhall extends Building {
     int progress = 0;
     // maximales Level/Progress des Townhalls
     private int maxlevel = 2;
-
+    
+    
     String info = "Das hier ist das Herz deines Dorfs. Das Verbessern schaltet neue Gebäude frei."
             + " Man sollte das Rathaus mit Verteidigungsgebäuden umgeben, denn der Gegner kann dein Rathaus einnehmen!";
 
@@ -20,6 +23,8 @@ public class Townhall extends Building {
         this.yPosition = yPosition;
         buildingrange = 2;
         healthpoints = 100;
+        buildingimg = MiscUtils.loadImages("src/gui/res/building");
+        ImageID = 1;
     }
 
     public void upgrade(Player player) {

@@ -1,5 +1,6 @@
 package building;
 
+import java.awt.Image;
 import map.Player;
 
 public abstract class Building {
@@ -11,6 +12,11 @@ public abstract class Building {
 
     // Reichweitenvergrößerung des Landes
     protected int buildingrange;
+    
+    // Bild
+    Image[] buildingimg;
+    // welches Bild aus gui.res.building
+    int ImageID;
     
     // Credits fuer Gebaeude zum Bauen und spaeter pro Runde
     // int buildcredits;
@@ -51,5 +57,16 @@ public abstract class Building {
         return 0;
     }
     
-
+    public int getImageID(){
+        return ImageID;
+    }
+    
+    public Image getImage(int ID){
+        if (buildingimg.length == 0) {
+            System.out.println("Gebäudebilder nicht geladen!");
+            return null;
+        }
+        return buildingimg[ImageID];
+    }
+    
 }

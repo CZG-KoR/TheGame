@@ -15,6 +15,7 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static launcher.Start.players;
+import static gui.Tilemap.n;
 
 public abstract class Character implements Killable {
 
@@ -78,8 +79,8 @@ public abstract class Character implements Killable {
 
     public void playMoveAnimation(int xGoal, int yGoal) {
 
-        int deltaX = (xGoal - xPosition) * 64;
-        int deltaY = (yGoal - yPosition) * 64;
+        int deltaX = (xGoal - xPosition) * n;
+        int deltaY = (yGoal - yPosition) * n;
 
         displacementX -= deltaX;
         displacementY -= deltaY;
