@@ -45,6 +45,7 @@ public class Bar extends JInternalFrame {
         icons.put("fishinghouse", new ImageIcon("src/gui/res/building/fishinghouse.png"));
         icons.put("mine", new ImageIcon("src/gui/res/building/mine.png"));
         icons.put("townhall", new ImageIcon("src/gui/res/building/townhall.png"));
+        icons.put("windmill", new ImageIcon("src/gui/res/building/windmill.png"));
         
         icons.put("warrior", new ImageIcon("src/gui/res/warrior1/idle/idle_1.png"));
         icons.put("archer", new ImageIcon("src/gui/res/archer/idel/archer_idel1.png"));
@@ -190,6 +191,21 @@ public class Bar extends JInternalFrame {
             }
         });
         panelBuildings.add(wheatfieldButton);
+        
+        JButton windmillButton = new JButton();
+        windmillButton.setIcon(icons.get("windmill"));
+        windmillButton.setText("Windmill");
+        windmillButton.setVerticalTextPosition(JButton.BOTTOM);
+        windmillButton.setHorizontalTextPosition(JButton.CENTER);
+        windmillButton.setSize(new Dimension(200, 200));
+        windmillButton.setLocation(1400, 0);
+        windmillButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("warriorButton pressed");
+            }
+        });
+        panelBuildings.add(windmillButton);
 
         //Tab für die Auswahl von Truppen
         JPanel panelTroops = new JPanel();
