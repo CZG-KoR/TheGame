@@ -87,6 +87,7 @@ public class Map {
         String[] LandTerrains = {"grass", "forest", "desert", "light_mountains"};
         String[] Ocean = {"water"};
         String[] LowerTerrains = {"grass", "forest", "desert", "water"};
+        String[] PeakMountains = {"peak_mountain"};
         
         Pruning("water", 1, LandTerrains, "desert");
         
@@ -123,30 +124,18 @@ public class Map {
         quadraticWaterSum[1] = (int) Math.sqrt(quadraticWaterSum[1]/N);
         createIsland(quadraticWaterSum[0], quadraticWaterSum[1], (float) 0.5);
     }
-    
-    private void RandomValleyVector(){
-        Random r = new Random();
-        ArrayList<int[]> mountainstiles = new ArrayList<>();
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                if("light_mountain".equals(this.getTerrainName(x, y))){
-                    int[] a = {x ,y};
-                    mountainstiles.add(a);
-                }
-            }
-        }
-        int[] startpoint = mountainstiles.get(r.nextInt(mountainstiles.size()));
-        double direction = r.nextDouble()*2*Math.PI;
-        
-    }
+   
     
     private void addMountainPeaks(Random r) {
         double direction = -0.8;
-        int starty = 0;
+        int starty = -height;
         boolean place_peaks = true;
-        while (starty < 5*height){
+        while (starty < 2*height){
             for(int x = 0; x < width; x++){
-                int y = (int) (starty-Math.sin(direction)*x);
+                double wiggle = r.nextDouble(0.27, 0.29);
+                System.out.println(wiggle);
+                //wiggle = 0.28;
+                int y = (int) (starty-Math.sin(direction)*x+Math.sin(wiggle*x)*2.5);
                 if(y < 0 || y >= height){
                     continue;
                 }
@@ -156,6 +145,7 @@ public class Map {
                 if(place_peaks){
                     setT(x, y, "peak_mountain");
                     if(y < height-1) setT(x,y+1,"peak_mountain");
+                    if(y < 0) setT(x,y-1,"peak_mountain");
                 }
                 else{
                     setT(x, y, "forest");
@@ -181,7 +171,6 @@ public class Map {
         }
         setT(x, y, "dark_mountain");
         darkenAllMountain(x+1, y);
-        darkenAllMountain(x, y+1);
         darkenAllMountain(x, y-1);
         darkenAllMountain(x-1, y);
     }
