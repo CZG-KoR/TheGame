@@ -195,7 +195,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
                     default:
                 }
-                int minimapscale =5;
+                int minimapscale =14;
                    
 
                 g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth()*minimapscale + j * minimapscale, i * minimapscale, minimapscale, minimapscale);
@@ -204,7 +204,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 for (int k = 0; k < Start.players.length; k++) {
                     if (Start.players[k].getBuilding(i, j) != null) {
                         g.setColor(Start.players[k].getColour());
-                        g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth()*minimapscale + j * minimapscale, i * minimapscale, minimapscale, minimapscale);
+                        g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth()*minimapscale + i * minimapscale, j * minimapscale, minimapscale, minimapscale);
                     }
                     
                 }

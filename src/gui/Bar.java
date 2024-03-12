@@ -42,10 +42,15 @@ public class Bar extends JInternalFrame {
         // Icons laden
         icons = new HashMap<>();
         
-        icons.put("warrior", new ImageIcon("src/gui/res/warrior1/idle/idle_1.png"));
         icons.put("fishinghouse", new ImageIcon("src/gui/res/building/fishinghouse.png"));
+        icons.put("mine", new ImageIcon("src/gui/res/building/mine.png"));
+        icons.put("townhall", new ImageIcon("src/gui/res/building/townhall.png"));
+        icons.put("windmill", new ImageIcon("src/gui/res/building/windmill.png"));
+        
+        icons.put("warrior", new ImageIcon("src/gui/res/warrior1/idle/idle_1.png"));
+        icons.put("archer", new ImageIcon("src/gui/res/archer/idel/archer_idel1.png"));
         icons.put("", new ImageIcon("src/gui/res/"));
-        icons.put("", new ImageIcon("src/gui/res/"));
+        
         icons.put("empty", new ImageIcon("src/gui/res/"));
         
         
@@ -113,7 +118,7 @@ public class Bar extends JInternalFrame {
         panelBuildings.add(lumberjackButton);
 
         JButton mineButton = new JButton();
-        mineButton.setIcon(icons.get("empty"));
+        mineButton.setIcon(icons.get("mine"));
         mineButton.setText("Mine");
         mineButton.setVerticalTextPosition(JButton.BOTTOM);
         mineButton.setHorizontalTextPosition(JButton.CENTER);
@@ -158,7 +163,7 @@ public class Bar extends JInternalFrame {
         panelBuildings.add(tower);
 
         JButton townhallButton = new JButton();
-        townhallButton.setIcon(icons.get("empty"));
+        townhallButton.setIcon(icons.get("townhall"));
         townhallButton.setText("Townhall");
         townhallButton.setVerticalTextPosition(JButton.BOTTOM);
         townhallButton.setHorizontalTextPosition(JButton.CENTER);
@@ -186,6 +191,21 @@ public class Bar extends JInternalFrame {
             }
         });
         panelBuildings.add(wheatfieldButton);
+        
+        JButton windmillButton = new JButton();
+        windmillButton.setIcon(icons.get("windmill"));
+        windmillButton.setText("Windmill");
+        windmillButton.setVerticalTextPosition(JButton.BOTTOM);
+        windmillButton.setHorizontalTextPosition(JButton.CENTER);
+        windmillButton.setSize(new Dimension(200, 200));
+        windmillButton.setLocation(1400, 0);
+        windmillButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("warriorButton pressed");
+            }
+        });
+        panelBuildings.add(windmillButton);
 
         //Tab für die Auswahl von Truppen
         JPanel panelTroops = new JPanel();
@@ -209,7 +229,7 @@ public class Bar extends JInternalFrame {
         panelTroops.add(warriorButton);
 
         JButton archer = new JButton();
-        archer.setIcon(icons.get("empty"));
+        archer.setIcon(icons.get("archer"));
         archer.setText("archer");
         archer.setVerticalTextPosition(JButton.BOTTOM);
         archer.setHorizontalTextPosition(JButton.CENTER);
