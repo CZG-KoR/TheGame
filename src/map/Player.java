@@ -161,7 +161,7 @@ public class Player {
     public static void checkElements(Player p) {
         // check ob noch alle Gebäude "leben"
         for (int i = 0; i < p.characters.size(); i++) {
-            if (!p.characters.get(i).getalive()) {
+            if (!p.characters.get(i).getalive() && !p.characters.get(i).isCurAnimationPlaying()) {
                 p.characters.remove(i);
             }
         }
