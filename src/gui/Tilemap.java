@@ -25,6 +25,8 @@ import map.Player;
 import tools.MiscUtils;
 import character.*;
 import building.Building;
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
 
 
 public class Tilemap extends JPanel implements MouseListener, MouseMotionListener, MouseWheelListener{
@@ -67,8 +69,10 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
     //painComponent; erst schwarzer Hintergrund
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void paintComponent(Graphics g2) {
+        super.paintComponent(g2);
+        
+        Graphics2D g = (Graphics2D) g2;
 
         // Map zeichnen
         for (int i = 0; i < m.getWidth(); i++) {
@@ -103,6 +107,28 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
             g.setColor(Color.magenta);
             g.drawRect(n * selectedFeld.getXPosition() + camX, n * selectedFeld.getYPosition() + camY, n, n);
 
+        }
+        
+        // zeichne icon von geplanter Truppe
+        
+        if (b.getPlacement() != null){
+                Image icon = b.getIconImage(b.getPlacement());
+                
+                // Icon zeichen (Transparenz setzen)
+                g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
+                
+                g.drawImage(icon, hoveredX * n + camX, hoveredY * n + camY, null);  
+                
+                g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+                
+                // Rahmen zeichen, zeigt ob platzierbar oder nicht
+                if (characterPlaceable()){
+                    g.setColor(Color.GREEN);
+                } else{
+                    g.setColor(Color.red);
+                }
+
+                g.drawRect(n * hoveredX + camX, n * hoveredY + camY, n, n);
         }
 
         // zeichne felder, die betreten werden können
@@ -165,13 +191,13 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                         g.setColor(Color.blue);
                         break;
 
-                    case "mountain":
+                    case "light_mountain":
                         g.setColor(Color.gray);
                         break;
 
                     default:
                 }
-                int minimapscale =5;
+                int minimapscale =14;
                    
 
                 g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth()*minimapscale + j * minimapscale, i * minimapscale, minimapscale, minimapscale);
@@ -180,7 +206,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 for (int k = 0; k < Start.players.length; k++) {
                     if (Start.players[k].getBuilding(i, j) != null) {
                         g.setColor(Start.players[k].getColour());
-                        g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth()*minimapscale + j * minimapscale, i * minimapscale, minimapscale, minimapscale);
+                        g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth()*minimapscale + i * minimapscale, j * minimapscale, minimapscale, minimapscale);
                     }
                     
                 }
@@ -287,6 +313,14 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
             }
         }
     }
+    
+    public boolean characterPlaceable(){
+        if (selectedBuilding == null && selectedCharacter == null && Bar.getPlacement() != null){
+            return true;
+        }
+        
+        return false;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -302,13 +336,13 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         // angeklickte Gebäude finden
         setSelectedBuilding();
 
-        if (selectedBuilding == null && selectedCharacter == null && Bar.getPlacement() != 0) {
+        if (characterPlaceable()) {
             for (int i = 0; i < players.length; i++) {
                 if (players[i].isAtTurn()) {
                     switch (Bar.getPlacement()) {
-                        case 1:
+                        case "warrior":
                             players[i].setCharacter(new Warrior(players[i].getPlayername(), hoveredX, hoveredY));
-                            Bar.setPlacement(0);
+                            Bar.setPlacement(null);
                     }
                 }
             }
