@@ -8,7 +8,8 @@ public class Theatre extends Building {
     // gibt Motivationsboost durch Unterhaltung
     protected double motivationboost;
 
-    public Theatre(int xPosition, int yPosition) {
+    public Theatre(String playername, int xPosition, int yPosition) {
+        super(playername); 
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.buildtime = 2;
