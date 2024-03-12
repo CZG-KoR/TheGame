@@ -85,5 +85,9 @@ public class Animation {
         
         
     }
+
+    public boolean isIsPlaying() {
+        return isPlaying;
+    }
     
 }

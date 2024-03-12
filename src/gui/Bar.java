@@ -245,6 +245,11 @@ public class Bar extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 // Runden Button Turn End noch init
                 // Das in ActionPerformed vom ButtonTurnEnd übernehmen
+                Tilemap.setSelectedFeld(null);
+                Tilemap.setSelectedCharacter(null);
+                Tilemap.setSelectedBuilding(null);
+                Bar.setPlacement(0);
+                
                 Player[] players = Start.getPlayers();
                 for (int i = 0; i < players.length; i++) {
                     if (players[i].isAtTurn()) {
