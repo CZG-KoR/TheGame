@@ -49,6 +49,7 @@ public class MainWindow {
         Bar b = new Bar(WIDTH, HEIGHT, m);
         // Element, Ebenenwert (je höher, desto weiter oben)
         layer.add(b, 2000);
+        layer.add(b.foodAmount, 2500);
         //CloseButton; schließt Bar
         JButton close = b.closeBarButton();
         layer.add(close);
