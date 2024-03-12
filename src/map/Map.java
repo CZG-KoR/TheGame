@@ -71,7 +71,7 @@ public class Map {
                     this.setT(x, y, "desert");
                 if (n.getNoiseAt(x, y) < (float) 0.48)
                     this.setT(x, y, "water");
-                if (n.getNoiseAt(x, y) > (float) 3.7)
+                if (n.getNoiseAt(x, y) > (float) 4)
                     this.setT(x, y, "forest");
                 if (n.getNoiseAt(x, y) > (float) 5.5)
                     this.setT(x, y, "light_mountain");
@@ -101,9 +101,10 @@ public class Map {
         Pruning("forest", 2, Ocean, "grass");
         Pruning("light_mountain", 1, LowerTerrains, "forest");
         
+        addMountainPeaks(r);
+        
         removeSingles();
         
-        addMountainPeaks(r);
     }
 
     private void IslandProtocoll(){
@@ -140,19 +141,30 @@ public class Map {
     }
     
     private void addMountainPeaks(Random r) {
-        double direction = 1;
+        double direction = -0.8;
         int starty = 0;
-        while (starty < height){
+        boolean place_peaks = true;
+        while (starty < 5*height){
             for(int x = 0; x < width; x++){
-                int y = (int) (starty+Math.sin(direction)*x);
+                int y = (int) (starty-Math.sin(direction)*x);
                 if(y < 0 || y >= height){
-                    break;
+                    continue;
                 }
-                if("light_mountain".equals(this.getTerrainName(x, y))){
+                if (!"light_mountain".equals(this.getTerrainName(x, y))){
+                    continue;
+                }
+                if(place_peaks){
                     setT(x, y, "peak_mountain");
+                    if(y < 49) setT(x,y+1,"peak_mountain");
+                }
+                else{
+                    setT(x, y, "forest");
+                    if(y<49) setT(x, y+1, "forest");
+                    if(y>=1) setT(x, y-1, "forest");
                 }
             }
             starty += r.nextInt(5, 10);
+            place_peaks = !place_peaks;
         }
     }
     
