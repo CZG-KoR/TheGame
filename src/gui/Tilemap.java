@@ -1,5 +1,6 @@
 package gui;
 
+import building.*;
 import building.Building;
 import java.awt.Color;
 import map.Map;
@@ -84,6 +85,18 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
             for (int j = 0; j < players[i].getCharacterAmount(); j++) {
 
                 g.drawImage(players[i].getCharacterPicture(j), players[i].getCharacter(j).getXPosition() * n + camX, players[i].getCharacter(j).getYPosition() * n + camY, null);
+
+                character.Character c = players[i].getCharacter(j);
+
+
+            }
+
+        }
+        // Gebäude zeichnen
+        for (int i = 0; i < players.length; i++) {
+            for (int j = 0; j < players[i].getBuildingAmount(); j++) {
+
+                g.drawImage(players[i].getBuildingPicture(j), players[i].getBuilding(j).getxPosition() * n + camX, players[i].getBuilding(j).getyPosition() * n + camY, null);
 
                 character.Character c = players[i].getCharacter(j);
 
@@ -300,18 +313,68 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         // angeklickte Gebäude finden
         setSelectedBuilding();
 
+        // etwas platzieren
+        placeSelected();
+
+    }
+    
+    public void placeSelected(){
         if (selectedBuilding == null && selectedCharacter == null && Bar.getPlacement() != 0) {
             for (int i = 0; i < players.length; i++) {
                 if (players[i].isAtTurn()) {
                     switch (Bar.getPlacement()) {
                         case 1:
+                            players[i].setBuilding(new Barracks(players[i].getPlayername(), hoveredX, hoveredY));
+                            Bar.setPlacement(0);
+                            break;
+                        case 2:
+                            players[i].setBuilding(new Fishinghouse(players[i].getPlayername(), hoveredX, hoveredY));
+                            Bar.setPlacement(0);
+                            break;
+                        case 3:
+                            players[i].setBuilding(new Lumberjack(players[i].getPlayername(), hoveredX, hoveredY));
+                            Bar.setPlacement(0);
+                            break;
+                        case 4:
+                            players[i].setBuilding(new Mine(players[i].getPlayername(), hoveredX, hoveredY, m));
+                            Bar.setPlacement(0);
+                            break;
+                        case 5:
+                            players[i].setBuilding(new Theatre(players[i].getPlayername(), hoveredX, hoveredY));
+                            Bar.setPlacement(0);
+                            break;
+                        case 6:
+                            players[i].setBuilding(new Tower(players[i].getPlayername(), hoveredX, hoveredY));
+                            Bar.setPlacement(0);
+                            break;
+                        case 7:
+                            players[i].setBuilding(new Townhall(players[i].getPlayername(), hoveredX, hoveredY));
+                            Bar.setPlacement(0);
+                            break;
+                        case 8:
+                            players[i].setBuilding(new Wheatfield(players[i].getPlayername(), hoveredX, hoveredY));
+                            Bar.setPlacement(0);
+                            break;
+                        case 9:
                             players[i].setCharacter(new Warrior(players[i].getPlayername(), hoveredX, hoveredY));
                             Bar.setPlacement(0);
+                            break;
+                        case 10:
+                            players[i].setCharacter(new Archer(players[i].getPlayername(), hoveredX, hoveredY));
+                            Bar.setPlacement(0);
+                            break;
+                        case 11:
+                            players[i].setCharacter(new Catapult(players[i].getPlayername(), hoveredX, hoveredY));
+                            Bar.setPlacement(0);
+                            break;
+                        case 12:
+                            players[i].setCharacter(new Horsemen(players[i].getPlayername(), hoveredX, hoveredY));
+                            Bar.setPlacement(0);break;
+                        default:
                     }
                 }
             }
         }
-
     }
 
     @Override
