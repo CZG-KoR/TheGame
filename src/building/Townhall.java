@@ -1,6 +1,7 @@
 package building;
 
 import map.Player;
+import tools.MiscUtils;
 
 public class Townhall extends Building {
 
@@ -14,12 +15,15 @@ public class Townhall extends Building {
     String info = "Das hier ist das Herz deines Dorfs. Das Verbessern schaltet neue Gebäude frei."
             + " Man sollte das Rathaus mit Verteidigungsgebäuden umgeben, denn der Gegner kann dein Rathaus einnehmen!";
 
-    public Townhall(int xPosition, int yPosition) {
+    public Townhall(String playername, int xPosition, int yPosition) {
+        super(playername); 
         buildtime = 0;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         buildingrange = 2;
         healthpoints = 100;
+        
+        picture = MiscUtils.loadImages("src/gui/res/building")[1];
     }
 
     public void upgrade(Player player) {
