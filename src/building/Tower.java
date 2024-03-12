@@ -10,7 +10,8 @@ public class Tower extends Building {
     //automatisches angreifen mit bestimmten schaden
     private int attackingstrength;
 
-    public Tower(int xPosition, int yPosition) {
+    public Tower(String playername, int xPosition, int yPosition) {
+        super(playername); 
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.buildtime = 4;

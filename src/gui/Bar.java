@@ -27,7 +27,7 @@ import map.Map;
 public class Bar extends JInternalFrame {
 
     int width, height;
-    static String Placement = null;
+    static int Placement = 0;
     HashMap<String, ImageIcon> icons;
     JLabel foodAmount = new JLabel();
     JLabel woodAmount = new JLabel();
@@ -111,6 +111,7 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
+                Placement = 2;
             }
         });
         panelBuildings.add(fishingButton);
@@ -126,6 +127,7 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
+                Placement = 3;
             }
         });
         panelBuildings.add(lumberjackButton);
@@ -141,6 +143,7 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
+                Placement = 4;
             }
         });
         panelBuildings.add(mineButton);
@@ -156,6 +159,7 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
+                Placement = 5;
             }
         });
         panelBuildings.add(theatreButton);
@@ -171,6 +175,7 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
+                Placement = 6;
             }
         });
         panelBuildings.add(tower);
@@ -186,6 +191,7 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
+                Placement = 7;
             }
         });
         panelBuildings.add(townhallButton);
@@ -201,6 +207,7 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
+                Placement = 8;
             }
         });
         panelBuildings.add(wheatfieldButton);
@@ -236,7 +243,7 @@ public class Bar extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
 
                 System.out.println("warriorButton pressed");
-                Placement = "warrior";
+                Placement = 9;
             }
         });
         panelTroops.add(warriorButton);
@@ -252,6 +259,7 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("archer pressed");
+                Placement = 10;
             }
         });
         panelTroops.add(archer);
@@ -267,6 +275,7 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("catapult pressed");
+                Placement = 11;
             }
         });
         panelTroops.add(catapult);
@@ -282,6 +291,7 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("horse pressed");
+                Placement = 12;
             }
         });
         panelTroops.add(horse);
@@ -316,7 +326,7 @@ public class Bar extends JInternalFrame {
                             MainWindow.AtTurn.setBackground(players[0].getColour());
                             //recourcen auffuellen
                             for (int j = 0; j < players[0].getBuildingAmount(); j++) {
-                                Building build = players[0].getBuilding2(j);
+                                Building build = players[0].getBuilding(j);
                                 switch (build.getbuilding(build)) {
                                     case 1:
                                         Lumberjack lumb = (Lumberjack) (build);
@@ -341,7 +351,7 @@ public class Bar extends JInternalFrame {
                             MainWindow.AtTurn.setBackground(players[i + 1].getColour());
                             //recourcen auffuellen
                             for (int j = 0; j < players[1].getBuildingAmount(); j++) {
-                                Building build = players[0].getBuilding2(j);
+                                Building build = players[0].getBuilding(j);
                                 switch (build.getbuilding(build)) {
                                     case 1:
                                         Lumberjack lumb = (Lumberjack) (build);

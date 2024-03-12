@@ -1,6 +1,7 @@
 package building;
 
 import map.Player;
+import tools.MiscUtils;
 
 public class Wheatfield extends Building {
 
@@ -11,13 +12,17 @@ public class Wheatfield extends Building {
     //maximale cooldown-Zeit
     private int maxcooldowntime = 4;
 
-    public Wheatfield(int xPosition, int yPosition) {
+    public Wheatfield(String playername, int xPosition, int yPosition) {
+        super(playername); 
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.buildtime = 2;
         this.healthpoints = 2;
         this.buildingrange = 2;
         this.motivationboost = 1.0;
+        
+        
+        picture = MiscUtils.loadImages("src/gui/res/building/")[2];
 
         // this.info="Ein endloses Weizenfeld erstreckt sich vor dir, goldene Ähren wiegen sich im Wind. Zwischen den Reihen verlaufen Pfade, auf denen Bauern die reiche Ernte einbringen. Die Arbeit hier ist nicht nur körperlich, sondern stärkt auch den Zusammenhalt. Die erfolgreiche Ernte gibt den Truppen einen spürbaren Motivationsboost, da sie nicht nur Nahrung, sondern auch ein Gefühl von Gemeinschaft und Kampfgeist gewinnen.";
         // this.TeamId=TeamId;

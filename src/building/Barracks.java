@@ -14,7 +14,8 @@ import character.Warrior;
  * @author guest-ayeskk
  */
 public class Barracks extends Building{
-    public Barracks(int xPosition, int yPosition) {
+    public Barracks(String playername, int xPosition, int yPosition) {
+    super(playername);
     this.xPosition=xPosition;
     this.yPosition=yPosition;
     this.buildtime=2;

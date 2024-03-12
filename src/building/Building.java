@@ -13,10 +13,15 @@ public abstract class Building {
     // Reichweitenvergrößerung des Landes
     protected int buildingrange;
     
+    private String playername;
+    
+    Image picture;
+
     // Bild
     Image[] buildingimg;
     // welches Bild aus gui.res.building
     int ImageID;
+
     
     // Credits fuer Gebaeude zum Bauen und spaeter pro Runde
     // int buildcredits;
@@ -57,6 +62,15 @@ public abstract class Building {
         return 0;
     }
     
+
+    protected Building(String playername) {
+        this.playername = playername;
+    }
+
+    public Image getPicture(){
+        return picture;
+    }
+
     public int getImageID(){
         return ImageID;
     }
@@ -68,5 +82,5 @@ public abstract class Building {
         }
         return buildingimg[ImageID];
     }
-    
+
 }

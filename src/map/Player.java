@@ -61,7 +61,7 @@ public class Player {
 
 
         System.out.println("Position fuer Rathaus muss noch erstellt werden");
-        buildings.add(new Townhall(0, 0));
+        buildings.add(new Townhall(playername, 0, 0));
     }
     
     public Character getCharacter(int x, int y){
@@ -210,6 +210,10 @@ public class Player {
     public void setCharacter(Character c){
         characters.add(c);
     }
+    
+    public void setBuilding(Building b){
+        buildings.add(b);
+    }
 
 
     public void setCharacterMovementAllowed(int i){
@@ -220,8 +224,12 @@ public class Player {
         this.motivation = motivation;
     }
     
-    public Building getBuilding2 (int i){
+    public Building getBuilding(int i){
         return buildings.get(i);
+    }
+    
+    public Image getBuildingPicture(int i){
+        return buildings.get(i).getPicture();
     }
 
 
