@@ -9,13 +9,11 @@ public class Feld {
 
     // Besetzt?
     private boolean occupied;
-    
-    //wurde Feld bereits gecheckt
-    private boolean checked;
 
     // möglich da hin zu bewegen, nachdem Figur angeklickt wurde
     private boolean highlighted;
     private String occupiedby;
+    private int movement;
 
     // Position
     private int xPosition;
@@ -27,8 +25,8 @@ public class Feld {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         occupied = false;
-        checked=false;
         occupiedby=null;
+        movement=0;
     }
 
     public Terrain getT() {
@@ -45,14 +43,6 @@ public class Feld {
 
     public boolean isOccupied() {
         return occupied;
-    }
-
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
     }
 
     public String getOccupiedby() {
@@ -85,5 +75,15 @@ public class Feld {
     public void setT(String terrainName) {
         this.t = new Terrain(terrainName);
     }
+
+    public int getMovement() {
+        return movement;
+    }
+
+    public void setMovement(int movement) {
+        this.movement = movement;
+    }
+    
+    
 
 }
