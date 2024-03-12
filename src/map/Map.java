@@ -44,6 +44,8 @@ public class Map {
     }
 
     public void generateMap() {
+        Random r = new Random();
+        
         this.felder = new ArrayList<>();
         Terrain t = new Terrain("grass");
 
@@ -61,7 +63,7 @@ public class Map {
             this.felder.add(zeile);
         }
 
-        Noise n = new Noise(null, 10, width, height);
+        Noise n = new Noise(r, 10, width, height);
         n.initialise();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -69,9 +71,9 @@ public class Map {
                     this.setT(x, y, "desert");
                 if (n.getNoiseAt(x, y) < (float) 0.48)
                     this.setT(x, y, "water");
-                if (n.getNoiseAt(x, y) > (float) 3.7)
+                if (n.getNoiseAt(x, y) > (float) 4)
                     this.setT(x, y, "forest");
-                if (n.getNoiseAt(x, y) > (float) 5.0)
+                if (n.getNoiseAt(x, y) > (float) 5.5)
                     this.setT(x, y, "light_mountain");
             }
         }
@@ -85,6 +87,7 @@ public class Map {
         String[] LandTerrains = {"grass", "forest", "desert", "light_mountains"};
         String[] Ocean = {"water"};
         String[] LowerTerrains = {"grass", "forest", "desert", "water"};
+        String[] PeakMountains = {"peak_mountain"};
         
         Pruning("water", 1, LandTerrains, "desert");
         
@@ -99,7 +102,10 @@ public class Map {
         Pruning("forest", 2, Ocean, "grass");
         Pruning("light_mountain", 1, LowerTerrains, "forest");
         
+        addMountainPeaks(r);
+        
         removeSingles();
+        
     }
 
     private void IslandProtocoll(){
@@ -118,21 +124,55 @@ public class Map {
         quadraticWaterSum[1] = (int) Math.sqrt(quadraticWaterSum[1]/N);
         createIsland(quadraticWaterSum[0], quadraticWaterSum[1], (float) 0.5);
     }
+   
     
-    private void RandomValleyVector(){
-        Random r = new Random();
-        ArrayList<int[]> mountainstiles = new ArrayList<>();
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                if("light_mountain".equals(this.getTerrainName(x, y))){
-                    int[] a = {x ,y};
-                    mountainstiles.add(a);
+    private void addMountainPeaks(Random r) {
+        double direction = -0.8;
+        int starty = -height;
+        boolean place_peaks = true;
+        while (starty < 2*height){
+            for(int x = 0; x < width; x++){
+                double wiggle = r.nextDouble(0.27, 0.29);
+                System.out.println(wiggle);
+                //wiggle = 0.28;
+                int y = (int) (starty-Math.sin(direction)*x+Math.sin(wiggle*x)*2.5);
+                if(y < 0 || y >= height){
+                    continue;
+                }
+                if (!"light_mountain".equals(this.getTerrainName(x, y))){
+                    continue;
+                }
+                if(place_peaks){
+                    setT(x, y, "peak_mountain");
+                    if(y < height-1) setT(x,y+1,"peak_mountain");
+                    if(y < 0) setT(x,y-1,"peak_mountain");
+                }
+                else{
+                    setT(x, y, "forest");
+                    if(y<height-1) setT(x, y+1, "forest");
+                    if(y>=1) setT(x, y-1, "forest");
                 }
             }
+            starty += r.nextInt(5, 10);
+            place_peaks = !place_peaks;
         }
-        int[] startpoint = mountainstiles.get(r.nextInt(mountainstiles.size()));
-        double direction = r.nextDouble()*2*Math.PI;
         
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height-1; y++) {
+                if(getTerrainName(x, y).equals("peak_mountain"))
+                darkenAllMountain(x, y-1);
+            }
+        }
+    }
+    
+    private void darkenAllMountain(int x, int y){
+        if(x<0 || x>width-1 || y<0 || y>height-1 || !getTerrainName(x, y).equals("light_mountain")){
+            return;
+        }
+        setT(x, y, "dark_mountain");
+        darkenAllMountain(x+1, y);
+        darkenAllMountain(x, y-1);
+        darkenAllMountain(x-1, y);
     }
     
     private void createIsland(int xcoord, int ycoord, float range){

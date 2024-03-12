@@ -55,6 +55,11 @@ public class Terrain {
                 this.terrainpicture = imageA[7];
                 break;
                 
+            case "dark_mountain":
+                this.rangemultiplier = 1;
+                this.terrainpicture = imageA[8];
+                break;
+            
             default:
                 throw new AssertionError();
         }

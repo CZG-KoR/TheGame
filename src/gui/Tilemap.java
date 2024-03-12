@@ -192,6 +192,12 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                         break;
 
                     case "light_mountain":
+
+                        g.setColor(Color.gray);
+                        break;
+                        
+                    case "dark_mountain":
+                    
                         g.setColor(Color.gray);
                         break;
 
