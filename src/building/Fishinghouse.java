@@ -2,12 +2,14 @@ package building;
 
 import map.Map;
 import map.Player;
+import tools.MiscUtils;
 
 public class Fishinghouse extends Building {
     // wie lumberjack
     private int fishingspeed;
 
-    public Fishinghouse(int xPosition, int yPosition) {
+    public Fishinghouse(String playername, int xPosition, int yPosition) {
+        super(playername);
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.buildtime = 4;
@@ -15,6 +17,8 @@ public class Fishinghouse extends Building {
         this.buildingrange = 3;
         this.buildcost[0] = 5;
         this.fishingspeed = 2;
+        
+        picture = MiscUtils.loadImages("src/gui/res/building")[0];
     }
 
     public boolean buildable(Player player, Map m) {
