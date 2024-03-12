@@ -24,6 +24,7 @@ import map.Feld;
 import map.Player;
 import tools.MiscUtils;
 import character.*;
+import building.Building;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 
@@ -77,23 +78,24 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         for (int i = 0; i < m.getWidth(); i++) {
             for (int j = 0; j < m.getHeight(); j++) {
 
-                g.drawImage(m.getTerrainPicture(i, j), n * i + camX, n * j + camY, null);
+                g.drawImage(m.getTerrainPicture(i, j), n * i + camX, n * j + camY,n,n, null);
                 
 
             }
         }
 
-        // Charaktere zeichnen
+        // Charaktere und Gebäude zeichnen
         for (int i = 0; i < players.length; i++) {
+            // Charaktere zeichnen
             for (int j = 0; j < players[i].getCharacterAmount(); j++) {
-
-                g.drawImage(players[i].getCharacterPicture(j), players[i].getCharacter(j).getXPosition() * n + camX, players[i].getCharacter(j).getYPosition() * n + camY, null);
-
                 character.Character c = players[i].getCharacter(j);
-
-
+                g.drawImage(players[i].getCharacterPicture(j), c.getXPosition() * n + camX + c.getDisplacementX(), c.getYPosition() * n + camY + c.getDisplacementY(),n,n, null);
             }
-
+            // Gebäude zeichnen
+            for (int j = 0; j < players[i].getBuildingAmount(); j++) {
+                building.Building b = players[i].getBuilding(j);
+                g.drawImage(players[i].getBuilding(j).getImage(b.getImageID()), b.getxPosition() * n + camX, camY + n * b.getyPosition(),n,n, null);
+            }   
         }
 
         // zeichne markierungen für von maus berührte felder
@@ -420,7 +422,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         int rotation = -e.getWheelRotation();
-        if(getN()<64 && rotation>0){
+        if(getN()<128 && rotation>0){
             this.setN(getN()+rotation);
             this.limitCamera();
         } else if(getN()>39 && rotation<0){
