@@ -2,12 +2,14 @@ package building;
 
 import map.Map;
 import map.Player;
+import tools.MiscUtils;
 
 public class Mine extends Building {
     private int miningspeed;
 
     //benoetigt map
-    public Mine(int xPosition, int yPosition, Map m) {
+    public Mine(String playername, int xPosition, int yPosition, Map m) {
+        super(playername);
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.buildtime = 2;
