@@ -14,12 +14,12 @@ public class Warrior extends Fighter {
         healthpoints = 10;
         movement = 2;
         motivation = 1;
-        attackrating = 2;
+        attackrating = 10;
         attackrange = 1;
         
         // animationen hinzufügen
         animationen.put("idle", new Animation(MiscUtils.loadImages("src/gui/res/kaempfer1/idle"), 300));
-        animationen.put("dead", new Animation(MiscUtils.loadImages("src/gui/res/kaempfer1/dead"), 1000));
+        animationen.put("dead", new Animation(MiscUtils.loadImages("src/gui/res/kaempfer1/dead"), 500));
         animationen.put("walk", new Animation(MiscUtils.loadImages("src/gui/res/kaempfer1/walk"), 300));
         
         // curAnimation setzen und starten
