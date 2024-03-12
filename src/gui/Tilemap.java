@@ -38,9 +38,9 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
     int hoveredX = 0;
     int hoveredY = 0;
 
-    Feld selectedFeld;
-    character.Character selectedCharacter;
-    Building selectedBuilding;
+    static Feld selectedFeld;
+    static character.Character selectedCharacter;
+    static Building selectedBuilding;
 
     /**
      * @param m
@@ -313,6 +313,32 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         }
 
     }
+
+    public Feld getSelectedFeld() {
+        return selectedFeld;
+    }
+
+    public static void setSelectedFeld(Feld selectedFeld1) {
+        selectedFeld = selectedFeld1;
+    }
+
+    public character.Character getSelectedCharacter() {
+        return selectedCharacter;
+    }
+
+    public static void setSelectedCharacter(character.Character selectedCharacter) {
+        selectedCharacter = selectedCharacter;
+    }
+
+    public Building getSelectedBuilding() {
+        return selectedBuilding;
+    }
+
+    public static void setSelectedBuilding(Building selectedBuilding) {
+        selectedBuilding = selectedBuilding;
+    }
+    
+    
 
     @Override
     public void mousePressed(MouseEvent e) {
