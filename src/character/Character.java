@@ -75,6 +75,17 @@ public abstract class Character implements Killable {
         }
 
     }
+    
+    public void playAnimationOnce(String name){
+        
+        if (animationen.containsKey(name)) {
+            curAnimation.stop();
+            curAnimation = animationen.get(name);
+            curAnimation.playOnce();
+        }
+
+        
+    }
 
     public void playMoveAnimation(int xGoal, int yGoal) {
 
@@ -101,7 +112,7 @@ public abstract class Character implements Killable {
                     displacementY += deltaY / n;
 
                     try {
-                        Thread.sleep(20);
+                        Thread.sleep(100);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -141,32 +152,35 @@ public abstract class Character implements Killable {
             Fighter figh1 = (Fighter) (char1);
             Fighter figh2 = (Fighter) (char2);
 
-            if (figh1.canattack && figh1.attackrange <= (int) MiscUtils.distance(figh1, figh2)) {
                 figh2.healthpoints = figh2.healthpoints - figh1.attackrating * figh1.motivation;
-            }
+            
 
             if (figh2.healthpoints <= 0) {
                 figh2.alive = false;
+                figh2.playAnimationOnce("dead");
             }
+            else{
 
-            if (figh2.canattack && figh2.attackrange <= (int) MiscUtils.distance(figh1, figh2)) {
                 figh1.healthpoints = figh1.healthpoints - figh2.attackrating * figh2.motivation;
-            }
+            
 
             if (figh1.healthpoints <= 0) {
                 figh1.alive = false;
+                figh1.playAnimationOnce("dead");
+            }
             }
         }
 
         if (char1 instanceof Fighter && char2 instanceof Builder) {
             Fighter figh1 = (Fighter) (char1);
-            if (figh1.canattack && figh1.attackrange <= (int) MiscUtils.distance(figh1, char2)) {
                 char2.healthpoints = char2.healthpoints - figh1.attackrating * figh1.motivation;
-            }
+            
 
             if (char2.healthpoints <= 0) {
                 char2.alive = false;
+                char2.playAnimationOnce("dead");
             }
+            
         }
 
         if (char1 instanceof Builder && char2 instanceof Fighter) {
@@ -177,6 +191,7 @@ public abstract class Character implements Killable {
 
             if (char1.healthpoints <= 0) {
                 char1.alive = false;
+                char1.playAnimationOnce("dead");
             }
         }
 
@@ -475,6 +490,10 @@ public abstract class Character implements Killable {
 
     public int getDisplacementY() {
         return displacementY;
+    }
+    
+    public boolean isCurAnimationPlaying(){
+        return curAnimation.isIsPlaying();
     }
 
 }
