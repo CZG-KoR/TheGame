@@ -3,10 +3,8 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,7 +21,6 @@ import building.Fishinghouse;
 import building.Lumberjack;
 import building.Wheatfield;
 import java.awt.Image;
-import java.util.ArrayList;
 import java.util.HashMap;
 import map.Map;
 
@@ -32,6 +29,8 @@ public class Bar extends JInternalFrame {
     int width, height;
     static String Placement = null;
     HashMap<String, ImageIcon> icons;
+    JLabel foodAmount = new JLabel();
+    JLabel woodAmount = new JLabel();
 
     public Bar(int width, int height, Map m) {
         super();
@@ -53,6 +52,20 @@ public class Bar extends JInternalFrame {
         this.setSize(width, height / 3);
         this.setLocation(0, height - height / 3);
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        
+        //ressourceBar
+        icons.put("ressourceBar_left", new ImageIcon("src/gui/res/resources/1resourceBar_left.png"));
+        icons.put("ressourceBar_mid", new ImageIcon("src/gui/res/resources/2resourceBar_mid.png"));
+        icons.put("ressourceBar_right", new ImageIcon("src/gui/res/resources/3resourceBar_right.png"));
+        icons.put("food", new ImageIcon("src/gui/res/resources/eat.png"));
+        icons.put("wood", new ImageIcon("src/gui/res/resources/wood.png"));
+        foodAmount.setVisible(true);
+        foodAmount.setEnabled(false);
+        foodAmount.setLocation(64, 10);
+        foodAmount.setSize(5, 10);
+        woodAmount.setVisible(true);
+        woodAmount.setEnabled(false);
+        
 
         // entfernt leiste bei tabbedpane
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
@@ -295,6 +308,8 @@ public class Bar extends JInternalFrame {
                                         break;
                                 }
                             }
+                            foodAmount.setText(Integer.toString(players[0].getFood()));
+                            woodAmount.setText(Integer.toString(players[0].getWood()));
                         } else {
                             players[i + 1].setAtTurn(true);
                             MainWindow.AtTurn.setText("Am Zug:" + players[i + 1].getPlayername());
@@ -318,6 +333,8 @@ public class Bar extends JInternalFrame {
                                         break;
                                 }
                             }
+                            foodAmount.setText(Integer.toString(players[i+1].getFood()));
+                            woodAmount.setText(Integer.toString(players[i+1].getWood()));
                         }
                         break;
                     }

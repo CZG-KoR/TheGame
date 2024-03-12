@@ -162,11 +162,13 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
 
         // resourceBar
-        g.drawImage(ResourceBar.getImageA()[0], 0*64, 0, null);
-        g.drawImage(ResourceBar.getImageA()[1], 1*64, 0, null);
-        g.drawImage(ResourceBar.getImageA()[1], 2*64, 0, null);
-        g.drawImage(ResourceBar.getImageA()[2], 3*64, 0, null);
-
+        g.drawImage(b.getIconImage("ressourceBar_left"), 0, 0, null);
+        g.drawImage(b.getIconImage("ressourceBar_mid"), 64, 0, null);
+        g.drawImage(b.getIconImage("ressourceBar_mid"), 128, 0, null);
+        g.drawImage(b.getIconImage("ressourceBar_right"), 192, 0, null);
+        g.drawImage(b.getIconImage("wood"), 10, 0, null);
+        g.drawImage(b.getIconImage("food"), 74, 0, null);
+        
         //g.drawImage(Toolkit.getDefaultToolkit().getImage("src/GUI/res/ResourceBar.png"), 0, 0, null);        
         //minimap
         for (int i = 0; i < m.getHeight(); i++) {
