@@ -141,28 +141,27 @@ public abstract class Character implements Killable {
             Fighter figh1 = (Fighter) (char1);
             Fighter figh2 = (Fighter) (char2);
 
-            if (figh1.canattack && figh1.attackrange <= (int) MiscUtils.distance(figh1, figh2)) {
-                figh2.healthpoints = figh2.healthpoints - figh1.attackrating * figh1.motivation;
-            }
+            figh2.healthpoints = figh2.healthpoints - figh1.attackrating * figh1.motivation;
+            
 
             if (figh2.healthpoints <= 0) {
                 figh2.alive = false;
             }
+            else{
 
-            if (figh2.canattack && figh2.attackrange <= (int) MiscUtils.distance(figh1, figh2)) {
-                figh1.healthpoints = figh1.healthpoints - figh2.attackrating * figh2.motivation;
-            }
+            figh1.healthpoints = figh1.healthpoints - figh2.attackrating * figh2.motivation;
+            
 
             if (figh1.healthpoints <= 0) {
                 figh1.alive = false;
+            }
             }
         }
 
         if (char1 instanceof Fighter && char2 instanceof Builder) {
             Fighter figh1 = (Fighter) (char1);
-            if (figh1.canattack && figh1.attackrange <= (int) MiscUtils.distance(figh1, char2)) {
                 char2.healthpoints = char2.healthpoints - figh1.attackrating * figh1.motivation;
-            }
+            
 
             if (char2.healthpoints <= 0) {
                 char2.alive = false;
@@ -171,9 +170,8 @@ public abstract class Character implements Killable {
 
         if (char1 instanceof Builder && char2 instanceof Fighter) {
             Fighter figh2 = (Fighter) (char2);
-            if (figh2.canattack && figh2.attackrange <= (int) MiscUtils.distance(char1, figh2)) {
                 char1.healthpoints = char1.healthpoints - figh2.attackrating * figh2.motivation;
-            }
+            
 
             if (char1.healthpoints <= 0) {
                 char1.alive = false;
