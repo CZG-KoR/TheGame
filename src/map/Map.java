@@ -155,17 +155,35 @@ public class Map {
                 }
                 if(place_peaks){
                     setT(x, y, "peak_mountain");
-                    if(y < 49) setT(x,y+1,"peak_mountain");
+                    if(y < height-1) setT(x,y+1,"peak_mountain");
                 }
                 else{
                     setT(x, y, "forest");
-                    if(y<49) setT(x, y+1, "forest");
+                    if(y<height-1) setT(x, y+1, "forest");
                     if(y>=1) setT(x, y-1, "forest");
                 }
             }
             starty += r.nextInt(5, 10);
             place_peaks = !place_peaks;
         }
+        
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height-1; y++) {
+                if(getTerrainName(x, y).equals("peak_mountain"))
+                darkenAllMountain(x, y-1);
+            }
+        }
+    }
+    
+    private void darkenAllMountain(int x, int y){
+        if(x<0 || x>width-1 || y<0 || y>height-1 || !getTerrainName(x, y).equals("light_mountain")){
+            return;
+        }
+        setT(x, y, "dark_mountain");
+        darkenAllMountain(x+1, y);
+        darkenAllMountain(x, y+1);
+        darkenAllMountain(x, y-1);
+        darkenAllMountain(x-1, y);
     }
     
     private void createIsland(int xcoord, int ycoord, float range){
