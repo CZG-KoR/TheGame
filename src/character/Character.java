@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static launcher.Start.players;
 import static gui.Tilemap.n;
+import map.Feld;
 
 public abstract class Character implements Killable {
 
@@ -159,6 +160,8 @@ public abstract class Character implements Killable {
 
             if (figh2.healthpoints <= 0) {
                 figh2.alive = false;
+                Map.getFeld(figh2.getXPosition(), figh2.getYPosition()).setOccupied(false);
+                Map.getFeld(figh2.getXPosition(), figh2.getYPosition()).setOccupiedby(null);
                 figh2.playAnimationOnce("dead");
             }
             else{
@@ -169,6 +172,8 @@ public abstract class Character implements Killable {
 
             if (figh1.healthpoints <= 0) {
                 figh1.alive = false;
+                Map.getFeld(figh1.getXPosition(), figh1.getYPosition()).setOccupied(false);
+                Map.getFeld(figh1.getXPosition(), figh1.getYPosition()).setOccupiedby(null);
                 figh1.playAnimationOnce("dead");
             }
             }
@@ -182,6 +187,8 @@ public abstract class Character implements Killable {
 
             if (char2.healthpoints <= 0) {
                 char2.alive = false;
+                Map.getFeld(char2.getXPosition(), char2.getYPosition()).setOccupied(false);
+                Map.getFeld(char2.getXPosition(), char2.getYPosition()).setOccupiedby(null);
                 char2.playAnimationOnce("dead");
             }
             
@@ -194,6 +201,8 @@ public abstract class Character implements Killable {
 
             if (char1.healthpoints <= 0) {
                 char1.alive = false;
+                Map.getFeld(char1.getXPosition(), char1.getYPosition()).setOccupied(false);
+                Map.getFeld(char1.getXPosition(), char1.getYPosition()).setOccupiedby(null);
                 char1.playAnimationOnce("dead");
             }
         }

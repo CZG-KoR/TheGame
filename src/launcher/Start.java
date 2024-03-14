@@ -31,7 +31,7 @@ public class Start {
     
     public static void main(String[] args) {
         //Reihenfolge wichtig!
-
+        
         //Init der Spieler + des Spielerarrays
         Player spieler1 = new Player("Spieler1", Color.BLUE);
         Player spieler2 = new Player("Spieler2", Color.RED);
@@ -51,12 +51,12 @@ public class Start {
         
         //Test der movement-Methode
         Warrior w = new Warrior("Spieler1",25,25);
-        map.getFeld(25, 25).setOccupied(true);
-        map.getFeld(25, 25).setOccupiedby("Spieler1");
+        Map.getFeld(25, 25).setOccupied(true);
+        Map.getFeld(25, 25).setOccupiedby("Spieler1");
         players[0].setCharacter(w);
         Warrior v = new Warrior("Spieler2",25,27);
-        map.getFeld(25, 27).setOccupiedby("Spieler2");
-        map.getFeld(25, 27).setOccupied(true);
+        Map.getFeld(25, 27).setOccupiedby("Spieler2");
+        Map.getFeld(25, 27).setOccupied(true);
         players[1].setCharacter(v);
         Townhall th1 = new Townhall("Spieler1",checkWaters(map,0)[1],checkWaters(map,0)[0]);
         map.getFeld(checkWaters(map,0)[1], checkWaters(map,0)[0]).setOccupied(true);
