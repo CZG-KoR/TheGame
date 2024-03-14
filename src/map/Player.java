@@ -41,6 +41,9 @@ public class Player {
     
     // motivation, hat effekt auf kampfwerte etc (vllt bauspeed)
     private double motivation =1;
+    
+    //Gebiet eines Spielers
+    ArrayList<int[]> territory = new ArrayList();
 
 
     // Charaktere und Gebaeude eines Spielers
@@ -62,6 +65,23 @@ public class Player {
 
         System.out.println("Position fuer Rathaus muss noch erstellt werden");
         buildings.add(new Townhall(playername, 0, 0));
+        
+    }
+    
+    public void updateterritory(Map map){
+        //Gebiet des Spielers mit neu hinzugefuegtem Building aktualisieren
+        for (int i = buildings.get(buildings.size()-1).getxPosition()-buildings.get(buildings.size()-1).getBuildingrange(); i < buildings.get(buildings.size()-1).getxPosition()+buildings.get(buildings.size()-1).getBuildingrange()+1; i++) {
+            for (int j = buildings.get(buildings.size()-1).getyPosition()-buildings.get(buildings.size()-1).getBuildingrange(); j < buildings.get(buildings.size()-1).getyPosition()+buildings.get(buildings.size()-1).getBuildingrange()+1; j++) {
+                //wenn berechnetes Feld in Map existiert, gehört es zum Territorium
+                if(i>=0 && i<map.getWidth() && j>=0 && j<map.getHeight()){
+                    if(map.getFeld(i, j).getTerritoryplayer()==null){
+                        //Hinzufuegen des Feldes
+                        territory.add(new int[]{i,j});
+                        map.getFeld(i, j).setTerritoryplayer(playername);
+                    }
+                }
+            }
+        }
     }
     
     public Character getCharacter(int x, int y){
