@@ -12,7 +12,7 @@ public class Builder extends Character {
         this.yPosition = y;
         healthpoints = 1;
         canmove = true;
-        motivation = 1;
+        motivation = 1.0;
         moverange = 3;
         attackrange=0;
     }
