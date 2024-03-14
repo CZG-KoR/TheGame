@@ -70,6 +70,9 @@ public class Bar extends JInternalFrame {
         woodAmount.setVisible(true);
         woodAmount.setEnabled(false);
         
+        foodAmount.setLocation(94, 10);
+        foodAmount.setSize(5, 10);
+        
 
         // entfernt leiste bei tabbedpane
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
@@ -303,9 +306,7 @@ public class Bar extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 // Runden Button Turn End noch init
                 // Das in ActionPerformed vom ButtonTurnEnd übernehmen
-                Tilemap.setSelectedFeld(null);
-                Tilemap.setSelectedCharacter(null);
-                Tilemap.setSelectedBuilding(null);
+                
                 Bar.setPlacement(0);
                 
                 Player[] players = Start.getPlayers();
@@ -367,8 +368,9 @@ public class Bar extends JInternalFrame {
                                         break;
                                 }
                             }
-                            foodAmount.setText(Integer.toString(players[i+1].getFood()));
+                           foodAmount.setText(Integer.toString(players[i+1].getFood()));
                             woodAmount.setText(Integer.toString(players[i+1].getWood()));
+                            
                         }
                         break;
                     }
@@ -376,7 +378,9 @@ public class Bar extends JInternalFrame {
                 for (int i = 0; i < players.length; i++) {
                     Player.checkElements(players[i]);
                 }
-
+                Tilemap.setSelectedFeld(null);
+                Tilemap.setSelectedCharacter(null);
+                Tilemap.setSelectedBuilding(null);
             }
         });
         panelTurn.add(EndTurn);

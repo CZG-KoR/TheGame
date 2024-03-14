@@ -13,7 +13,7 @@ public class Map {
      * Jede Arraylist<Feld> steht für eine Spalte (gleiche x-Koordinate)
      */
 
-    private ArrayList<ArrayList<Feld>> felder;
+    private static ArrayList<ArrayList<Feld>> felder;
 
     // Dimensionen des Feldes
     private int height;
@@ -27,7 +27,7 @@ public class Map {
     }
 
     // GET-Function
-    public Feld getFeld(int xcoord, int ycoord) {
+    public static Feld getFeld(int xcoord, int ycoord) {
         return felder.get(xcoord).get(ycoord);
     }
 
