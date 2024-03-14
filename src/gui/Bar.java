@@ -28,7 +28,7 @@ public class Bar extends JInternalFrame {
 
     int width, height;
     static int Placement = 0;
-    HashMap<String, ImageIcon> icons;
+    HashMap<Integer, ImageIcon> icons;
     JLabel foodAmount = new JLabel();
     JLabel woodAmount = new JLabel();
 
@@ -41,16 +41,15 @@ public class Bar extends JInternalFrame {
         // Icons laden
         icons = new HashMap<>();
         
-        icons.put("fishinghouse", new ImageIcon("src/gui/res/building/fishinghouse.png"));
-        icons.put("mine", new ImageIcon("src/gui/res/building/mine.png"));
-        icons.put("townhall", new ImageIcon("src/gui/res/building/townhall.png"));
-        icons.put("windmill", new ImageIcon("src/gui/res/building/windmill.png"));
+        icons.put(2, new ImageIcon("src/gui/res/building/fishinghouse.png"));
+        icons.put(4, new ImageIcon("src/gui/res/building/mine.png"));
+        icons.put(7, new ImageIcon("src/gui/res/building/townhall.png"));
+        icons.put(8, new ImageIcon("src/gui/res/building/windmill.png"));
         
-        icons.put("warrior", new ImageIcon("src/gui/res/warrior1/idle/idle_1.png"));
-        icons.put("archer", new ImageIcon("src/gui/res/archer/idel/archer_idel1.png"));
-        icons.put("", new ImageIcon("src/gui/res/"));
+        icons.put(9, new ImageIcon("src/gui/res/warrior1/idle/idle_1.png"));
+        icons.put(10, new ImageIcon("src/gui/res/archer/idel/archer_idel1.png"));
         
-        icons.put("empty", new ImageIcon("src/gui/res/"));
+        icons.put(0, new ImageIcon("src/gui/res/"));
         
         
 
@@ -59,11 +58,11 @@ public class Bar extends JInternalFrame {
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         
         //ressourceBar
-        icons.put("ressourceBar_left", new ImageIcon("src/gui/res/resources/1resourceBar_left.png"));
-        icons.put("ressourceBar_mid", new ImageIcon("src/gui/res/resources/2resourceBar_mid.png"));
-        icons.put("ressourceBar_right", new ImageIcon("src/gui/res/resources/3resourceBar_right.png"));
-        icons.put("food", new ImageIcon("src/gui/res/resources/eat.png"));
-        icons.put("wood", new ImageIcon("src/gui/res/resources/wood.png"));
+        icons.put(99, new ImageIcon("src/gui/res/resources/1resourceBar_left.png"));
+        icons.put(98, new ImageIcon("src/gui/res/resources/2resourceBar_mid.png"));
+        icons.put(97, new ImageIcon("src/gui/res/resources/3resourceBar_right.png"));
+        icons.put(96, new ImageIcon("src/gui/res/resources/eat.png"));
+        icons.put(95, new ImageIcon("src/gui/res/resources/wood.png"));
         foodAmount.setVisible(true);
         foodAmount.setEnabled(false);
         foodAmount.setLocation(64, 10);
@@ -85,7 +84,7 @@ public class Bar extends JInternalFrame {
         panelBuildings.setLayout(null);
 
         JButton barracksButton = new JButton();
-        barracksButton.setIcon(icons.get("empty"));
+        barracksButton.setIcon(icons.get(0));
         barracksButton.setText("Barracks");
         barracksButton.setVerticalTextPosition(JButton.BOTTOM);
         barracksButton.setHorizontalTextPosition(JButton.CENTER);
@@ -95,13 +94,13 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("barracksButton pressed");
-                Placement = "barracks";
+                Placement = 1;
             }
         });
         panelBuildings.add(barracksButton);
 
         JButton fishingButton = new JButton();
-        fishingButton.setIcon(icons.get("fishinghouse"));
+        fishingButton.setIcon(icons.get(2));
         fishingButton.setText("Fish");
         fishingButton.setVerticalTextPosition(JButton.BOTTOM);
         fishingButton.setHorizontalTextPosition(JButton.CENTER);
@@ -117,7 +116,7 @@ public class Bar extends JInternalFrame {
         panelBuildings.add(fishingButton);
 
         JButton lumberjackButton = new JButton();
-        lumberjackButton.setIcon(icons.get("empty"));
+        lumberjackButton.setIcon(icons.get(0));
         lumberjackButton.setText("Lumberjack");
         lumberjackButton.setVerticalTextPosition(JButton.BOTTOM);
         lumberjackButton.setHorizontalTextPosition(JButton.CENTER);
@@ -133,7 +132,7 @@ public class Bar extends JInternalFrame {
         panelBuildings.add(lumberjackButton);
 
         JButton mineButton = new JButton();
-        mineButton.setIcon(icons.get("mine"));
+        mineButton.setIcon(icons.get(4));
         mineButton.setText("Mine");
         mineButton.setVerticalTextPosition(JButton.BOTTOM);
         mineButton.setHorizontalTextPosition(JButton.CENTER);
@@ -165,7 +164,7 @@ public class Bar extends JInternalFrame {
         panelBuildings.add(theatreButton);
 
         JButton tower = new JButton();
-        tower.setIcon(icons.get("empty"));
+        tower.setIcon(icons.get(0));
         tower.setText("Tower");
         tower.setVerticalTextPosition(JButton.BOTTOM);
         tower.setHorizontalTextPosition(JButton.CENTER);
@@ -181,7 +180,7 @@ public class Bar extends JInternalFrame {
         panelBuildings.add(tower);
 
         JButton townhallButton = new JButton();
-        townhallButton.setIcon(icons.get("townhall"));
+        townhallButton.setIcon(icons.get(6));
         townhallButton.setText("Townhall");
         townhallButton.setVerticalTextPosition(JButton.BOTTOM);
         townhallButton.setHorizontalTextPosition(JButton.CENTER);
@@ -197,7 +196,7 @@ public class Bar extends JInternalFrame {
         panelBuildings.add(townhallButton);
 
         JButton wheatfieldButton = new JButton();
-        wheatfieldButton.setIcon(icons.get("empty"));
+        wheatfieldButton.setIcon(icons.get(0));
         wheatfieldButton.setText("Wheatfield");
         wheatfieldButton.setVerticalTextPosition(JButton.BOTTOM);
         wheatfieldButton.setHorizontalTextPosition(JButton.CENTER);
@@ -213,7 +212,7 @@ public class Bar extends JInternalFrame {
         panelBuildings.add(wheatfieldButton);
         
         JButton windmillButton = new JButton();
-        windmillButton.setIcon(icons.get("windmill"));
+        windmillButton.setIcon(icons.get(8));
         windmillButton.setText("Windmill");
         windmillButton.setVerticalTextPosition(JButton.BOTTOM);
         windmillButton.setHorizontalTextPosition(JButton.CENTER);
@@ -232,7 +231,7 @@ public class Bar extends JInternalFrame {
         panelTroops.setLayout(null);
 
         JButton warriorButton = new JButton();
-        warriorButton.setIcon(icons.get("warrior"));
+        warriorButton.setIcon(icons.get(9));
         warriorButton.setText("test");
         warriorButton.setVerticalTextPosition(JButton.BOTTOM);
         warriorButton.setHorizontalTextPosition(JButton.CENTER);
@@ -249,7 +248,7 @@ public class Bar extends JInternalFrame {
         panelTroops.add(warriorButton);
 
         JButton archer = new JButton();
-        archer.setIcon(icons.get("archer"));
+        archer.setIcon(icons.get(10));
         archer.setText("archer");
         archer.setVerticalTextPosition(JButton.BOTTOM);
         archer.setHorizontalTextPosition(JButton.CENTER);
@@ -265,7 +264,7 @@ public class Bar extends JInternalFrame {
         panelTroops.add(archer);
 
         JButton catapult = new JButton();
-        catapult.setIcon(icons.get("empty"));
+        catapult.setIcon(icons.get(0));
         catapult.setText("catapult");
         catapult.setVerticalTextPosition(JButton.BOTTOM);
         catapult.setHorizontalTextPosition(JButton.CENTER);
@@ -281,7 +280,7 @@ public class Bar extends JInternalFrame {
         panelTroops.add(catapult);
 
         JButton horse = new JButton();
-        horse.setIcon(icons.get("empty"));
+        horse.setIcon(icons.get(0));
         horse.setText("horse");
         horse.setVerticalTextPosition(JButton.BOTTOM);
         horse.setHorizontalTextPosition(JButton.CENTER);
@@ -424,19 +423,19 @@ public class Bar extends JInternalFrame {
         return AtTurn;
     }
 
-    public static String getPlacement() {
+    public static int getPlacement() {
         return Placement;
     }
 
-    public static void setPlacement(String i) {
+    public static void setPlacement(int i) {
         Placement = i;
     }
     
-    public Image getIconImage(String name){
+    public Image getIconImage(Integer name){
         
         if (!icons.containsKey(name)){
             System.out.println("Dieses Icon existiert nicht!");
-            return icons.get("empty").getImage();
+            return icons.get(0).getImage();
         }
         
         return icons.get(name).getImage();
