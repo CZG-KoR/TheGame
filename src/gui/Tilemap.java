@@ -78,7 +78,6 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
             for (int j = 0; j < m.getHeight(); j++) {
 
                 g.drawImage(m.getTerrainPicture(i, j), n * i + camX, n * j + camY, n, n, null);
-
             }
         }
 
@@ -88,6 +87,15 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
             for (int j = 0; j < players[i].getCharacterAmount(); j++) {
                 character.Character c = players[i].getCharacter(j);
                 g.drawImage(players[i].getCharacterPicture(j), c.getXPosition() * n + camX + c.getDisplacementX(), c.getYPosition() * n + camY + c.getDisplacementY(), n, n, null);
+                
+                // Health Bar zeichnen
+                g.setColor(new Color(30, 47, 32));
+                g.fillRoundRect(c.getXPosition() * n + camX + c.getDisplacementX(), 
+                        c.getYPosition() * n + camY + c.getDisplacementY(), n, n/6, 6, 6);
+                
+                g.setColor(new Color(60, 163, 46));
+                g.fillRoundRect(c.getXPosition() * n + camX + c.getDisplacementX(), 
+                        c.getYPosition() * n + camY + c.getDisplacementY(), (n*c.getHealthpoints())/c.getMaxHealth(), n/6, 6, 6);
             }
             // Gebäude zeichnen
             for (int j = 0; j < players[i].getBuildingAmount(); j++) {
@@ -388,18 +396,26 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                         case 9:
                             players[i].setCharacter(new Warrior(players[i].getPlayername(), hoveredX, hoveredY));
                             Bar.setPlacement(0);
+                            selectedFeld.setOccupied(true);
+                            selectedFeld.setOccupiedby(players[i].getPlayername());
                             break;
                         case 10:
                             players[i].setCharacter(new Archer(players[i].getPlayername(), hoveredX, hoveredY));
                             Bar.setPlacement(0);
+                            selectedFeld.setOccupied(true);
+                            selectedFeld.setOccupiedby(players[i].getPlayername());
                             break;
                         case 11:
                             players[i].setCharacter(new Catapult(players[i].getPlayername(), hoveredX, hoveredY));
                             Bar.setPlacement(0);
+                            selectedFeld.setOccupied(true);
+                            selectedFeld.setOccupiedby(players[i].getPlayername());
                             break;
                         case 12:
                             players[i].setCharacter(new Horsemen(players[i].getPlayername(), hoveredX, hoveredY));
                             Bar.setPlacement(0);
+                            selectedFeld.setOccupied(true);
+                            selectedFeld.setOccupiedby(players[i].getPlayername());
                             break;
                         default:
                     }

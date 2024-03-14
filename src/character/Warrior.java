@@ -11,7 +11,8 @@ public class Warrior extends Fighter {
         super(playername);
 
         // Festlegen der Werte des Warriors
-        healthpoints = 10;
+        maxHealth = 20;
+        healthpoints = maxHealth;
         movement = 2;
         motivation = 1;
         attackrating = 10;
