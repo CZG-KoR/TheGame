@@ -217,7 +217,7 @@ public class Bar extends JInternalFrame {
         windmillButton.setVerticalTextPosition(JButton.BOTTOM);
         windmillButton.setHorizontalTextPosition(JButton.CENTER);
         windmillButton.setSize(new Dimension(200, 200));
-        windmillButton.setLocation(1400, 0);
+        windmillButton.setLocation(1600, 0);
         windmillButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

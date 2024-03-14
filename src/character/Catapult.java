@@ -8,7 +8,8 @@ public class Catapult extends Fighter {
         super(playername);
 
         // Festlegen der Werte des Warriors
-        healthpoints = 20;
+        maxHealth = 20;
+        healthpoints = maxHealth;
         movement = 1;
         motivation = 1;
         attackrating = 8;

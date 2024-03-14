@@ -19,6 +19,8 @@ import static gui.Tilemap.n;
 
 public abstract class Character implements Killable {
 
+    // ursprüngliche Anzahl an Leben
+    protected int maxHealth;
     // Anzahl an Leben für ein Character bis dieser "entfernt" wird
     protected int healthpoints;
     // Bewegungsreichweite (niemals hoeher als 28)
@@ -456,6 +458,16 @@ public abstract class Character implements Killable {
         return alive;
     }
 
+    public int getHealthpoints() {
+        return healthpoints;
+    }
+
+    public void setHealthpoints(int healthpoints) {
+        this.healthpoints = healthpoints;
+    }
+    
+    
+
     public int getXPosition() {
         return xPosition;
     }
@@ -498,5 +510,11 @@ public abstract class Character implements Killable {
     public boolean isCurAnimationPlaying(){
         return curAnimation.isIsPlaying();
     }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+    
+    
 
 }
