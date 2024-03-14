@@ -16,9 +16,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static launcher.Start.players;
 import static gui.Tilemap.n;
+import map.Feld;
 
 public abstract class Character implements Killable {
 
+    // ursprüngliche Anzahl an Leben
+    protected int maxHealth;
     // Anzahl an Leben für ein Character bis dieser "entfernt" wird
     protected int healthpoints;
     // Bewegungsreichweite (niemals hoeher als 28)
@@ -160,6 +163,8 @@ public abstract class Character implements Killable {
 
             if (figh2.healthpoints <= 0) {
                 figh2.alive = false;
+                Map.getFeld(figh2.getXPosition(), figh2.getYPosition()).setOccupied(false);
+                Map.getFeld(figh2.getXPosition(), figh2.getYPosition()).setOccupiedby(null);
                 figh2.playAnimationOnce("dead");
             }
             else{
@@ -170,6 +175,8 @@ public abstract class Character implements Killable {
 
             if (figh1.healthpoints <= 0) {
                 figh1.alive = false;
+                Map.getFeld(figh1.getXPosition(), figh1.getYPosition()).setOccupied(false);
+                Map.getFeld(figh1.getXPosition(), figh1.getYPosition()).setOccupiedby(null);
                 figh1.playAnimationOnce("dead");
             }
             }
@@ -183,6 +190,8 @@ public abstract class Character implements Killable {
 
             if (char2.healthpoints <= 0) {
                 char2.alive = false;
+                Map.getFeld(char2.getXPosition(), char2.getYPosition()).setOccupied(false);
+                Map.getFeld(char2.getXPosition(), char2.getYPosition()).setOccupiedby(null);
                 char2.playAnimationOnce("dead");
             }
             
@@ -195,6 +204,8 @@ public abstract class Character implements Killable {
 
             if (char1.healthpoints <= 0) {
                 char1.alive = false;
+                Map.getFeld(char1.getXPosition(), char1.getYPosition()).setOccupied(false);
+                Map.getFeld(char1.getXPosition(), char1.getYPosition()).setOccupiedby(null);
                 char1.playAnimationOnce("dead");
             }
         }
@@ -457,6 +468,16 @@ public abstract class Character implements Killable {
         return alive;
     }
 
+    public int getHealthpoints() {
+        return healthpoints;
+    }
+
+    public void setHealthpoints(int healthpoints) {
+        this.healthpoints = healthpoints;
+    }
+    
+    
+
     public int getXPosition() {
         return xPosition;
     }
@@ -500,7 +521,12 @@ public abstract class Character implements Killable {
         return curAnimation.isIsPlaying();
     }
 
-    public void setMotivation(double motivation) {
+  public void setMotivation(double motivation) {
         this.motivation = motivation;
     }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
 }

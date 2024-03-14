@@ -49,6 +49,7 @@ public class Theatre extends Building {
                 for (int i = 0; i < player.getCharacterAmount(); i++) {
                     player.getCharacter(i).setMotivation(player.getMotivation());
                 }
+
             }
         }
         zaehl++;

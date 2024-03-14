@@ -11,7 +11,8 @@ public class Archer extends Fighter {
         attackrange = 7;
         attackrating = 1;
         canattack = true;
-        healthpoints = 2;
+        maxHealth = 2;
+        healthpoints = maxHealth;
         movement = 3;
         
         animationen.put("idle", new Animation(MiscUtils.loadImages("src/gui/res/warrior1/idle"), 300));

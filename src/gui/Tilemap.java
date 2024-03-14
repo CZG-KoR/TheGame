@@ -43,7 +43,10 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
     static Building selectedBuilding;
 
     /**
+     * @param width
+     * @param height
      * @param m
+     * @param b
      */
     public Tilemap(int width, int height, Map m, Bar b) {
         super();
@@ -75,7 +78,6 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
             for (int j = 0; j < m.getHeight(); j++) {
 
                 g.drawImage(m.getTerrainPicture(i, j), n * i + camX, n * j + camY, n, n, null);
-
             }
         }
 
@@ -85,6 +87,15 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
             for (int j = 0; j < players[i].getCharacterAmount(); j++) {
                 character.Character c = players[i].getCharacter(j);
                 g.drawImage(players[i].getCharacterPicture(j), c.getXPosition() * n + camX + c.getDisplacementX(), c.getYPosition() * n + camY + c.getDisplacementY(), n, n, null);
+                
+                // Health Bar zeichnen
+                g.setColor(new Color(30, 47, 32));
+                g.fillRoundRect(c.getXPosition() * n + camX + c.getDisplacementX(), 
+                        c.getYPosition() * n + camY + c.getDisplacementY(), n, n/6, 6, 6);
+                
+                g.setColor(new Color(60, 163, 46));
+                g.fillRoundRect(c.getXPosition() * n + camX + c.getDisplacementX(), 
+                        c.getYPosition() * n + camY + c.getDisplacementY(), (n*c.getHealthpoints())/c.getMaxHealth(), n/6, 6, 6);
             }
             // Gebäude zeichnen
             for (int j = 0; j < players[i].getBuildingAmount(); j++) {
@@ -92,7 +103,6 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 g.drawImage(players[i].getBuilding(j).getPicture(), b.getxPosition() * n + camX, camY + n * b.getyPosition(), n, n, null);
             }
         }
-       
 
         // zeichne markierungen für von maus berührte felder
         g.setColor(Color.DARK_GRAY);
@@ -156,12 +166,12 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         }
 
         // resourceBar
-        g.drawImage(b.getIconImage(99), 0, 0, null);
-        g.drawImage(b.getIconImage(98), 64, 0, null);
-        g.drawImage(b.getIconImage(98), 128, 0, null);
-        g.drawImage(b.getIconImage(97), 192, 0, null);
-        g.drawImage(b.getIconImage(96), 10, 0, null);
-        g.drawImage(b.getIconImage(95), 74, 0, null);
+        g.drawImage(b.getIconImage(99), 0, 0, null); //ressourceBarleft
+        g.drawImage(b.getIconImage(98), 64, 0, null); //ressourceBarmid
+        g.drawImage(b.getIconImage(98), 128, 0, null); //ressourceBarmid
+        g.drawImage(b.getIconImage(97), 192, 0, null); //ressourceBarright
+        g.drawImage(b.getIconImage(96), 10, 4, null); //food 
+        g.drawImage(b.getIconImage(95), 64, 0, null); //wood
 
         //g.drawImage(Toolkit.getDefaultToolkit().getImage("src/GUI/res/ResourceBar.png"), 0, 0, null);        
         //minimap
@@ -197,7 +207,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
                     default:
                 }
-                int minimapscale = 14;
+                int minimapscale = 5;
 
                 g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth() * minimapscale + j * minimapscale, i * minimapscale, minimapscale, minimapscale);
 
@@ -211,6 +221,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 }
             }
         }
+        Toolkit.getDefaultToolkit().sync();
     }
 
     //Grenze für scroll
@@ -244,6 +255,9 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
             if (player.getCharacter(hoveredX, hoveredY) != null) {
                 selectedCharacter = player.getCharacter(hoveredX, hoveredY);
+//                if(!selectedCharacter.getalive()){
+//                    selectedCharacter = null;
+//                }
             }
         }
 
@@ -323,8 +337,9 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        
         // angeklicktes Feld auswählen
-        selectedFeld = m.getFeld(hoveredX, hoveredY);
+        selectedFeld = Map.getFeld(hoveredX, hoveredY);
 
         // Bewegung zur Position
         movetoPositon();
@@ -337,6 +352,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
         // etwas platzieren
         placeSelected();
+        
 
     }
 
@@ -388,18 +404,26 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                         case 9:
                             players[i].setCharacter(new Warrior(players[i].getPlayername(), hoveredX, hoveredY));
                             Bar.setPlacement(0);
+                            selectedFeld.setOccupied(true);
+                            selectedFeld.setOccupiedby(players[i].getPlayername());
                             break;
                         case 10:
                             players[i].setCharacter(new Archer(players[i].getPlayername(), hoveredX, hoveredY));
                             Bar.setPlacement(0);
+                            selectedFeld.setOccupied(true);
+                            selectedFeld.setOccupiedby(players[i].getPlayername());
                             break;
                         case 11:
                             players[i].setCharacter(new Catapult(players[i].getPlayername(), hoveredX, hoveredY));
                             Bar.setPlacement(0);
+                            selectedFeld.setOccupied(true);
+                            selectedFeld.setOccupiedby(players[i].getPlayername());
                             break;
                         case 12:
                             players[i].setCharacter(new Horsemen(players[i].getPlayername(), hoveredX, hoveredY));
                             Bar.setPlacement(0);
+                            selectedFeld.setOccupied(true);
+                            selectedFeld.setOccupiedby(players[i].getPlayername());
                             break;
                         default:
                     }
@@ -420,16 +444,16 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         return selectedCharacter;
     }
 
-    public static void setSelectedCharacter(character.Character selectedCharacter) {
-        selectedCharacter = selectedCharacter;
+    public static void setSelectedCharacter(character.Character selectedCharacter1) {
+        selectedCharacter = selectedCharacter1;
     }
 
     public Building getSelectedBuilding() {
         return selectedBuilding;
     }
 
-    public static void setSelectedBuilding(Building selectedBuilding) {
-        selectedBuilding = selectedBuilding;
+    public static void setSelectedBuilding(Building selectedBuilding1) {
+        selectedBuilding = selectedBuilding1;
     }
 
     @Override

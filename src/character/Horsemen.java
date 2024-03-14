@@ -6,7 +6,8 @@ public class Horsemen extends Fighter{
 
     public Horsemen(String playername, int x, int y) {
         super(playername);
-        super.healthpoints=3;
+        maxHealth = 3;
+        healthpoints = maxHealth;
         super.movement = 5;
         super.attackrating =3;
         super.canattack = true;

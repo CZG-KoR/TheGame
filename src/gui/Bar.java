@@ -19,6 +19,7 @@ import map.Player;
 import building.Building;
 import building.Fishinghouse;
 import building.Lumberjack;
+import building.Mine;
 import building.Wheatfield;
 import java.awt.Image;
 import java.util.HashMap;
@@ -29,8 +30,8 @@ public class Bar extends JInternalFrame {
     int width, height;
     static int Placement = 0;
     HashMap<Integer, ImageIcon> icons;
-    JLabel foodAmount = new JLabel();
-    JLabel woodAmount = new JLabel();
+    JLabel foodAmount = new JLabel("0");
+    JLabel woodAmount = new JLabel("0");
 
     public Bar(int width, int height, Map m) {
         super();
@@ -61,14 +62,23 @@ public class Bar extends JInternalFrame {
         icons.put(99, new ImageIcon("src/gui/res/resources/1resourceBar_left.png"));
         icons.put(98, new ImageIcon("src/gui/res/resources/2resourceBar_mid.png"));
         icons.put(97, new ImageIcon("src/gui/res/resources/3resourceBar_right.png"));
-        icons.put(96, new ImageIcon("src/gui/res/resources/eat.png"));
-        icons.put(95, new ImageIcon("src/gui/res/resources/wood.png"));
+        icons.put(96, new ImageIcon("src/gui/res/resources/4food.png"));
+        icons.put(95, new ImageIcon("src/gui/res/resources/5wood.png"));
+        foodAmount.setLocation(54, 27);
+        foodAmount.setSize(10, 10);
+        foodAmount.setForeground(new java.awt.Color(255,0,0));
+        foodAmount.setBackground(Color.red);
         foodAmount.setVisible(true);
         foodAmount.setEnabled(false);
-        foodAmount.setLocation(64, 10);
-        foodAmount.setSize(5, 10);
+        woodAmount.setLocation(118, 27);
+        woodAmount.setSize(10, 10);
+        woodAmount.setForeground(new java.awt.Color(255,0,0));
+        woodAmount.setBackground(Color.red);
         woodAmount.setVisible(true);
         woodAmount.setEnabled(false);
+        
+        foodAmount.setLocation(94, 10);
+        foodAmount.setSize(5, 10);
         
 
         // entfernt leiste bei tabbedpane
@@ -217,7 +227,7 @@ public class Bar extends JInternalFrame {
         windmillButton.setVerticalTextPosition(JButton.BOTTOM);
         windmillButton.setHorizontalTextPosition(JButton.CENTER);
         windmillButton.setSize(new Dimension(200, 200));
-        windmillButton.setLocation(1400, 0);
+        windmillButton.setLocation(1600, 0);
         windmillButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -303,11 +313,8 @@ public class Bar extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 // Runden Button Turn End noch init
                 // Das in ActionPerformed vom ButtonTurnEnd übernehmen
-                Tilemap.setSelectedFeld(null);
-                Tilemap.setSelectedCharacter(null);
-                Tilemap.setSelectedBuilding(null);
-                Bar.setPlacement(0);
                 
+                Bar.setPlacement(0);
                 Player[] players = Start.getPlayers();
                 for (int i = 0; i < players.length; i++) {
                     if (players[i].isAtTurn()) {
@@ -338,7 +345,11 @@ public class Bar extends JInternalFrame {
                                     case 3:
                                         Wheatfield weed = (Wheatfield) (build);
                                         //lel hier bidde noch ma neu machen
-                                        weed.harvest();
+                                        weed.harvest(players[0]);
+                                        break;
+                                    case 4:
+                                        Mine mine = (Mine) (build);
+                                        mine.mine(players[0]);
                                         break;
                                 }
                             }
@@ -359,16 +370,22 @@ public class Bar extends JInternalFrame {
                                     case 2:
                                         Fishinghouse fish = (Fishinghouse) (build);
                                         fish.fish(players[1]);
+                                        System.out.println("essen: " +players[0].getFood());
                                         break;
                                     case 3:
                                         Wheatfield weed = (Wheatfield) (build);
                                         //harvest mehtode bidde neu
-                                        weed.harvest();
+                                        weed.harvest(players[1]);
+                                        break;
+                                    case 4:
+                                        Mine mine = (Mine) (build);
+                                        mine.mine(players[0]);
                                         break;
                                 }
                             }
-                            foodAmount.setText(Integer.toString(players[i+1].getFood()));
+                           foodAmount.setText(Integer.toString(players[i+1].getFood()));
                             woodAmount.setText(Integer.toString(players[i+1].getWood()));
+                            
                         }
                         break;
                     }
@@ -376,7 +393,9 @@ public class Bar extends JInternalFrame {
                 for (int i = 0; i < players.length; i++) {
                     Player.checkElements(players[i]);
                 }
-
+                Tilemap.setSelectedFeld(null);
+                Tilemap.setSelectedCharacter(null);
+                Tilemap.setSelectedBuilding(null);
             }
         });
         panelTurn.add(EndTurn);

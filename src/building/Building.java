@@ -17,11 +17,6 @@ public abstract class Building {
     
     Image picture;
 
-    // Bild
-    Image[] buildingimg;
-    // welches Bild aus gui.res.building
-    int ImageID;
-
     
     // Credits fuer Gebaeude zum Bauen und spaeter pro Runde
     // int buildcredits;
@@ -59,6 +54,9 @@ public abstract class Building {
         if (build instanceof Wheatfield) {
             return 3;
         }
+        if (build instanceof Mine) {
+            return 4;
+        }
         return 0;
     }
     
@@ -71,16 +69,6 @@ public abstract class Building {
         return picture;
     }
 
-    public int getImageID(){
-        return ImageID;
-    }
-    
-    public Image getImage(int ID){
-        if (buildingimg.length == 0) {
-            System.out.println("Gebäudebilder nicht geladen!");
-            return null;
-        }
-        return buildingimg[ImageID];
-    }
+
 
 }
