@@ -8,7 +8,7 @@ public class Wheatfield extends Building {
     //Feld gibt Motivationsboost durch "Nahrung"
     double motivationboost;
     //Abklingzeit für harvest, vlt. Änderung im Erscheinungsbild wenn der Weizen wächst
-    int cooldown;
+    int cooldown=1;
     //maximale cooldown-Zeit
     private int maxcooldowntime = 4;
 
@@ -44,11 +44,13 @@ public class Wheatfield extends Building {
         return false;
     }
 
-    public void harvest() {
+    public void harvest(Player player) {
         //nur möglich, wenn der cooldown abgelaufen ist - Erntezeit
-        if (cooldown == 0) {
+        cooldown--;
+        if (cooldown <= 0) {
             //motivationsboost
-            this.motivationboost = this.motivationboost * 1.01;
+            //this.motivationboost = this.motivationboost * 1.01;
+            player.setFood(player.getFood()+16);
             this.cooldown = maxcooldowntime;
         } else {
             //Ausgabe, dass der Cooldown noch nicht abgelaufen ist.

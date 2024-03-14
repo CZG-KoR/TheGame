@@ -19,6 +19,7 @@ import map.Player;
 import building.Building;
 import building.Fishinghouse;
 import building.Lumberjack;
+import building.Mine;
 import building.Wheatfield;
 import java.awt.Image;
 import java.util.HashMap;
@@ -314,7 +315,6 @@ public class Bar extends JInternalFrame {
                 // Das in ActionPerformed vom ButtonTurnEnd übernehmen
                 
                 Bar.setPlacement(0);
-                
                 Player[] players = Start.getPlayers();
                 for (int i = 0; i < players.length; i++) {
                     if (players[i].isAtTurn()) {
@@ -345,7 +345,11 @@ public class Bar extends JInternalFrame {
                                     case 3:
                                         Wheatfield weed = (Wheatfield) (build);
                                         //lel hier bidde noch ma neu machen
-                                        weed.harvest();
+                                        weed.harvest(players[0]);
+                                        break;
+                                    case 4:
+                                        Mine mine = (Mine) (build);
+                                        mine.mine(players[0]);
                                         break;
                                 }
                             }
@@ -366,11 +370,16 @@ public class Bar extends JInternalFrame {
                                     case 2:
                                         Fishinghouse fish = (Fishinghouse) (build);
                                         fish.fish(players[1]);
+                                        System.out.println("essen: " +players[0].getFood());
                                         break;
                                     case 3:
                                         Wheatfield weed = (Wheatfield) (build);
                                         //harvest mehtode bidde neu
-                                        weed.harvest();
+                                        weed.harvest(players[1]);
+                                        break;
+                                    case 4:
+                                        Mine mine = (Mine) (build);
+                                        mine.mine(players[0]);
                                         break;
                                 }
                             }
