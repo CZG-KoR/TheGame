@@ -13,7 +13,6 @@ public class Warrior extends Fighter {
         // Festlegen der Werte des Warriors
         healthpoints = 10;
         movement = 2;
-        motivation = 1;
         attackrating = 10;
         attackrange = 1;
         
