@@ -92,17 +92,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 g.drawImage(players[i].getBuilding(j).getPicture(), b.getxPosition() * n + camX, camY + n * b.getyPosition(), n, n, null);
             }
         }
-        // Gebäude zeichnen
-        for (int i = 0; i < players.length; i++) {
-            for (int j = 0; j < players[i].getBuildingAmount(); j++) {
 
-                g.drawImage(players[i].getBuildingPicture(j), players[i].getBuilding(j).getxPosition() * n + camX, players[i].getBuilding(j).getyPosition() * n + camY, null);
-
-                character.Character c = players[i].getCharacter(j);
-
-            }
-
-        }
 
         // zeichne markierungen für von maus berührte felder
         g.setColor(Color.DARK_GRAY);
@@ -207,7 +197,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
                     default:
                 }
-                int minimapscale = 14;
+                int minimapscale = 5;
 
                 g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth() * minimapscale + j * minimapscale, i * minimapscale, minimapscale, minimapscale);
 
