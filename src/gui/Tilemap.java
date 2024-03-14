@@ -199,7 +199,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
                     default:
                 }
-                int minimapscale = 14;
+                int minimapscale = 5;
 
                 g.fillRect(Toolkit.getDefaultToolkit().getScreenSize().width - m.getWidth() * minimapscale + j * minimapscale, i * minimapscale, minimapscale, minimapscale);
 
