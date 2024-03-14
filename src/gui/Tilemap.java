@@ -43,7 +43,10 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
     static Building selectedBuilding;
 
     /**
+     * @param width
+     * @param height
      * @param m
+     * @param b
      */
     public Tilemap(int width, int height, Map m, Bar b) {
         super();
@@ -91,17 +94,6 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 building.Building b = players[i].getBuilding(j);
                 g.drawImage(players[i].getBuilding(j).getPicture(), b.getxPosition() * n + camX, camY + n * b.getyPosition(), n, n, null);
             }
-        }
-        // Gebäude zeichnen
-        for (int i = 0; i < players.length; i++) {
-            for (int j = 0; j < players[i].getBuildingAmount(); j++) {
-
-                g.drawImage(players[i].getBuildingPicture(j), players[i].getBuilding(j).getxPosition() * n + camX, players[i].getBuilding(j).getyPosition() * n + camY, null);
-
-                character.Character c = players[i].getCharacter(j);
-
-            }
-
         }
 
         // zeichne markierungen für von maus berührte felder
@@ -221,6 +213,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 }
             }
         }
+        Toolkit.getDefaultToolkit().sync();
     }
 
     //Grenze für scroll
@@ -254,6 +247,9 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
             if (player.getCharacter(hoveredX, hoveredY) != null) {
                 selectedCharacter = player.getCharacter(hoveredX, hoveredY);
+//                if(!selectedCharacter.getalive()){
+//                    selectedCharacter = null;
+//                }
             }
         }
 
@@ -333,8 +329,9 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        
         // angeklicktes Feld auswählen
-        selectedFeld = m.getFeld(hoveredX, hoveredY);
+        selectedFeld = Map.getFeld(hoveredX, hoveredY);
 
         // Bewegung zur Position
         movetoPositon();
@@ -347,6 +344,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 
         // etwas platzieren
         placeSelected();
+        
 
     }
 
@@ -422,16 +420,16 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         return selectedCharacter;
     }
 
-    public static void setSelectedCharacter(character.Character selectedCharacter) {
-        selectedCharacter = selectedCharacter;
+    public static void setSelectedCharacter(character.Character selectedCharacter1) {
+        selectedCharacter = selectedCharacter1;
     }
 
     public Building getSelectedBuilding() {
         return selectedBuilding;
     }
 
-    public static void setSelectedBuilding(Building selectedBuilding) {
-        selectedBuilding = selectedBuilding;
+    public static void setSelectedBuilding(Building selectedBuilding1) {
+        selectedBuilding = selectedBuilding1;
     }
 
     @Override
