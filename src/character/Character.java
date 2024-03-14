@@ -172,7 +172,7 @@ public abstract class Character implements Killable {
                 figh1.playAnimationOnce("dead");
             }
             }
-            }
+            
         }
 
         if (char1 instanceof Fighter && char2 instanceof Builder) {
