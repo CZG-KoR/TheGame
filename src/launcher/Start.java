@@ -31,6 +31,10 @@ public class Start {
     
     public static void main(String[] args) {
         //Reihenfolge wichtig!
+
+        int width=50;
+        int heigth=50;
+
         
         //Init der Spieler + des Spielerarrays
         Player spieler1 = new Player("Spieler1", Color.BLUE);
@@ -45,7 +49,12 @@ public class Start {
         m.playSound();
                 
         // neuer Thread, wenn alles geladen ist
-        Map map = new Map(50, 50);
+        Map map = new Map(width, heigth);
+        
+        //Gebiete der Spieler festlegen
+        spieler1.updateterritory(map);
+        spieler2.updateterritory(map);
+        
         SwingUtilities.invokeLater(() -> new MainWindow(map));
         System.out.println(checkWaters(map,0)[0]+", "+checkWaters(map,0)[1]);
         

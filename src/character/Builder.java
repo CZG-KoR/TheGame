@@ -13,7 +13,7 @@ public class Builder extends Character {
         maxHealth = 1;
         healthpoints = maxHealth;
         canmove = true;
-        motivation = 1;
+        motivation = 1.0;
         moverange = 3;
         attackrange=0;
     }

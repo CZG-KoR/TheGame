@@ -11,7 +11,6 @@ public class Catapult extends Fighter {
         maxHealth = 20;
         healthpoints = maxHealth;
         movement = 1;
-        motivation = 1;
         attackrating = 8;
         attackrange = 6;
 

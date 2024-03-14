@@ -14,7 +14,6 @@ public class Warrior extends Fighter {
         maxHealth = 20;
         healthpoints = maxHealth;
         movement = 2;
-        motivation = 1;
         attackrating = 10;
         attackrange = 1;
         

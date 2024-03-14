@@ -9,6 +9,9 @@ public class Feld {
 
     // Besetzt?
     private boolean occupied;
+    
+    //Teil eines Gebietes
+    private String territoryplayer;
 
     // möglich da hin zu bewegen, nachdem Figur angeklickt wurde
     private boolean highlighted;
@@ -27,6 +30,7 @@ public class Feld {
         occupied = false;
         occupiedby=null;
         movement=0;
+        territoryplayer=null;
     }
 
     public Terrain getT() {
@@ -82,6 +86,14 @@ public class Feld {
 
     public void setMovement(int movement) {
         this.movement = movement;
+    }
+
+    public String getTerritoryplayer() {
+        return territoryplayer;
+    }
+
+    public void setTerritoryplayer(String territoryplayer) {
+        this.territoryplayer = territoryplayer;
     }
     
     

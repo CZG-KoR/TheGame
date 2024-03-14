@@ -33,7 +33,7 @@ public abstract class Character implements Killable {
     // Wurde die Figur schon bewegt?
     protected boolean canmove = true;
     // Motivation
-    protected int motivation;
+    protected double motivation;
     // Abstand den man laufen kann
     protected int moverange;
     // Position
@@ -63,6 +63,7 @@ public abstract class Character implements Killable {
     protected boolean alive = true;
 
     protected Character(String playername) {
+        motivation=1.0;
         this.playername = playername;
         blockedterrains();
         blockedterrainsattack();
@@ -156,7 +157,7 @@ public abstract class Character implements Killable {
             Fighter figh1 = (Fighter) (char1);
             Fighter figh2 = (Fighter) (char2);
 
-            figh2.healthpoints = figh2.healthpoints - figh1.attackrating * figh1.motivation;
+            figh2.healthpoints = (int) (figh2.healthpoints - figh1.attackrating * figh1.motivation);
 
             
 
@@ -168,7 +169,7 @@ public abstract class Character implements Killable {
             }
             else{
 
-            figh1.healthpoints = figh1.healthpoints - figh2.attackrating * figh2.motivation;
+            figh1.healthpoints = (int) (figh1.healthpoints - figh2.attackrating * figh2.motivation);
 
             
 
@@ -184,7 +185,7 @@ public abstract class Character implements Killable {
 
         if (char1 instanceof Fighter && char2 instanceof Builder) {
             Fighter figh1 = (Fighter) (char1);
-                char2.healthpoints = char2.healthpoints - figh1.attackrating * figh1.motivation;
+                char2.healthpoints = (int) (char2.healthpoints - figh1.attackrating * figh1.motivation);
             
 
             if (char2.healthpoints <= 0) {
@@ -198,7 +199,7 @@ public abstract class Character implements Killable {
 
         if (char1 instanceof Builder && char2 instanceof Fighter) {
             Fighter figh2 = (Fighter) (char2);
-                char1.healthpoints = char1.healthpoints - figh2.attackrating * figh2.motivation;
+                char1.healthpoints = (int) (char1.healthpoints - figh2.attackrating * figh2.motivation);
             
 
             if (char1.healthpoints <= 0) {
@@ -520,10 +521,12 @@ public abstract class Character implements Killable {
         return curAnimation.isIsPlaying();
     }
 
+  public void setMotivation(double motivation) {
+        this.motivation = motivation;
+    }
+
     public int getMaxHealth() {
         return maxHealth;
     }
-    
-    
 
 }
