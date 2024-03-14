@@ -10,7 +10,6 @@ public class Catapult extends Fighter {
         // Festlegen der Werte des Warriors
         healthpoints = 20;
         movement = 1;
-        motivation = 1;
         attackrating = 8;
         attackrange = 6;
 
