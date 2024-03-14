@@ -1,5 +1,6 @@
 package building;
 
+import launcher.Start;
 import map.Map;
 import map.Player;
 import tools.MiscUtils;
@@ -41,10 +42,10 @@ public class Fishinghouse extends Building {
     }
 
     // Anfang jede Runde fischen
-    // alle drei Runden zwei runden ueberfischt
+    // alle zwei Runden drei runden ueberfischt
     int zael = 0;
     public void fish(Player player) {
-        if (zael<3) {
+        if (zael<2) {
             player.setFood(player.getFood() + fishingspeed*3);
         } else {
             player.setFood(player.getFood() + fishingspeed);

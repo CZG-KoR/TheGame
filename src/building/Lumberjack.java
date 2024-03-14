@@ -1,5 +1,6 @@
 package building;
 
+import gui.Tilemap;
 import map.Player;
 import map.Map;
 

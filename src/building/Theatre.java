@@ -43,7 +43,7 @@ public class Theatre extends Building {
                 // Kosten des theaters: 1 wood, 1 food
                 player.setWood(player.getWood() - 1);
                 player.setStone(player.getFood() - 1);
-                player.setMotivation(player.getMotivation() * this.motivationboost);
+            //    player.setMotivation(player.getMotivation() * this.motivationboost);
             }
         }
         zaehl++;

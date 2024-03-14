@@ -59,6 +59,9 @@ public abstract class Building {
         if (build instanceof Wheatfield) {
             return 3;
         }
+        if (build instanceof Mine) {
+            return 4;
+        }
         return 0;
     }
     
