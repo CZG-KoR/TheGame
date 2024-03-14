@@ -29,8 +29,8 @@ public class Bar extends JInternalFrame {
     int width, height;
     static int Placement = 0;
     HashMap<Integer, ImageIcon> icons;
-    JLabel foodAmount = new JLabel();
-    JLabel woodAmount = new JLabel();
+    JLabel foodAmount = new JLabel("0");
+    JLabel woodAmount = new JLabel("0");
 
     public Bar(int width, int height, Map m) {
         super();
@@ -61,12 +61,18 @@ public class Bar extends JInternalFrame {
         icons.put(99, new ImageIcon("src/gui/res/resources/1resourceBar_left.png"));
         icons.put(98, new ImageIcon("src/gui/res/resources/2resourceBar_mid.png"));
         icons.put(97, new ImageIcon("src/gui/res/resources/3resourceBar_right.png"));
-        icons.put(96, new ImageIcon("src/gui/res/resources/eat.png"));
-        icons.put(95, new ImageIcon("src/gui/res/resources/wood.png"));
+        icons.put(96, new ImageIcon("src/gui/res/resources/4food.png"));
+        icons.put(95, new ImageIcon("src/gui/res/resources/5wood.png"));
+        foodAmount.setLocation(54, 27);
+        foodAmount.setSize(10, 10);
+        foodAmount.setForeground(new java.awt.Color(255,0,0));
+        foodAmount.setBackground(Color.red);
         foodAmount.setVisible(true);
         foodAmount.setEnabled(false);
-        foodAmount.setLocation(64, 10);
-        foodAmount.setSize(5, 10);
+        woodAmount.setLocation(118, 27);
+        woodAmount.setSize(10, 10);
+        woodAmount.setForeground(new java.awt.Color(255,0,0));
+        woodAmount.setBackground(Color.red);
         woodAmount.setVisible(true);
         woodAmount.setEnabled(false);
         
