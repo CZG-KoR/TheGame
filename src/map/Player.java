@@ -65,7 +65,7 @@ public class Player {
 
         System.out.println("Position fuer Rathaus muss noch erstellt werden");
 
-        buildings.add(new Townhall(playername, 0, 0));
+        buildings.add(new Townhall(playername, 25, 25));
         
     }
     
@@ -83,6 +83,15 @@ public class Player {
                 }
             }
         }
+        
+        //Testausgabe des Territoriums eines Spielers
+//        for (int i = 0; i < territory.size(); i++) {
+//            System.out.println(territory.get(i)[0]+"  "+territory.get(i)[1]);
+//        }
+    }
+
+    public ArrayList<int[]> getTerritory() {
+        return territory;
     }
     
     public Character getCharacter(int x, int y){
