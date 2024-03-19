@@ -70,31 +70,35 @@ public class Bar extends JInternalFrame {
         icons.put(95, new ImageIcon("src/gui/res/resources/5wood.png"));
         icons.put(94, new ImageIcon("src/gui/res/resources/6motivation.png"));
         icons.put(93, new ImageIcon("src/gui/res/resources/7stone.png"));
-        foodAmount.setLocation(58, 27);
-        foodAmount.setSize(10, 10);
-        foodAmount.setForeground(new java.awt.Color(255, 0, 0));
+
+        foodAmount.setLocation(54, 27);
+        foodAmount.setSize(100, 10);
+        foodAmount.setForeground(new java.awt.Color(255,0,0));
         foodAmount.setBackground(Color.red);
         foodAmount.setVisible(true);
-        foodAmount.setEnabled(false);
-        woodAmount.setLocation(116, 27);
-        woodAmount.setSize(10, 10);
-        woodAmount.setForeground(new java.awt.Color(255, 0, 0));
+        //foodAmount.setEnabled(false);
+        
+        woodAmount.setLocation(118, 27);
+        woodAmount.setSize(100, 10);
+        woodAmount.setForeground(new java.awt.Color(255,0,0));
         woodAmount.setBackground(Color.red);
         woodAmount.setVisible(true);
-        woodAmount.setEnabled(false);
-
-        motivationAmount.setLocation(190, 27);
-        motivationAmount.setSize(10, 10);
-        motivationAmount.setForeground(new java.awt.Color(255,0,0));
-        motivationAmount.setBackground(Color.red);
-        motivationAmount.setVisible(true);
-        motivationAmount.setEnabled(false);
-        stoneAmount.setLocation(270, 27);
-        stoneAmount.setSize(10, 10);
+        //woodAmount.setEnabled(false);
+        
+        stoneAmount.setLocation(266, 27);
+        stoneAmount.setSize(100, 10);
         stoneAmount.setForeground(new java.awt.Color(255,0,0));
         stoneAmount.setBackground(Color.red);
         stoneAmount.setVisible(true);
-        stoneAmount.setEnabled(false);
+        //stoneAmount.setEnabled(false);
+        
+        motivationAmount.setLocation(185, 27);
+        motivationAmount.setSize(100, 10);
+        motivationAmount.setForeground(new java.awt.Color(255,0,0));
+        motivationAmount.setBackground(Color.red);
+        motivationAmount.setVisible(true);
+        //motivationAmount.setEnabled(false);
+        
 
 
         // entfernt leiste bei tabbedpane
