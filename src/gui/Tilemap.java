@@ -139,7 +139,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         for (int i = 0; i < players.length; i++) {
             if (players[i].isAtTurn() && selectedCharacter != null) {
                 if (players[i].getPlayername().equals(selectedCharacter.getPlayername()) && selectedCharacter.isCanmove()) {
-
+                    
                     // movement range bestimmen und betretbare felder markieren
                     selectedCharacter.movementrange(selectedCharacter.getXPosition(), selectedCharacter.getYPosition(), m);
                     //                   selectedCharacter.attackrange(selectedCharacter.getXPosition(), selectedCharacter.getYPosition(), m);
@@ -162,6 +162,17 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
 //                        g.drawRect(64 * selectedCharacter.getAttackrange().get(j)[0] + camX, 64 * selectedCharacter.getAttackrange().get(j)[1] + camY, 64, 64);
 //                    }
                 }
+            }
+        }
+        
+        // territory range bestimmen und felder markieren
+        for (int i = 0; i < players.length; i++) {
+            if (players[i].isAtTurn() && selectedCharacter == null) {
+                    for (int j = 0; j < players[i].getTerritory().size(); j++) {
+                        g.setColor(players[i].getSecondcolour());
+
+                        g.drawRect(n * players[i].getTerritory().get(j)[0] + camX, n * players[i].getTerritory().get(j)[1] + camY, n, n);
+                    }
             }
         }
 
@@ -365,20 +376,43 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             //neues Gebaeude kann nur in Territorium des Spielers gebaut werden, eigene Bedingung falls Name null
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
+                                System.out.println("ih");
                                 players[i].setBuilding(new Barracks(players[i].getPlayername(), hoveredX, hoveredY));
-                                Bar.setPlacement(0);
                                 
-                                //neues Festlegen des Territoriums des Spielers
-                                players[i].updateterritory(m);
+                                //Entfernen des Gebäudes wenn es dort nicht gebaut werden konnte
+                                System.out.println(players[i].getBuilding(players[i].getBuildingAmount()-1).getBuildableterrains().get(0));
+                                if(players[i].getBuilding(players[i].getBuildingAmount()-1).getBuildableterrains().contains(m.getFeld(hoveredX, hoveredY).getTerrainName())){
+                                    System.out.println("ih2");
+                                    players[i].deleteBuilding(players[i].getBuildingAmount()-1);
+                                }else{
+                                    //Bauen des Gebäudes
+                                    Bar.setPlacement(0);
+                                
+                                    //neues Festlegen des Territoriums des Spielers
+                                    players[i].updateterritory(m);
+                                }
+                                
+                                
                             }
                             }
                             break;
                         case 2:
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
+                                System.out.println("hi");
                                 players[i].setBuilding(new Fishinghouse(players[i].getPlayername(), hoveredX, hoveredY));
-                                Bar.setPlacement(0);
-                                players[i].updateterritory(m);
+                                
+                                //Entfernen des Gebäudes wenn es dort nicht gebaut werden konnte
+                                if(players[i].getBuilding(players[i].getBuildingAmount()-1).getBuildableterrains().contains(m.getFeld(hoveredX, hoveredY).getTerrainName())){
+                                    System.out.println("hi2");
+                                    players[i].deleteBuilding(players[i].getBuildingAmount()-1);
+                                }else{
+                                    //Bauen des Gebäudes
+                                    Bar.setPlacement(0);
+                                
+                                    //neues Festlegen des Territoriums des Spielers
+                                    players[i].updateterritory(m);
+                                }
                             }
                             }
                             break;
@@ -386,8 +420,17 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Lumberjack(players[i].getPlayername(), hoveredX, hoveredY));
-                                Bar.setPlacement(0);
-                                players[i].updateterritory(m);
+                                
+                                //Entfernen des Gebäudes wenn es dort nicht gebaut werden konnte
+                                if(players[i].getBuilding(players[i].getBuildingAmount()-1).getBuildableterrains().contains(m.getFeld(hoveredX, hoveredY).getTerrainName())){
+                                    players[i].deleteBuilding(players[i].getBuildingAmount()-1);
+                                }else{
+                                    //Bauen des Gebäudes
+                                    Bar.setPlacement(0);
+                                
+                                    //neues Festlegen des Territoriums des Spielers
+                                    players[i].updateterritory(m);
+                                }
                             }
                             }
                             break;
@@ -395,8 +438,17 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Mine(players[i].getPlayername(), hoveredX, hoveredY, m));
-                                Bar.setPlacement(0);
-                                players[i].updateterritory(m);
+                                
+                                //Entfernen des Gebäudes wenn es dort nicht gebaut werden konnte
+                                if(players[i].getBuilding(players[i].getBuildingAmount()-1).getBuildableterrains().contains(m.getFeld(hoveredX, hoveredY).getTerrainName())){
+                                    players[i].deleteBuilding(players[i].getBuildingAmount()-1);
+                                }else{
+                                    //Bauen des Gebäudes
+                                    Bar.setPlacement(0);
+                                
+                                    //neues Festlegen des Territoriums des Spielers
+                                    players[i].updateterritory(m);
+                                }
                             }
                             }
                             break;
@@ -404,8 +456,17 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Theatre(players[i].getPlayername(), hoveredX, hoveredY));
-                                Bar.setPlacement(0);
-                                players[i].updateterritory(m);
+                                
+                                //Entfernen des Gebäudes wenn es dort nicht gebaut werden konnte
+                                if(players[i].getBuilding(players[i].getBuildingAmount()-1).getBuildableterrains().contains(m.getFeld(hoveredX, hoveredY).getTerrainName())){
+                                    players[i].deleteBuilding(players[i].getBuildingAmount()-1);
+                                }else{
+                                    //Bauen des Gebäudes
+                                    Bar.setPlacement(0);
+                                
+                                    //neues Festlegen des Territoriums des Spielers
+                                    players[i].updateterritory(m);
+                                }
                             }
                             }
                             break;
@@ -413,8 +474,17 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Tower(players[i].getPlayername(), hoveredX, hoveredY));
-                                Bar.setPlacement(0);
-                                players[i].updateterritory(m);
+                                
+                                //Entfernen des Gebäudes wenn es dort nicht gebaut werden konnte
+                                if(players[i].getBuilding(players[i].getBuildingAmount()-1).getBuildableterrains().contains(m.getFeld(hoveredX, hoveredY).getTerrainName())){
+                                    players[i].deleteBuilding(players[i].getBuildingAmount()-1);
+                                }else{
+                                    //Bauen des Gebäudes
+                                    Bar.setPlacement(0);
+                                
+                                    //neues Festlegen des Territoriums des Spielers
+                                    players[i].updateterritory(m);
+                                }
                             }
                             }
                             break;
@@ -422,8 +492,17 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Townhall(players[i].getPlayername(), hoveredX, hoveredY));
-                                Bar.setPlacement(0);
-                                players[i].updateterritory(m);
+                                
+                                //Entfernen des Gebäudes wenn es dort nicht gebaut werden konnte
+                                if(players[i].getBuilding(players[i].getBuildingAmount()-1).getBuildableterrains().contains(m.getFeld(hoveredX, hoveredY).getTerrainName())){
+                                    players[i].deleteBuilding(players[i].getBuildingAmount()-1);
+                                }else{
+                                    //Bauen des Gebäudes
+                                    Bar.setPlacement(0);
+                                
+                                    //neues Festlegen des Territoriums des Spielers
+                                    players[i].updateterritory(m);
+                                }
                             }
                             }
                             break;
@@ -431,8 +510,17 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Wheatfield(players[i].getPlayername(), hoveredX, hoveredY));
-                                Bar.setPlacement(0);
-                                players[i].updateterritory(m);
+                                
+                                //Entfernen des Gebäudes wenn es dort nicht gebaut werden konnte
+                                if(players[i].getBuilding(players[i].getBuildingAmount()-1).getBuildableterrains().contains(m.getFeld(hoveredX, hoveredY).getTerrainName())){
+                                    players[i].deleteBuilding(players[i].getBuildingAmount()-1);
+                                }else{
+                                    //Bauen des Gebäudes
+                                    Bar.setPlacement(0);
+                                
+                                    //neues Festlegen des Territoriums des Spielers
+                                    players[i].updateterritory(m);
+                                }
                             }
                             }
                             break;
