@@ -369,6 +369,8 @@ public class Bar extends JInternalFrame {
                             }
                             foodAmount.setText(Integer.toString(players[0].getFood()));
                             woodAmount.setText(Integer.toString(players[0].getWood()));
+                            motivationAmount.setText(Integer.toString(players[0].getWood()));
+                            stoneAmount.setText(Integer.toString(players[0].getWood()));
                         } else {
                             players[i + 1].setAtTurn(true);
                             MainWindow.AtTurn.setText("Am Zug:" + players[i + 1].getPlayername());
@@ -398,7 +400,9 @@ public class Bar extends JInternalFrame {
                                 }
                             }
                            foodAmount.setText(Integer.toString(players[i+1].getFood()));
-                            woodAmount.setText(Integer.toString(players[i+1].getWood()));
+                           woodAmount.setText(Integer.toString(players[i+1].getWood()));
+                           motivationAmount.setText(Integer.toString(players[i+1].getWood()));
+                           stoneAmount.setText(Integer.toString(players[i+1].getWood()));
                             
                         }
                         break;
