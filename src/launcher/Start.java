@@ -11,6 +11,7 @@ import map.Player;
 import music.Music;
 import building.Building;
 import building.Townhall;
+import java.util.Arrays;
 
 import javax.swing.SwingUtilities;
 
@@ -52,20 +53,19 @@ public class Start {
         Map map = new Map(width, heigth);
         
         //Gebiete der Spieler festlegen
-        spieler1.updateterritory(map);
-        spieler2.updateterritory(map);
+
         
         SwingUtilities.invokeLater(() -> new MainWindow(map));
         System.out.println(checkWaters(map,0)[0]+", "+checkWaters(map,0)[1]);
         
         //Test der movement-Methode
-        Warrior w = new Warrior("Spieler1",25,25);
-        Map.getFeld(25, 25).setOccupied(true);
-        Map.getFeld(25, 25).setOccupiedby("Spieler1");
+        Warrior w = new Warrior("Spieler1",checkWaters(map,2)[1],checkWaters(map,2)[0]);
+        Map.getFeld(checkWaters(map,2)[1],checkWaters(map,2)[0]).setOccupied(true);
+        Map.getFeld(checkWaters(map,2)[1],checkWaters(map,2)[0]).setOccupiedby("Spieler1");
         players[0].setCharacter(w);
-        Warrior v = new Warrior("Spieler2",25,27);
-        Map.getFeld(25, 27).setOccupiedby("Spieler2");
-        Map.getFeld(25, 27).setOccupied(true);
+        Warrior v = new Warrior("Spieler2",checkWaters(map,3)[1],checkWaters(map,3)[0]);
+        Map.getFeld(checkWaters(map,3)[1],checkWaters(map,3)[0]).setOccupiedby("Spieler2");
+        Map.getFeld(checkWaters(map,3)[1],checkWaters(map,3)[0]).setOccupied(true);
         players[1].setCharacter(v);
         Townhall th1 = new Townhall("Spieler1",checkWaters(map,0)[1],checkWaters(map,0)[0]);
         map.getFeld(checkWaters(map,0)[1], checkWaters(map,0)[0]).setOccupied(true);
@@ -91,34 +91,42 @@ public class Start {
         return players;
     }
     
-    public static int[] checkWaters(Map Map, int startposition){        // startposition = 0, oben links, startposition = 1, unten links
+    public static int[] checkWaters(Map Map, int startposition){        // startposition = 0, oben links, startposition = 1, unten links, 2 oder 3 = startposition warrior neben townhall
         int w = Map.getWidth();
-        if(startposition==0){
         for (int i = 0; i < w; i++) {
-            
             for (int j = 0; j < w; j++) {
-                String a = Map.getFeld(j, i).getTerrainName();
-                if(!a.equals("water")){
-                    int[] koch = {i,j};
-                    return koch;
+                if(startposition==0){
+                    String a = Map.getFeld(j, i).getTerrainName();
+                    if(!a.equals("water")){
+                        int[] koch = {i,j};
+                        return koch;
+                    }
+                }else if(startposition==1){
+                    String a = Map.getFeld(49-j, 49-i).getTerrainName();
+                    if(!a.equals("water")){
+                        int[] koch = {49-i,49-j};
+                        return koch;
+                    }
+                }else if(startposition==2){
+                    String a = Map.getFeld(j,i).getTerrainName();
+                    if(!a.equals("water")){
+                        int[] koch = {i,j};
+                        if(!Arrays.equals(koch, checkWaters(Map,0))){
+                            return koch;
+                        }
+                    }
+                }else if(startposition==3){
+                    String a = Map.getFeld(49-j, 49-i).getTerrainName();
+                    if(!a.equals("water")){
+                        int[] koch = {49-i,49-j};
+                        if(!Arrays.equals(koch, checkWaters(Map,1))){
+                            return koch;
+                        }
+                    }
                 }
-        
             }
-        }
-        return null;
-        }else if(startposition==1){
-            for (int i = w-1; i > 0; i--) {
-            for (int j = w-1; j > 0; j--) {
-                String a = Map.getFeld(j, i).getTerrainName();
-                if(!a.equals("water")){
-                    int[] koch = {i,j};
-                    return koch;
-                }
-        
-            }
-        }
-        return null;
         }
         return null;
     }
 }
+
