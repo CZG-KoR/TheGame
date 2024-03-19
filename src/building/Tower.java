@@ -1,6 +1,8 @@
 package building;
 
+import java.awt.Image;
 import map.Player;
+import tools.MiscUtils;
 
 public class Tower extends Building {
     //Upgrade level des Towers
@@ -9,6 +11,10 @@ public class Tower extends Building {
     
     //automatisches angreifen mit bestimmten schaden
     private int attackingstrength;
+    
+    static Image picture1 = MiscUtils.loadImages("src/gui/res/building")[5];
+    
+    private int einnehmen = 5;
 
     public Tower(String playername, int xPosition, int yPosition) {
         super(playername); 
@@ -20,17 +26,18 @@ public class Tower extends Building {
         //  this.info="große Range";
         this.level = 0;
         this.attackingstrength = 1;
+        picture = MiscUtils.loadImages("src/gui/res/building")[5];
     }
     
-    public boolean buildable(Player player) {
+    public static boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();
 
         if (wood >= 1 && stone >= 1) {
             // Kosten des Bauens: 1 wood, 1 Stone
-            player.setWood(wood - 1);
-            player.setStone(stone - 1);
+//            player.setWood(wood - 1);
+//            player.setStone(stone - 1);
             // genug ressourcen, deswegen buildable true
             return true;
         }
@@ -63,8 +70,31 @@ public class Tower extends Building {
         }
     }
     
+
     @Override
     public void buildableterrains() {
         buildableterrains.add("water");
     }
+
+    public static Image getPicture1(){
+        return picture1;
+    }
+
+    public int getEinnehmen() {
+        return einnehmen;
+    }
+
+    public void setEinnehmen(int einnehmen) {
+        this.einnehmen = einnehmen;
+    }
+    
+    public void EinnehmenStart(Player player){
+        
+    }
+    
+    public void EinnehmenProzess(int einnehmen, Player player){
+        
+    }
+    
+
 }
