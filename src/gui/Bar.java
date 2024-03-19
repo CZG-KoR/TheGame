@@ -17,9 +17,12 @@ import javax.swing.plaf.basic.BasicArrowButton;
 import launcher.Start;
 import map.Player;
 import building.Building;
+import building.Barracks;
 import building.Fishinghouse;
 import building.Lumberjack;
 import building.Mine;
+import building.Theatre;
+import building.Tower;
 import building.Wheatfield;
 import java.awt.Image;
 import java.util.HashMap;
@@ -32,6 +35,8 @@ public class Bar extends JInternalFrame {
     HashMap<Integer, ImageIcon> icons;
     JLabel foodAmount = new JLabel("0");
     JLabel woodAmount = new JLabel("0");
+    JLabel motivationAmount = new JLabel("0");
+    JLabel stoneAmount = new JLabel("0");
 
     public Bar(int width, int height, Map m) {
         super();
@@ -64,21 +69,33 @@ public class Bar extends JInternalFrame {
         icons.put(97, new ImageIcon("src/gui/res/resources/3resourceBar_right.png"));
         icons.put(96, new ImageIcon("src/gui/res/resources/4food.png"));
         icons.put(95, new ImageIcon("src/gui/res/resources/5wood.png"));
-        foodAmount.setLocation(54, 27);
+        icons.put(94, new ImageIcon("src/gui/res/resources/6motivation.png"));
+        icons.put(93, new ImageIcon("src/gui/res/resources/7stone.png"));
+        foodAmount.setLocation(58, 27);
         foodAmount.setSize(10, 10);
         foodAmount.setForeground(new java.awt.Color(255,0,0));
         foodAmount.setBackground(Color.red);
         foodAmount.setVisible(true);
         foodAmount.setEnabled(false);
-        woodAmount.setLocation(118, 27);
+        woodAmount.setLocation(116, 27);
         woodAmount.setSize(10, 10);
         woodAmount.setForeground(new java.awt.Color(255,0,0));
         woodAmount.setBackground(Color.red);
         woodAmount.setVisible(true);
         woodAmount.setEnabled(false);
+        motivationAmount.setLocation(190, 27);
+        motivationAmount.setSize(10, 10);
+        motivationAmount.setForeground(new java.awt.Color(255,0,0));
+        motivationAmount.setBackground(Color.red);
+        motivationAmount.setVisible(true);
+        motivationAmount.setEnabled(false);
+        stoneAmount.setLocation(270, 27);
+        stoneAmount.setSize(10, 10);
+        stoneAmount.setForeground(new java.awt.Color(255,0,0));
+        stoneAmount.setBackground(Color.red);
+        stoneAmount.setVisible(true);
+        stoneAmount.setEnabled(false);
         
-        foodAmount.setLocation(94, 10);
-        foodAmount.setSize(5, 10);
         
 
         // entfernt leiste bei tabbedpane
@@ -104,7 +121,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("barracksButton pressed");
-                Placement = 1;
+                if (Barracks.buildable(Player.getAtTurn())) {
+                Placement = 1;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(barracksButton);
@@ -120,7 +140,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
-                Placement = 2;
+                if (Fishinghouse.buildable(Player.getAtTurn())) {
+                Placement = 2;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(fishingButton);
@@ -136,7 +159,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
-                Placement = 3;
+                if (Lumberjack.buildable(Player.getAtTurn())) {
+                Placement = 3;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(lumberjackButton);
@@ -152,7 +178,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
-                Placement = 4;
+                if (Mine.buildable(Player.getAtTurn())) {
+                Placement = 4;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(mineButton);
@@ -168,7 +197,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
-                Placement = 5;
+                if (Theatre.buildable(Player.getAtTurn())) {
+                Placement = 5;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(theatreButton);
@@ -184,7 +216,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
-                Placement = 6;
+                if (Tower.buildable(Player.getAtTurn())) {
+                Placement = 6;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(tower);
@@ -355,6 +390,8 @@ public class Bar extends JInternalFrame {
                             }
                             foodAmount.setText(Integer.toString(players[0].getFood()));
                             woodAmount.setText(Integer.toString(players[0].getWood()));
+                            motivationAmount.setText(Integer.toString(players[0].getWood()));
+                            stoneAmount.setText(Integer.toString(players[0].getWood()));
                         } else {
                             players[i + 1].setAtTurn(true);
                             MainWindow.AtTurn.setText("Am Zug:" + players[i + 1].getPlayername());
@@ -384,7 +421,9 @@ public class Bar extends JInternalFrame {
                                 }
                             }
                            foodAmount.setText(Integer.toString(players[i+1].getFood()));
-                            woodAmount.setText(Integer.toString(players[i+1].getWood()));
+                           woodAmount.setText(Integer.toString(players[i+1].getWood()));
+                           motivationAmount.setText(Integer.toString(players[i+1].getWood()));
+                           stoneAmount.setText(Integer.toString(players[i+1].getWood()));
                             
                         }
                         break;
