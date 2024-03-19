@@ -173,9 +173,11 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
         g.drawImage(b.getIconImage(97), 256, 0, null); //ressourceBarright
         g.drawImage(b.getIconImage(96), 10, 4, null); //food 
         g.drawImage(b.getIconImage(95), 64, 0, null); //wood
+
         g.drawImage(b.getIconImage(94), 128, 0, null); //motivation
         g.drawImage(b.getIconImage(93), 200, 7, null); //stone
   
+
         //minimap
         for (int i = 0; i < m.getHeight(); i++) {
             for (int j = 0; j < m.getWidth(); j++) {
@@ -194,7 +196,7 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                         break;
 
                     case "water":
-                        g.setColor(Color.blue);
+                        g.setColor(Color.cyan);
                         break;
 
                     case "light_mountain":
