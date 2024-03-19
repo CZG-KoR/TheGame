@@ -24,7 +24,7 @@ public class Townhall extends Building {
         this.yPosition = yPosition;
         buildingrange = 2;
         healthpoints = 100;     
-        picture = MiscUtils.loadImages("src/gui/res/building")[3];
+        picture = MiscUtils.loadImages("src/gui/res/building")[1];
 
     }
 

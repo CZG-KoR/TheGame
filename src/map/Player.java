@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Image;
 
 import java.util.ArrayList;
+import launcher.Start;
 
 public class Player {
     // Name eines Spielers
@@ -261,5 +262,13 @@ public class Player {
         return buildings.get(i).getPicture();
     }
 
+    public static Player getAtTurn(){
+        for (int i = 0; i < Start.getPlayers().length; i++) {
+            if(Start.getPlayers()[i].isAtTurn() == true){
+                return Start.getPlayers()[i];
+            }
+        }
+        return null;
+    }
 
 }

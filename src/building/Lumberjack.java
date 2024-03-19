@@ -20,15 +20,15 @@ public class Lumberjack extends Building {
         this.chopspeed = 1;
     }
 
-    public boolean buildable(Player player) {
+    public static boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();
 
         if (wood >= 1 && stone >= 1) {
             // Kosten des Bauens: 1 wood, 1 Stone
-            player.setWood(wood - 1);
-            player.setStone(stone - 1);
+//            player.setWood(wood - 1);
+//            player.setStone(stone - 1);
             // genug ressourcen, deswegen buildable true
             return true;
         }
