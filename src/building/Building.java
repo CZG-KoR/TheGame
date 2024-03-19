@@ -1,6 +1,7 @@
 package building;
 
 import java.awt.Image;
+import java.util.ArrayList;
 import map.Player;
 
 public abstract class Building {
@@ -12,6 +13,9 @@ public abstract class Building {
 
     // Reichweitenvergrößerung des Landes
     protected int buildingrange;
+    
+    //Gebiete, auf die Gebäude nicht gebaut werden kann
+    protected ArrayList<String> buildableterrains = new ArrayList();
     
     private String playername;
     
@@ -25,6 +29,7 @@ public abstract class Building {
     // braucht man eigentlich nicht
     int[] buildcost = new int[2];
 
+    
     public void build(Player player, int x, int y) {
         buildtime -= player.getBuilderAmount(x, y);
         if (buildtime < 0) {
@@ -39,6 +44,8 @@ public abstract class Building {
     public int getxPosition() {
         return xPosition;
     }
+    
+    public abstract void buildableterrains();
 
     public int getyPosition() {
         return yPosition;
@@ -63,6 +70,7 @@ public abstract class Building {
 
     protected Building(String playername) {
         this.playername = playername;
+        buildableterrains();
     }
 
     public Image getPicture(){
@@ -72,6 +80,12 @@ public abstract class Building {
     public int getBuildingrange() {
         return buildingrange;
     }
+
+    public ArrayList<String> getBuildableterrains() {
+        return buildableterrains;
+    }
+
+    
 
     
 

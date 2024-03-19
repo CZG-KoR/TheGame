@@ -24,6 +24,7 @@ import building.Mine;
 import building.Theatre;
 import building.Tower;
 import building.Wheatfield;
+import building.WinCondition;
 import java.awt.Image;
 import java.util.HashMap;
 import map.Map;
@@ -43,26 +44,24 @@ public class Bar extends JInternalFrame {
         this.width = width;
         this.height = height;
         JTabbedPane tabs = new JTabbedPane(SwingConstants.TOP);
-        
+
         // Icons laden
         icons = new HashMap<>();
-        
+
         icons.put(2, new ImageIcon("src/gui/res/building/fishinghouse.png"));
         icons.put(4, new ImageIcon("src/gui/res/building/mine.png"));
         icons.put(7, new ImageIcon("src/gui/res/building/townhall.png"));
         icons.put(8, new ImageIcon("src/gui/res/building/windmill.png"));
-        
+
         icons.put(9, new ImageIcon("src/gui/res/warrior1/idle/idle_1.png"));
         icons.put(10, new ImageIcon("src/gui/res/archer/idel/archer_idel1.png"));
-        
+
         icons.put(0, new ImageIcon("src/gui/res/"));
-        
-        
 
         this.setSize(width, height / 3);
         this.setLocation(0, height - height / 3);
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        
+
         //ressourceBar
         icons.put(99, new ImageIcon("src/gui/res/resources/1resourceBar_left.png"));
         icons.put(98, new ImageIcon("src/gui/res/resources/2resourceBar_mid.png"));
@@ -71,6 +70,7 @@ public class Bar extends JInternalFrame {
         icons.put(95, new ImageIcon("src/gui/res/resources/5wood.png"));
         icons.put(94, new ImageIcon("src/gui/res/resources/6motivation.png"));
         icons.put(93, new ImageIcon("src/gui/res/resources/7stone.png"));
+
         foodAmount.setLocation(54, 27);
         foodAmount.setSize(100, 10);
         foodAmount.setForeground(new java.awt.Color(255,0,0));
@@ -99,7 +99,7 @@ public class Bar extends JInternalFrame {
         motivationAmount.setVisible(true);
         //motivationAmount.setEnabled(false);
         
-        
+
 
         // entfernt leiste bei tabbedpane
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
@@ -125,9 +125,11 @@ public class Bar extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("barracksButton pressed");
                 if (Barracks.buildable(Player.getAtTurn())) {
-                Placement = 1;    
+                    Placement = 1;
+                    
+                } else {
+                    Placement = 0;
                 }
-                Placement = 0;
             }
         });
         panelBuildings.add(barracksButton);
@@ -144,9 +146,11 @@ public class Bar extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
                 if (Fishinghouse.buildable(Player.getAtTurn())) {
-                Placement = 2;    
+                    Placement = 2;
+                } else {
+                    Placement = 0;
                 }
-                Placement = 0;
+
             }
         });
         panelBuildings.add(fishingButton);
@@ -163,9 +167,10 @@ public class Bar extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
                 if (Lumberjack.buildable(Player.getAtTurn())) {
-                Placement = 3;    
+                    Placement = 3;
+                } else {
+                    Placement = 0;
                 }
-                Placement = 0;
             }
         });
         panelBuildings.add(lumberjackButton);
@@ -182,9 +187,10 @@ public class Bar extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
                 if (Mine.buildable(Player.getAtTurn())) {
-                Placement = 4;    
+                    Placement = 4;
+                } else {
+                    Placement = 0;
                 }
-                Placement = 0;
             }
         });
         panelBuildings.add(mineButton);
@@ -201,9 +207,10 @@ public class Bar extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
                 if (Theatre.buildable(Player.getAtTurn())) {
-                Placement = 5;    
+                    Placement = 5;
+                } else {
+                    Placement = 0;
                 }
-                Placement = 0;
             }
         });
         panelBuildings.add(theatreButton);
@@ -220,9 +227,10 @@ public class Bar extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
                 if (Tower.buildable(Player.getAtTurn())) {
-                Placement = 6;    
+                    Placement = 6;
+                } else {
+                    Placement = 0;
                 }
-                Placement = 0;
             }
         });
         panelBuildings.add(tower);
@@ -258,7 +266,7 @@ public class Bar extends JInternalFrame {
             }
         });
         panelBuildings.add(wheatfieldButton);
-        
+
         JButton windmillButton = new JButton();
         windmillButton.setIcon(icons.get(8));
         windmillButton.setText("Windmill");
@@ -351,7 +359,8 @@ public class Bar extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 // Runden Button Turn End noch init
                 // Das in ActionPerformed vom ButtonTurnEnd übernehmen
-                
+                WinCondition.EinnehmenProzess();
+
                 Bar.setPlacement(0);
                 Player[] players = Start.getPlayers();
                 for (int i = 0; i < players.length; i++) {
@@ -391,6 +400,8 @@ public class Bar extends JInternalFrame {
                                         break;
                                 }
                             }
+                            players[0].setStone(players[0].getStone() + 5);
+                            players[0].setWood(players[0].getWood() + 5);
                             foodAmount.setText(Integer.toString(players[0].getFood()));
                             woodAmount.setText(Integer.toString(players[0].getWood()));
                             motivationAmount.setText(Integer.toString(players[0].getWood()));
@@ -410,7 +421,7 @@ public class Bar extends JInternalFrame {
                                     case 2:
                                         Fishinghouse fish = (Fishinghouse) (build);
                                         fish.fish(players[1]);
-                                        System.out.println("essen: " +players[0].getFood());
+                                        System.out.println("essen: " + players[0].getFood());
                                         break;
                                     case 3:
                                         Wheatfield weed = (Wheatfield) (build);
@@ -423,11 +434,13 @@ public class Bar extends JInternalFrame {
                                         break;
                                 }
                             }
+
                            foodAmount.setText(Integer.toString(players[i+1].getFood()));
                            woodAmount.setText(Integer.toString(players[i+1].getWood()));
                            motivationAmount.setText(Integer.toString(players[i+1].getWood()));
                            stoneAmount.setText(Integer.toString(players[i+1].getWood()));
                             
+
                         }
                         break;
                     }
@@ -491,14 +504,14 @@ public class Bar extends JInternalFrame {
     public static void setPlacement(int i) {
         Placement = i;
     }
-    
-    public Image getIconImage(Integer name){
-        
-        if (!icons.containsKey(name)){
+
+    public Image getIconImage(Integer name) {
+
+        if (!icons.containsKey(name)) {
             System.out.println("Dieses Icon existiert nicht!");
             return icons.get(0).getImage();
         }
-        
+
         return icons.get(name).getImage();
     }
 

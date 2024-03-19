@@ -31,10 +31,10 @@ public class Barracks extends Building{
         int wood = player.getWood();
         int stone = player.getStone();
 
-        if (wood >= 2 && stone >= 2) {
+        if (wood >= 1 && stone >= 1) {
             // Kosten des Bauens: 1 wood, 1 Stone
-            player.setWood(wood - 1);
-            player.setStone(stone - 1);
+//            player.setWood(wood - 1);
+//            player.setStone(stone - 1);
             // genug ressourcen, deswegen buildable true
             return true;
         }
@@ -129,5 +129,10 @@ public class Barracks extends Building{
         } else {
             //Fehlermeldung
         }
+    }
+
+    @Override
+    public void buildableterrains() {
+        this.getBuildableterrains().add("water");
     }
 }

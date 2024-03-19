@@ -29,10 +29,11 @@ public class Fishinghouse extends Building {
         
         if (wood >= 1 && stone >= 1) {
             // Kosten des Bauens: 1 wood, 1 Stone
-            player.setWood(wood - 1);
-            player.setStone(stone - 1);
+//            player.setWood(wood - 1);
+//            player.setStone(stone - 1);
             // genug ressourcen, deswegen buildable true
             //wenn neben Wasser
+            return true;
         }
         // bei false, soll das Gebäude nicht gebaut werden
         return false;
@@ -61,5 +62,15 @@ public class Fishinghouse extends Building {
             }
         }
         return false;
+    }
+    
+    @Override
+    public void buildableterrains() {
+        buildableterrains.add("light_mountain");
+        buildableterrains.add("peak_mountain");
+        buildableterrains.add("dark_mountain");
+        buildableterrains.add("desert");
+        buildableterrains.add("forest");
+        buildableterrains.add("grass");
     }
 }

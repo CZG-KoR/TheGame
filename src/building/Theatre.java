@@ -27,8 +27,8 @@ public class Theatre extends Building {
 
         if (wood >= 1 && stone >= 1) {
             // Kosten des Bauens: 1 wood, 1 Stone
-            player.setWood(wood - 1);
-            player.setStone(stone - 1);
+//            player.setWood(wood - 1);
+//            player.setStone(stone - 1);
             // genug ressourcen, deswegen buildable true
             return true;
         }
@@ -58,6 +58,11 @@ public class Theatre extends Building {
         if (zaehl == 3) {
             zaehl = 0;
         }
+    }
+    
+    @Override
+    public void buildableterrains() {
+        buildableterrains.add("water");
     }
 
 }

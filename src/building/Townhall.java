@@ -84,4 +84,9 @@ public class Townhall extends Building {
             // Fehlermeldung, "noch nicht freigeschaltet"
         }
     }
+    
+    @Override
+    public void buildableterrains() {
+        buildableterrains.add("water");
+    }
 }
