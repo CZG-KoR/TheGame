@@ -17,9 +17,12 @@ import javax.swing.plaf.basic.BasicArrowButton;
 import launcher.Start;
 import map.Player;
 import building.Building;
+import building.Barracks;
 import building.Fishinghouse;
 import building.Lumberjack;
 import building.Mine;
+import building.Theatre;
+import building.Tower;
 import building.Wheatfield;
 import java.awt.Image;
 import java.util.HashMap;
@@ -104,7 +107,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("barracksButton pressed");
-                Placement = 1;
+                if (Barracks.buildable(Player.getAtTurn())) {
+                Placement = 1;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(barracksButton);
@@ -120,7 +126,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
-                Placement = 2;
+                if (Fishinghouse.buildable(Player.getAtTurn())) {
+                Placement = 2;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(fishingButton);
@@ -136,7 +145,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
-                Placement = 3;
+                if (Lumberjack.buildable(Player.getAtTurn())) {
+                Placement = 3;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(lumberjackButton);
@@ -152,7 +164,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
-                Placement = 4;
+                if (Mine.buildable(Player.getAtTurn())) {
+                Placement = 4;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(mineButton);
@@ -168,7 +183,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
-                Placement = 5;
+                if (Theatre.buildable(Player.getAtTurn())) {
+                Placement = 5;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(theatreButton);
@@ -184,7 +202,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
-                Placement = 6;
+                if (Tower.buildable(Player.getAtTurn())) {
+                Placement = 6;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(tower);

@@ -1,6 +1,7 @@
 package building;
 
 import map.Player;
+import tools.MiscUtils;
 
 public class Theatre extends Building {
     // Das Gebäude dient der Unterhaltung des Volkes
@@ -16,9 +17,10 @@ public class Theatre extends Building {
         this.healthpoints = 2;
         this.buildingrange = 2;
         this.motivationboost = 1.1;
+        picture = MiscUtils.loadImages("src/gui/res/building")[7];
     }
 
-    public boolean buildable(Player player) {
+    public static boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();
