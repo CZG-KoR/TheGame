@@ -10,6 +10,7 @@ import map.Map;
 import map.Player;
 import music.Music;
 import building.Building;
+import building.Tower;
 import building.Townhall;
 
 import javax.swing.SwingUtilities;
@@ -51,12 +52,18 @@ public class Start {
         // neuer Thread, wenn alles geladen ist
         Map map = new Map(width, heigth);
         
-        //Gebiete der Spieler festlegen
-        spieler1.updateterritory(map);
-        spieler2.updateterritory(map);
+//        Gebiete der Spieler festlegen
+//        spieler1.updateterritory(map);
+//        spieler2.updateterritory(map);
         
         SwingUtilities.invokeLater(() -> new MainWindow(map));
         System.out.println(checkWaters(map,0)[0]+", "+checkWaters(map,0)[1]);
+        
+        
+        // Platzieren des Einnehmbaren Gebäudes in der Mitte (win-condition)
+        Tower win = new Tower("WinCondition", 25, 25);
+        
+        
         
         //Test der movement-Methode
         Warrior w = new Warrior("Spieler1",25,25);
@@ -82,6 +89,8 @@ public class Start {
         for (int i = 0; i < w.getAttackrange().size(); i++) {
             System.out.println(w.getAttackrange().get(i)[0]+"  "+w.getAttackrange().get(i)[1]);
         }
+        
+        
         
 
         
@@ -121,4 +130,6 @@ public class Start {
         }
         return null;
     }
+    
+    
 }

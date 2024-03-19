@@ -21,6 +21,7 @@ import building.Fishinghouse;
 import building.Lumberjack;
 import building.Mine;
 import building.Wheatfield;
+import building.WinCondition;
 import java.awt.Image;
 import java.util.HashMap;
 import map.Map;
@@ -313,7 +314,7 @@ public class Bar extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 // Runden Button Turn End noch init
                 // Das in ActionPerformed vom ButtonTurnEnd übernehmen
-                
+                WinCondition.EinnehmenProzess();
                 Bar.setPlacement(0);
                 Player[] players = Start.getPlayers();
                 for (int i = 0; i < players.length; i++) {

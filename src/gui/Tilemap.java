@@ -103,6 +103,8 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 g.drawImage(players[i].getBuilding(j).getPicture(), b.getxPosition() * n + camX, camY + n * b.getyPosition(), n, n, null);
             }
         }
+        
+        g.drawImage(Tower.getPicture1(), 25 * n + camX, camY + n * 25, n, n, null);
 
         // zeichne markierungen für von maus berührte felder
         g.setColor(Color.DARK_GRAY);
