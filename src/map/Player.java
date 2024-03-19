@@ -65,7 +65,6 @@ public class Player {
 
         System.out.println("Position fuer Rathaus muss noch erstellt werden");
 
-        buildings.add(new Townhall(playername, 25, 25));
         
     }
     

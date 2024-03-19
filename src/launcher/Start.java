@@ -102,13 +102,13 @@ public class Start {
                         return koch;
                     }
                 }else if(startposition==1){
-                    String a = Map.getFeld(j, i).getTerrainName();
+                    String a = Map.getFeld(49-j, 49-i).getTerrainName();
                     if(!a.equals("water")){
                         int[] koch = {49-i,49-j};
                         return koch;
                     }
                 }else if(startposition==2){
-                    String a = Map.getFeld(49-j, 49-i).getTerrainName();
+                    String a = Map.getFeld(j,i).getTerrainName();
                     if(!a.equals("water")){
                         int[] koch = {i,j};
                         if(!Arrays.equals(koch, checkWaters(Map,0))){
