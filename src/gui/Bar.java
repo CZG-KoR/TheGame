@@ -32,6 +32,8 @@ public class Bar extends JInternalFrame {
     HashMap<Integer, ImageIcon> icons;
     JLabel foodAmount = new JLabel("0");
     JLabel woodAmount = new JLabel("0");
+    JLabel motivationAmount = new JLabel("0");
+    JLabel stoneAmount = new JLabel("0");
 
     public Bar(int width, int height, Map m) {
         super();
@@ -64,21 +66,33 @@ public class Bar extends JInternalFrame {
         icons.put(97, new ImageIcon("src/gui/res/resources/3resourceBar_right.png"));
         icons.put(96, new ImageIcon("src/gui/res/resources/4food.png"));
         icons.put(95, new ImageIcon("src/gui/res/resources/5wood.png"));
-        foodAmount.setLocation(54, 27);
+        icons.put(94, new ImageIcon("src/gui/res/resources/6motivation.png"));
+        icons.put(93, new ImageIcon("src/gui/res/resources/7stone.png"));
+        foodAmount.setLocation(58, 27);
         foodAmount.setSize(10, 10);
         foodAmount.setForeground(new java.awt.Color(255,0,0));
         foodAmount.setBackground(Color.red);
         foodAmount.setVisible(true);
         foodAmount.setEnabled(false);
-        woodAmount.setLocation(118, 27);
+        woodAmount.setLocation(116, 27);
         woodAmount.setSize(10, 10);
         woodAmount.setForeground(new java.awt.Color(255,0,0));
         woodAmount.setBackground(Color.red);
         woodAmount.setVisible(true);
         woodAmount.setEnabled(false);
+        motivationAmount.setLocation(190, 27);
+        motivationAmount.setSize(10, 10);
+        motivationAmount.setForeground(new java.awt.Color(255,0,0));
+        motivationAmount.setBackground(Color.red);
+        motivationAmount.setVisible(true);
+        motivationAmount.setEnabled(false);
+        stoneAmount.setLocation(270, 27);
+        stoneAmount.setSize(10, 10);
+        stoneAmount.setForeground(new java.awt.Color(255,0,0));
+        stoneAmount.setBackground(Color.red);
+        stoneAmount.setVisible(true);
+        stoneAmount.setEnabled(false);
         
-        foodAmount.setLocation(94, 10);
-        foodAmount.setSize(5, 10);
         
 
         // entfernt leiste bei tabbedpane
