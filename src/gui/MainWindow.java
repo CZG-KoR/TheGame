@@ -51,6 +51,8 @@ public class MainWindow {
         layer.add(b, 2000);
         layer.add(b.foodAmount, 2500);
         layer.add(b.woodAmount, 2500);
+        layer.add(b.motivationAmount, 2500);
+        layer.add(b.stoneAmount, 2500);
         //CloseButton; schließt Bar
         JButton close = b.closeBarButton();
         layer.add(close);
