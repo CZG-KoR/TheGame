@@ -37,8 +37,8 @@ public class Start {
 
         
         //Init der Spieler + des Spielerarrays
-        Player spieler1 = new Player("Spieler1", Color.BLUE);
-        Player spieler2 = new Player("Spieler2", Color.RED);
+        Player spieler1 = new Player("Spieler1", Color.BLUE, Color.CYAN);
+        Player spieler2 = new Player("Spieler2", Color.RED, Color.MAGENTA);
         players[0] = spieler1;
         players[1] = spieler2;
         
