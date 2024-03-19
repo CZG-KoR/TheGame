@@ -69,6 +69,11 @@ public abstract class Building {
         return picture;
     }
 
+    public int getBuildingrange() {
+        return buildingrange;
+    }
+
+    
 
 
 }

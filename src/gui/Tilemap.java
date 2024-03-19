@@ -362,44 +362,79 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                 if (players[i].isAtTurn()) {
                     switch (Bar.getPlacement()) {
                         case 1:
-                            players[i].setBuilding(new Barracks(players[i].getPlayername(), hoveredX, hoveredY));
-                            Bar.setPlacement(0);
-                            players[i].updateterritory(m);
+                            //neues Gebaeude kann nur in Territorium des Spielers gebaut werden, eigene Bedingung falls Name null
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
+                                players[i].setBuilding(new Barracks(players[i].getPlayername(), hoveredX, hoveredY));
+                                Bar.setPlacement(0);
+                                
+                                //neues Festlegen des Territoriums des Spielers
+                                players[i].updateterritory(m);
+                            }
+                            }
                             break;
                         case 2:
-                            players[i].setBuilding(new Fishinghouse(players[i].getPlayername(), hoveredX, hoveredY));
-                            Bar.setPlacement(0);
-                            players[i].updateterritory(m);
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
+                                players[i].setBuilding(new Fishinghouse(players[i].getPlayername(), hoveredX, hoveredY));
+                                Bar.setPlacement(0);
+                                players[i].updateterritory(m);
+                            }
+                            }
                             break;
                         case 3:
-                            players[i].setBuilding(new Lumberjack(players[i].getPlayername(), hoveredX, hoveredY));
-                            Bar.setPlacement(0);
-                            players[i].updateterritory(m);
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
+                                players[i].setBuilding(new Lumberjack(players[i].getPlayername(), hoveredX, hoveredY));
+                                Bar.setPlacement(0);
+                                players[i].updateterritory(m);
+                            }
+                            }
                             break;
                         case 4:
-                            players[i].setBuilding(new Mine(players[i].getPlayername(), hoveredX, hoveredY, m));
-                            Bar.setPlacement(0);
-                            players[i].updateterritory(m);
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
+                                players[i].setBuilding(new Mine(players[i].getPlayername(), hoveredX, hoveredY, m));
+                                Bar.setPlacement(0);
+                                players[i].updateterritory(m);
+                            }
+                            }
                             break;
                         case 5:
-                            players[i].setBuilding(new Theatre(players[i].getPlayername(), hoveredX, hoveredY));
-                            Bar.setPlacement(0);
-                            players[i].updateterritory(m);
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
+                                players[i].setBuilding(new Theatre(players[i].getPlayername(), hoveredX, hoveredY));
+                                Bar.setPlacement(0);
+                                players[i].updateterritory(m);
+                            }
+                            }
                             break;
                         case 6:
-                            players[i].setBuilding(new Tower(players[i].getPlayername(), hoveredX, hoveredY));
-                            Bar.setPlacement(0);
-                            players[i].updateterritory(m);
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
+                                players[i].setBuilding(new Tower(players[i].getPlayername(), hoveredX, hoveredY));
+                                Bar.setPlacement(0);
+                                players[i].updateterritory(m);
+                            }
+                            }
                             break;
                         case 7:
-                            players[i].setBuilding(new Townhall(players[i].getPlayername(), hoveredX, hoveredY));
-                            Bar.setPlacement(0);
-                            players[i].updateterritory(m);
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
+                                players[i].setBuilding(new Townhall(players[i].getPlayername(), hoveredX, hoveredY));
+                                Bar.setPlacement(0);
+                                players[i].updateterritory(m);
+                            }
+                            }
                             break;
                         case 8:
-                            players[i].setBuilding(new Wheatfield(players[i].getPlayername(), hoveredX, hoveredY));
-                            Bar.setPlacement(0);
-                            players[i].updateterritory(m);
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer()!=null){
+                            if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
+                                players[i].setBuilding(new Wheatfield(players[i].getPlayername(), hoveredX, hoveredY));
+                                Bar.setPlacement(0);
+                                players[i].updateterritory(m);
+                            }
+                            }
                             break;
                         case 9:
                             players[i].setCharacter(new Warrior(players[i].getPlayername(), hoveredX, hoveredY));
