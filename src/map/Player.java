@@ -24,6 +24,7 @@ public class Player {
 
     // Farbe des Spielers fuer Animation
     private Color colour;
+    private Color secondcolour;
 
     // Holz des Spielers
     private int wood = 0;
@@ -51,9 +52,10 @@ public class Player {
     private ArrayList<Character> characters = new ArrayList<>();
     private ArrayList<Building> buildings = new ArrayList<>();
 
-    public Player(String playername, Color colour) {
+    public Player(String playername, Color colour, Color secondcolour) {
         this.playername = playername;
         this.colour = colour;
+        this.secondcolour=secondcolour;
 
         // Werte zu Beginn des Spiels muessen noch genauer festgelegt werden
         credits = 5;
@@ -130,6 +132,10 @@ public class Player {
 
     public Color getColour() {
         return colour;
+    }
+
+    public Color getSecondcolour() {
+        return secondcolour;
     }
 
     public int getWood() {
@@ -245,6 +251,9 @@ public class Player {
         buildings.add(b);
     }
 
+    public void deleteBuilding(int i){
+        buildings.remove(i);
+    }
 
     public void setCharacterMovementAllowed(int i){
         characters.get(i).setCanmove(true);

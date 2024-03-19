@@ -63,4 +63,14 @@ public class Fishinghouse extends Building {
         }
         return false;
     }
+    
+    @Override
+    public void buildableterrains() {
+        buildableterrains.add("light_mountain");
+        buildableterrains.add("peak_mountain");
+        buildableterrains.add("dark_mountain");
+        buildableterrains.add("desert");
+        buildableterrains.add("forest");
+        buildableterrains.add("grass");
+    }
 }

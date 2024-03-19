@@ -76,4 +76,9 @@ public class Lumberjack extends Building {
         }
         return null;
     }
+    
+    @Override
+    public void buildableterrains() {
+        buildableterrains.add("water");
+    }
 }

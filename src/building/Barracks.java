@@ -130,4 +130,9 @@ public class Barracks extends Building{
             //Fehlermeldung
         }
     }
+
+    @Override
+    public void buildableterrains() {
+        this.getBuildableterrains().add("water");
+    }
 }

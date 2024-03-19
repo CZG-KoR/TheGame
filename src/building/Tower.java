@@ -70,6 +70,12 @@ public class Tower extends Building {
         }
     }
     
+
+    @Override
+    public void buildableterrains() {
+        buildableterrains.add("water");
+    }
+
     public static Image getPicture1(){
         return picture1;
     }
@@ -90,5 +96,5 @@ public class Tower extends Building {
         
     }
     
-    
+
 }
