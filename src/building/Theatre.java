@@ -20,7 +20,7 @@ public class Theatre extends Building {
         picture = MiscUtils.loadImages("src/gui/res/building")[7];
     }
 
-    public boolean buildable(Player player) {
+    public static boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();

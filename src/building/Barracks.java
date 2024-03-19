@@ -31,7 +31,7 @@ public class Barracks extends Building{
         int wood = player.getWood();
         int stone = player.getStone();
 
-        if (wood >= 1 && stone >= 1) {
+        if (wood >= 2 && stone >= 2) {
             // Kosten des Bauens: 1 wood, 1 Stone
             player.setWood(wood - 1);
             player.setStone(stone - 1);

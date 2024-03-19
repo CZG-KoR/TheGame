@@ -24,7 +24,7 @@ public class Tower extends Building {
          picture = MiscUtils.loadImages("src/gui/res/building")[5];
     }
     
-    public boolean buildable(Player player) {
+    public static boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();
