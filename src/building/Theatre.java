@@ -57,5 +57,10 @@ public class Theatre extends Building {
             zaehl = 0;
         }
     }
+    
+    @Override
+    void buildableterrains() {
+        buildableterrains.add("water");
+    }
 
 }

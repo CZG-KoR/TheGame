@@ -56,5 +56,9 @@ public class Wheatfield extends Building {
             //Ausgabe, dass der Cooldown noch nicht abgelaufen ist.
         }
     }
-
+    
+    @Override
+    void buildableterrains() {
+        buildableterrains.add("water");
+    }
 }

@@ -51,4 +51,12 @@ public class Mine extends Building {
         }
         return false;
     }
+    
+    @Override
+    void buildableterrains() {
+        buildableterrains.add("water");
+        buildableterrains.add("desert");
+        buildableterrains.add("forest");
+        buildableterrains.add("grass");
+    }
 }

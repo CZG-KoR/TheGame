@@ -62,4 +62,9 @@ public class Tower extends Building {
             //Fehler Rathaus nicht hoch genug
         }
     }
+    
+    @Override
+    void buildableterrains() {
+        buildableterrains.add("water");
+    }
 }
