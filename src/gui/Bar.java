@@ -17,6 +17,7 @@ import javax.swing.plaf.basic.BasicArrowButton;
 import launcher.Start;
 import map.Player;
 import building.Building;
+import building.Barracks;
 import building.Fishinghouse;
 import building.Lumberjack;
 import building.Mine;
@@ -120,7 +121,10 @@ public class Bar extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("warriorButton pressed");
-                Placement = 2;
+                if (Fishinghouse.buildable(Player.getAtTurn())) {
+                Placement = 2;    
+                }
+                Placement = 0;
             }
         });
         panelBuildings.add(fishingButton);

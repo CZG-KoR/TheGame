@@ -1,6 +1,7 @@
 package building;
 
 import map.Player;
+import tools.MiscUtils;
 
 public class Tower extends Building {
     //Upgrade level des Towers
@@ -20,6 +21,7 @@ public class Tower extends Building {
         //  this.info="große Range";
         this.level = 0;
         this.attackingstrength = 1;
+         picture = MiscUtils.loadImages("src/gui/res/building")[5];
     }
     
     public boolean buildable(Player player) {

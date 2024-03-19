@@ -19,6 +19,7 @@ public class Mine extends Building {
         if (mountains(xPosition, yPosition, m)) {
             this.miningspeed = this.miningspeed *2;
         }
+        picture = MiscUtils.loadImages("src/gui/res/building")[4];
     }
 
     public boolean buildable(Player player) {

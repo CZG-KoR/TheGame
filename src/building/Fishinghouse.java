@@ -22,7 +22,7 @@ public class Fishinghouse extends Building {
         picture = MiscUtils.loadImages("src/gui/res/building")[0];
     }
 
-    public boolean buildable(Player player, Map m) {
+    public static boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();
@@ -33,9 +33,6 @@ public class Fishinghouse extends Building {
             player.setStone(stone - 1);
             // genug ressourcen, deswegen buildable true
             //wenn neben Wasser
-            if (waters(xPosition, yPosition, m)) {
-                return true;
-            }
         }
         // bei false, soll das Gebäude nicht gebaut werden
         return false;

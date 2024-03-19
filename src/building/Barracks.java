@@ -9,6 +9,7 @@ import character.Archer;
 import character.Catapult;
 import character.Horsemen;
 import character.Warrior;
+import tools.MiscUtils;
 /**
  *
  * @author guest-ayeskk
@@ -21,9 +22,11 @@ public class Barracks extends Building{
     this.buildtime=2;
     this.healthpoints=2;
     this.buildingrange=2;
+     picture = MiscUtils.loadImages("src/gui/res/building")[3];
+
     }
     
-    public boolean buildable(Player player) {
+    public static boolean buildable(Player player) {
         // Wood und Stone vom player
         int wood = player.getWood();
         int stone = player.getStone();
