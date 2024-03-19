@@ -67,7 +67,7 @@ public class Fishinghouse extends Building {
     }
     
     @Override
-    void buildableterrains() {
+    public void buildableterrains() {
         buildableterrains.add("light_mountain");
         buildableterrains.add("peak_mountain");
         buildableterrains.add("dark_mountain");

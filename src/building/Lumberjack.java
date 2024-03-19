@@ -78,7 +78,7 @@ public class Lumberjack extends Building {
     }
     
     @Override
-    void buildableterrains() {
+    public void buildableterrains() {
         buildableterrains.add("water");
     }
 }

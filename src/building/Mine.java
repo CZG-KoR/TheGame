@@ -53,7 +53,7 @@ public class Mine extends Building {
     }
     
     @Override
-    void buildableterrains() {
+    public void buildableterrains() {
         buildableterrains.add("water");
         buildableterrains.add("desert");
         buildableterrains.add("forest");

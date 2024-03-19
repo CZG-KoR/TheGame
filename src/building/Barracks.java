@@ -129,7 +129,7 @@ public class Barracks extends Building{
     }
 
     @Override
-    void buildableterrains() {
-        buildableterrains.add("water");
+    public void buildableterrains() {
+        this.getBuildableterrains().add("water");
     }
 }

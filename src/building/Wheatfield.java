@@ -58,7 +58,7 @@ public class Wheatfield extends Building {
     }
     
     @Override
-    void buildableterrains() {
+    public void buildableterrains() {
         buildableterrains.add("water");
     }
 }
