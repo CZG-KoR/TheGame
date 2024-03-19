@@ -371,7 +371,8 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Barracks(players[i].getPlayername(), hoveredX, hoveredY));
                                 Bar.setPlacement(0);
-                                
+                                Player.getAtTurn().setWood(Player.getAtTurn().getWood()-1);
+                                Player.getAtTurn().setStone(Player.getAtTurn().getStone()-1);
                                 //neues Festlegen des Territoriums des Spielers
                                 players[i].updateterritory(m);
                             }
@@ -382,6 +383,8 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Fishinghouse(players[i].getPlayername(), hoveredX, hoveredY));
                                 Bar.setPlacement(0);
+                                Player.getAtTurn().setWood(Player.getAtTurn().getWood()-1);
+                                Player.getAtTurn().setStone(Player.getAtTurn().getStone()-1);
                                 players[i].updateterritory(m);
                             }
                             }
@@ -391,6 +394,8 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Lumberjack(players[i].getPlayername(), hoveredX, hoveredY));
                                 Bar.setPlacement(0);
+                                Player.getAtTurn().setWood(Player.getAtTurn().getWood()-1);
+                                Player.getAtTurn().setStone(Player.getAtTurn().getStone()-1);
                                 players[i].updateterritory(m);
                             }
                             }
@@ -400,6 +405,8 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Mine(players[i].getPlayername(), hoveredX, hoveredY, m));
                                 Bar.setPlacement(0);
+                                Player.getAtTurn().setWood(Player.getAtTurn().getWood()-1);
+                                Player.getAtTurn().setStone(Player.getAtTurn().getStone()-1);
                                 players[i].updateterritory(m);
                             }
                             }
@@ -418,6 +425,8 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Tower(players[i].getPlayername(), hoveredX, hoveredY));
                                 Bar.setPlacement(0);
+                                Player.getAtTurn().setWood(Player.getAtTurn().getWood()-1);
+                                Player.getAtTurn().setStone(Player.getAtTurn().getStone()-1);
                                 players[i].updateterritory(m);
                             }
                             }
@@ -427,6 +436,8 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Townhall(players[i].getPlayername(), hoveredX, hoveredY));
                                 Bar.setPlacement(0);
+                                Player.getAtTurn().setWood(Player.getAtTurn().getWood()-1);
+                                Player.getAtTurn().setStone(Player.getAtTurn().getStone()-1);
                                 players[i].updateterritory(m);
                             }
                             }
@@ -436,6 +447,8 @@ public class Tilemap extends JPanel implements MouseListener, MouseMotionListene
                             if(m.getFeld(hoveredX, hoveredY).getTerritoryplayer().equals(players[i].getPlayername())){
                                 players[i].setBuilding(new Wheatfield(players[i].getPlayername(), hoveredX, hoveredY));
                                 Bar.setPlacement(0);
+                                Player.getAtTurn().setWood(Player.getAtTurn().getWood()-1);
+                                Player.getAtTurn().setStone(Player.getAtTurn().getStone()-1);
                                 players[i].updateterritory(m);
                             }
                             }
