@@ -13,7 +13,7 @@ import tools.MiscUtils;
  *
  * @author guest-qhhgb1
  */
-public class WinCondition extends Building{
+public class WinCondition extends Building {
         //Upgrade level des Towers
     private int level;
     //maxlevel erhöht sich mit Rathauslevel
@@ -63,6 +63,12 @@ public class WinCondition extends Building{
                 EinnehmenStart(Map.getFeld(25, 25).getOccupiedby());
             }
         }
+    }
+
+    @Override
+    public void buildableterrains() {
+        buildableterrains.add("water");
+        //! keine Ahnung ob noch andere Terrains hier hin sollten
     }
     
     
