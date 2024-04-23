@@ -1,34 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package building;
 
-import java.awt.Image;
 import map.Map;
-import map.Player;
 import tools.MiscUtils;
 
-/**
- *
- * @author guest-qhhgb1
- */
+import java.awt.Image;
+
 public class WinCondition extends Building {
-        //Upgrade level des Towers
-    private int level;
-    //maxlevel erhöht sich mit Rathauslevel
     
-    //automatisches angreifen mit bestimmten schaden
-    private int attackingstrength;
+    // Variable für Upgrade Level des Towers - zB level
+    // maxlevel erhöht sich mit Rathauslevel
+    
+    // Variable für automatisches Angreifen mit bestimmten Schaden - zB attackingStrength
     
     static Image picture1 = MiscUtils.loadImages("src/gui/res/building")[5];
     
     private static int einnehmen = 5;
     
-    private static String EinnehmenderPlayer;
+    private static String einnehmenderPlayer;
 
-    public WinCondition(String playername, int xPosition, int yPosition) {
-        super(playername); 
+    public WinCondition(int xPosition, int yPosition) {
+        super(); 
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         picture = MiscUtils.loadImages("src/gui/res/building")[5];
@@ -46,12 +37,12 @@ public class WinCondition extends Building {
         einnehmen = einnehmen1;
     }
     
-    public static void EinnehmenStart(String playername){
-        EinnehmenderPlayer = playername;
+    public static void einnehmenStart(String playername){
+        einnehmenderPlayer = playername;
     }
     
-    public static void EinnehmenProzess(){
-        if(Map.getFeld(25, 25).getOccupiedby().equals(EinnehmenderPlayer)){
+    public static void einnehmenProzess(){
+        if(Map.getFeld(25, 25).getOccupiedby().equals(einnehmenderPlayer)){
             einnehmen--;
             if(einnehmen == 0){
                 System.exit(0);
@@ -60,7 +51,7 @@ public class WinCondition extends Building {
         else{
             einnehmen = 5;
             if(Map.getFeld(25, 25).getOccupiedby() != null){
-                EinnehmenStart(Map.getFeld(25, 25).getOccupiedby());
+                einnehmenStart(Map.getFeld(25, 25).getOccupiedby());
             }
         }
     }
@@ -70,6 +61,4 @@ public class WinCondition extends Building {
         buildableterrains.add("water");
         //! keine Ahnung ob noch andere Terrains hier hin sollten
     }
-    
-    
 }

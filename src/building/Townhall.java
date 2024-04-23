@@ -1,6 +1,5 @@
 package building;
 
-import java.awt.Image;
 import map.Player;
 import tools.MiscUtils;
 
@@ -17,8 +16,8 @@ public class Townhall extends Building {
     String info = "Das hier ist das Herz deines Dorfs. Das Verbessern schaltet neue Gebäude frei."
             + " Man sollte das Rathaus mit Verteidigungsgebäuden umgeben, denn der Gegner kann dein Rathaus einnehmen!";
 
-    public Townhall(String playername, int xPosition, int yPosition) {
-        super(playername); 
+    public Townhall(int xPosition, int yPosition) {
+        super(); 
         buildtime = 0;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
@@ -67,22 +66,16 @@ public class Townhall extends Building {
     }
 
     public void generateFigther() {
-        // new Fighter();
-        // Ressourcen-=10;
+        throw new UnsupportedOperationException();
     }
 
     public void generateBuilder() {
-        // new Builder();
-        // Ressourcen-=10;
+        throw new UnsupportedOperationException();
     }
 
     public void generateFigther2() {
-        if (progress >= 2) {
-            // new Aller echte Maincharacter Figther();
-            // Ressourcen-=10;
-        } else {
-            // Fehlermeldung, "noch nicht freigeschaltet"
-        }
+        // aller echter main character
+        throw new UnsupportedOperationException();
     }
     
     @Override

@@ -1,12 +1,13 @@
 package gui;
 
 import map.Map;
+import map.Player;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.Action;
@@ -15,27 +16,30 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
+import javax.swing.WindowConstants;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 public class MainWindow {
     
-    static JLabel AtTurn;
+    static JLabel atTurn;
     static JPanel minimap;
 
-    public MainWindow(Map m) {
+    private MainWindow() {
+        throw new IllegalStateException("Utility class should not be instantiated.");
+    }
 
-        // komplette Größe des Bildschirms
+    public static void init(Map m, Player[] players) {
         final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
         final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
 
         JFrame window = new JFrame();
         window.setTitle("TheGame");
         window.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 3
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);// 3
         window.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));// zentriert
-        window.setExtendedState(JFrame.MAXIMIZED_BOTH);// fullsize
+        window.setExtendedState(Frame.MAXIMIZED_BOTH);// fullsize
         window.setUndecorated(true);//entfernt topbar von window (fullscreen)
         window.setFocusable(true);//für KeyListener
         window.setFocusTraversalKeysEnabled(false);
@@ -44,9 +48,8 @@ public class MainWindow {
         JLayeredPane layer = new JLayeredPane();
         layer.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-        int n = Tilemap.n;
         // bar vor Spielfeld initialisieren
-        Bar b = new Bar(WIDTH, HEIGHT, m);
+        Bar b = new Bar(WIDTH, HEIGHT);
         // Element, Ebenenwert (je höher, desto weiter oben)
         layer.add(b, 2000);
         layer.add(b.foodAmount, 2500);
@@ -63,41 +66,35 @@ public class MainWindow {
         layer.add(open);
            
         // Spielfeld
-        Tilemap tM = new Tilemap(WIDTH, HEIGHT, m, b);
+        Tilemap tM = new Tilemap(WIDTH, HEIGHT, m, b, players);
         layer.add(tM, 1000);
         
         
         // Actin Listener für open und close Buttons
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                b.setVisible(false);
-                b.setEnabled(false);
-                close.setVisible(false);
-                close.setEnabled(false);
-                open.setVisible(true);
-                open.setEnabled(true);
-                tM.limitCamera();
-            }
+        close.addActionListener( (ActionEvent e) -> {
+            b.setVisible(false);
+            b.setEnabled(false);
+            close.setVisible(false);
+            close.setEnabled(false);
+            open.setVisible(true);
+            open.setEnabled(true);
+            tM.limitCamera();
         });
-        open.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                b.setVisible(true);
-                b.setEnabled(true);
-                open.setVisible(false);
-                open.setEnabled(false);
-                close.setVisible(true);
-                close.setEnabled(true);
-                tM.barOpened();
-            }
+        open.addActionListener( (ActionEvent e) -> {
+            b.setVisible(true);
+            b.setEnabled(true);
+            open.setVisible(false);
+            open.setEnabled(false);
+            close.setVisible(true);
+            close.setEnabled(true);
+            tM.barOpened();
         });
        
         // Anzeige wer am Zug ist    
-        AtTurn = b.AtTurn();
+        atTurn = b.atTurn();
 
-        layer.add(AtTurn,4000);
-        layer.setLayer(AtTurn, 4000);
+        layer.add(atTurn,4000);
+        layer.setLayer(atTurn, 4000);
 
         
 
@@ -117,12 +114,9 @@ public class MainWindow {
         eB.setVisible(true);
         eB.setEnabled(true);
         eM.add(eB);
-        eB.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                window.dispose();
-                System.exit(0);
-            }
+        eB.addActionListener( (ActionEvent e) -> {
+            window.dispose();
+            System.exit(0);
         });
         Action keyListener = new Action() {
             @Override
@@ -132,10 +126,12 @@ public class MainWindow {
 
             @Override
             public void putValue(String key, Object value) {
+                throw new UnsupportedOperationException();
             }
 
             @Override
             public void setEnabled(boolean b) {
+                throw new UnsupportedOperationException();
             }
 
             @Override
@@ -145,12 +141,16 @@ public class MainWindow {
 
             @Override
             public void addPropertyChangeListener(PropertyChangeListener listener) {
+                throw new UnsupportedOperationException();
             }
 
             @Override
             public void removePropertyChangeListener(PropertyChangeListener listener) {
+                throw new UnsupportedOperationException();
             }
-            boolean eMopen = false; 
+
+            boolean eMopen = false;
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!eMopen) {
@@ -160,7 +160,7 @@ public class MainWindow {
                     close.setEnabled(false);
                     open.setEnabled(false);
                     eMopen = true;
-                }else if(eMopen){
+                }else {
                     eM.setVisible(false);
                     eM.setEnabled(false);
                     close.setEnabled(true);
@@ -175,34 +175,7 @@ public class MainWindow {
         window.getContentPane().add(layer);
         inputPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0),"EscapeButton");
         inputPanel.getActionMap().put("EscapeButton",keyListener);
-//        window.addKeyListener(new KeyListener() {
-//            boolean eMopen = false;
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//            }
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                if (e.getKeyCode() == KeyEvent.VK_ESCAPE && !eMopen) {
-//                    t.stop();
-//                    eM.setVisible(true);
-//                    eM.setEnabled(true);
-//                    close.setEnabled(false);
-//                    open.setEnabled(false);
-//                    eMopen = true;
-//                }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE && eMopen){
-//                    eM.setVisible(false);
-//                    eM.setEnabled(false);
-//                    close.setEnabled(true);
-//                    open.setEnabled(true);
-//                    eMopen = false;
-//                    t.restart();
-//                }
-//            }
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//            }
-//        });
+
         window.addMouseListener(tM);
         window.addMouseMotionListener(tM);
 

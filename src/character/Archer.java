@@ -1,7 +1,6 @@
 package character;
 
 import gui.Animation;
-import java.awt.Image;
 import tools.MiscUtils;
 
 public class Archer extends Fighter {
@@ -29,12 +28,12 @@ public class Archer extends Fighter {
 
     @Override
     public void move() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void killed() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException();
     }
 
     
@@ -45,6 +44,7 @@ public class Archer extends Fighter {
     
     @Override
     public void blockedterrainsattack() {
+        throw new UnsupportedOperationException();
     }
 
 }

@@ -10,7 +10,7 @@ public abstract class MikeTyson extends Hero {
     }
 
     public void ability(Player player) {
-        // erhöht attackrange und attackrating um z.B. 1 // Fighter.attackrating++;
+        // erhöht attackrange und attackrating um z.B. 1
     }
 
     public void ultimate(Player player) {

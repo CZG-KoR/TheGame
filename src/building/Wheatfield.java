@@ -12,8 +12,8 @@ public class Wheatfield extends Building {
     //maximale cooldown-Zeit
     private int maxcooldowntime = 4;
 
-    public Wheatfield(String playername, int xPosition, int yPosition) {
-        super(playername); 
+    public Wheatfield(int xPosition, int yPosition) {
+        super(); 
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.buildtime = 2;
@@ -23,9 +23,6 @@ public class Wheatfield extends Building {
         
         
         picture = MiscUtils.loadImages("src/gui/res/building/")[2];
-
-        // this.info="Ein endloses Weizenfeld erstreckt sich vor dir, goldene Ähren wiegen sich im Wind. Zwischen den Reihen verlaufen Pfade, auf denen Bauern die reiche Ernte einbringen. Die Arbeit hier ist nicht nur körperlich, sondern stärkt auch den Zusammenhalt. Die erfolgreiche Ernte gibt den Truppen einen spürbaren Motivationsboost, da sie nicht nur Nahrung, sondern auch ein Gefühl von Gemeinschaft und Kampfgeist gewinnen.";
-        // this.TeamId=TeamId;
     }
 
     public boolean buildable(Player player) {
@@ -33,27 +30,21 @@ public class Wheatfield extends Building {
         int wood = player.getWood();
         int stone = player.getStone();
 
-        if (wood >= 1 && stone >= 1) {
-            // Kosten des Bauens: 1 wood, 1 Stone
-//            player.setWood(wood - 1);
-//            player.setStone(stone - 1);
-            // genug ressourcen, deswegen buildable true
-            return true;
-        }
+        // Kosten des Bauens: 1 wood, 1 Stone
+        // genug ressourcen, deswegen buildable true
         // bei false, soll das Gebäude nicht gebaut werden
-        return false;
+        return wood >= 1 && stone >= 1;
     }
 
     public void harvest(Player player) {
-        //nur möglich, wenn der cooldown abgelaufen ist - Erntezeit
+        // nur möglich, wenn der cooldown abgelaufen ist - Erntezeit
         cooldown--;
         if (cooldown <= 0) {
-            //motivationsboost
-            //this.motivationboost = this.motivationboost * 1.01;
+            // motivationsboost
             player.setFood(player.getFood()+16);
             this.cooldown = maxcooldowntime;
         } else {
-            //Ausgabe, dass der Cooldown noch nicht abgelaufen ist.
+            // Ausgabe, dass der Cooldown noch nicht abgelaufen ist.
         }
     }
     
