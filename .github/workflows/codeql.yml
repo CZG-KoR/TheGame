@@ -60,7 +60,12 @@ jobs:
 
         # For more details on CodeQL's query packs, refer to: https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
         # queries: security-extended,security-and-quality
-
+        
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
 
     # Autobuild attempts to build any compiled languages (C/C++, C#, Go, Java, or Swift).
     # If this step fails, then you should remove it and run the build manually (see below)
@@ -75,7 +80,7 @@ jobs:
     #   modify them (or add more) to build your code if your project, please refer to the EXAMPLE below for guidance.
 
     - name: Build
-      run: javac -sourcepath ./src/ -d ./dist/ ./src/launcher/Start.java
+      run: javac -source 17 -target 17 -sourcepath ./src/ -d ./dist/ ./src/launcher/Start.java
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3

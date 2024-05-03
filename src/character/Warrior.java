@@ -1,7 +1,6 @@
 package character;
 
 import gui.Animation;
-import java.awt.Image;
 import tools.MiscUtils;
 
 public class Warrior extends Fighter {
@@ -34,14 +33,13 @@ public class Warrior extends Fighter {
 
     @Override
     public void move() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException();
         // Anzeigen der movementrange fuer den Charakter
-        // movementrange(xPosition, yPosition, );
     }
 
     @Override
     public void killed() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException();
     }
     
     

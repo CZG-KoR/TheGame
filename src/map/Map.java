@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Map {
     /*
@@ -13,11 +15,20 @@ public class Map {
      * Jede Arraylist<Feld> steht für eine Spalte (gleiche x-Koordinate)
      */
 
-    private static ArrayList<ArrayList<Feld>> felder;
+    private static ArrayList<ArrayList<Feld>> felder = new ArrayList<>();
 
     // Dimensionen des Feldes
     private int height;
     private int width;
+
+    private static final String GRASS = "grass";
+    private static final String DESERT = "desert";
+    private static final String WATER = "water";
+    private static final String FOREST = "forest";
+    private static final String LIGHT_MOUNTAIN = "light_mountain";
+    private static final String PEAK_MOUNTAIN = "peak_mountain";
+
+    private static final Random r = new Random();
 
     public Map(int heigth, int width) {
         this.height = heigth;
@@ -44,10 +55,7 @@ public class Map {
     }
 
     public void generateMap() {
-        Random r = new Random();
-        
-        this.felder = new ArrayList<>();
-        Terrain t = new Terrain("grass");
+        Terrain t = new Terrain(GRASS);
 
         // Generieren einer neuen mit Grass gefüllten Map / Grundlage der Map Erstellung
         for (int i = 0; i < this.height; i++) {
@@ -60,7 +68,7 @@ public class Map {
             }
 
             // fügt neue zeile hinzu
-            this.felder.add(zeile);
+            Map.felder.add(zeile);
         }
 
         Noise n = new Noise(r, 10, width, height);
@@ -68,13 +76,13 @@ public class Map {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (n.getNoiseAt(x, y) < (float) 0.8)
-                    this.setT(x, y, "desert");
+                    this.setT(x, y, DESERT);
                 if (n.getNoiseAt(x, y) < (float) 0.48)
-                    this.setT(x, y, "water");
-                if (n.getNoiseAt(x, y) > (float) 4)
-                    this.setT(x, y, "forest");
+                    this.setT(x, y, WATER);
+                if (n.getNoiseAt(x, y) > 4)
+                    this.setT(x, y, FOREST);
                 if (n.getNoiseAt(x, y) > (float) 5.5)
-                    this.setT(x, y, "light_mountain");
+                    this.setT(x, y, LIGHT_MOUNTAIN);
             }
         }
 
@@ -84,44 +92,43 @@ public class Map {
          * Sodass kleine "Pfützen" wegfallen
          */
         
-        String[] LandTerrains = {"grass", "forest", "desert", "light_mountains"};
-        String[] Ocean = {"water"};
-        String[] LowerTerrains = {"grass", "forest", "desert", "water"};
-        String[] PeakMountains = {"peak_mountain"};
+        String[] landTerrains = {GRASS, FOREST, DESERT, "light_mountains"};
+        String[] ocean = {WATER};
+        String[] lowerTerrains = {GRASS, FOREST, DESERT, WATER};
         
-        Pruning("water", 1, LandTerrains, "desert");
+        pruning(WATER, 1, landTerrains, DESERT);
         
         //Insel-Protokoll
         /*
             falls so viel wasser da ist >=1000 -> erstellung einer Insel & vergrößerung von Landmassen
         */
         
-        while(this.getAmountofTerrain("water") >= 1000) IslandProtocoll();
+        while (this.getAmountofTerrain(WATER) >= 1000)
+            islandProtocoll();
         
-        
-        Pruning("forest", 2, Ocean, "grass");
-        Pruning("light_mountain", 1, LowerTerrains, "forest");
+        pruning(FOREST, 2, ocean, GRASS);
+        pruning(LIGHT_MOUNTAIN, 1, lowerTerrains, FOREST);
         
         addMountainPeaks(r);
         
         removeSingles();
-        
     }
 
-    private void IslandProtocoll(){
+    private void islandProtocoll() {
         int[] quadraticWaterSum = {0, 0};
-        int N = 0;
+        int n = 0;
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                if(getTerrainName(x, y).equals("water")){
+                if(getTerrainName(x, y).equals(WATER)){
                     quadraticWaterSum[0] += x*x;
                     quadraticWaterSum[1] += y*y;
-                    N++;
+                    n++;
                 }
             }
         }
-        quadraticWaterSum[0] = (int) Math.sqrt(quadraticWaterSum[0]/N);
-        quadraticWaterSum[1] = (int) Math.sqrt(quadraticWaterSum[1]/N);
+        n = n == 0 ? 1 : n;
+        quadraticWaterSum[0] = (int) Math.sqrt(quadraticWaterSum[0] / (double) n);
+        quadraticWaterSum[1] = (int) Math.sqrt(quadraticWaterSum[1] / (double) n);
         createIsland(quadraticWaterSum[0], quadraticWaterSum[1], (float) 0.5);
     }
    
@@ -129,44 +136,41 @@ public class Map {
     private void addMountainPeaks(Random r) {
         double direction = -0.8;
         int starty = -height;
-        boolean place_peaks = true;
+        boolean placePeaks = true;
         while (starty < 2*height){
-            for(int x = 0; x < width; x++){
+            for (int x = 0; x < width; x++){
                 double wiggle = r.nextDouble(0.27, 0.29);
-                System.out.println(wiggle);
-                //wiggle = 0.28;
-                int y = (int) (starty-Math.sin(direction)*x+Math.sin(wiggle*x)*2.5);
-                if(y < 0 || y >= height){
+                Logger.getLogger(Map.class.getName()).log(Level.INFO, () -> String.valueOf(wiggle));
+                int y = (int) (starty - Math.sin(direction) * x + Math.sin(wiggle * x) * 2.5);
+
+                if(y < 0 || y >= height || !LIGHT_MOUNTAIN.equals(this.getTerrainName(x, y)))
                     continue;
-                }
-                if (!"light_mountain".equals(this.getTerrainName(x, y))){
-                    continue;
-                }
-                if(place_peaks){
-                    setT(x, y, "peak_mountain");
-                    if(y < height-1) setT(x,y+1,"peak_mountain");
-                    if(y < 0) setT(x,y-1,"peak_mountain");
-                }
-                else{
-                    setT(x, y, "forest");
-                    if(y<height-1) setT(x, y+1, "forest");
-                    if(y>=1) setT(x, y-1, "forest");
+
+                if (placePeaks) {
+                    setT(x, y, PEAK_MOUNTAIN);
+                    if(y < height-1) setT(x, y + 1, PEAK_MOUNTAIN);
+                    if(y < 0) setT(x, y - 1, PEAK_MOUNTAIN);
+                } else {
+                    setT(x, y, FOREST);
+                    if(y < height-1) setT(x, y + 1, FOREST);
+                    if(y >= 1) setT(x, y - 1, FOREST);
                 }
             }
+            
             starty += r.nextInt(5, 10);
-            place_peaks = !place_peaks;
+            placePeaks = !placePeaks;
         }
         
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height-1; y++) {
-                if(getTerrainName(x, y).equals("peak_mountain"))
-                darkenAllMountain(x, y-1);
+                if (getTerrainName(x, y).equals(PEAK_MOUNTAIN))
+                    darkenAllMountain(x, y-1);
             }
         }
     }
     
     private void darkenAllMountain(int x, int y){
-        if(x<0 || x>width-1 || y<0 || y>height-1 || !getTerrainName(x, y).equals("light_mountain")){
+        if(x<0 || x>width-1 || y<0 || y>height-1 || !getTerrainName(x, y).equals(LIGHT_MOUNTAIN)){
             return;
         }
         setT(x, y, "dark_mountain");
@@ -176,22 +180,21 @@ public class Map {
     }
     
     private void createIsland(int xcoord, int ycoord, float range){
-        Random r = new Random();
-        spray(xcoord-25+r.nextInt(50), ycoord-25+r.nextInt(50), range, "forest");
+        spray(xcoord-25+r.nextInt(50), ycoord-25+r.nextInt(50), range, FOREST);
         removeSingles();
-        String[] forests = {"forest"};
-        String[] forestngrass = {"forest", "grass"};
-        Pruning("water", 1, forests, "grass");
-        Pruning("water", 1, forestngrass, "desert");
-        Pruning("grass", 4, forests, "forest");
-        Pruning("desert", 4, forests, "desert");
+        String[] forests = {FOREST};
+        String[] forestngrass = {FOREST, GRASS};
+        pruning(WATER, 1, forests, GRASS);
+        pruning(WATER, 1, forestngrass, DESERT);
+        pruning(GRASS, 4, forests, FOREST);
+        pruning(DESERT, 4, forests, DESERT);
     }
     
     /*
         löscht alle toReplace Terrains auf der Map, sobald diese an limit oder mehr des triggerTerrains grenzen
     */
     
-    public void Pruning(String toReplace, int limit, String[] triggerTerrain, String toPlace){
+    public void pruning(String toReplace, int limit, String[] triggerTerrain, String toPlace){
         ArrayList<ArrayList<Integer>> tempList = new ArrayList<>();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -206,10 +209,10 @@ public class Map {
         this.replace(tempList, toPlace);
     }
     
-    public int getSurroundingTerrains(int x, int y, String[] Terrains){
+    public int getSurroundingTerrains(int x, int y, String[] terrains){
         int result = 0;
-        for(int i = 0; i <= Terrains.length-1; i++){
-            result += getSurroundingTerrain(x, y, Terrains[i]);
+        for(int i = 0; i <= terrains.length-1; i++){
+            result += getSurroundingTerrain(x, y, terrains[i]);
         }
         return result;
     }
@@ -247,16 +250,16 @@ public class Map {
     }
     
     public String mostcommonNeighbor(int x, int y){
-        String[] ts = {"water", "desert", "grass", "forest"};
+        String[] ts = {WATER, DESERT, GRASS, FOREST};
         int max = 0;
-        String MaximumName = "water";
+        String maximumName = WATER;
         for(int i = 0; i < ts.length; i++){
             if(getSurroundingTerrain(x, y, ts[i]) > max){
-                MaximumName = ts[i];
+                maximumName = ts[i];
                 max = getSurroundingTerrain(x, y, ts[i]);
             }
         }
-        return MaximumName;
+        return maximumName;
     }
     
     public boolean isAlone(int x, int y){
@@ -291,7 +294,6 @@ public class Map {
     */
     
     private void spray(int xcoord, int ycoord, float range, String terrainName){
-        Random r = new Random();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 int distancesq = (xcoord-x)*(xcoord-x) + (ycoord-y)*(ycoord-y);

@@ -1,13 +1,16 @@
 package map;
 
 import building.Building;
-import building.Townhall;
 import character.Builder;
 import character.Character;
 import java.awt.Color;
 import java.awt.Image;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import launcher.Start;
 
 public class Player {
@@ -42,10 +45,10 @@ public class Player {
     private boolean atTurn = false;
     
     // motivation, hat effekt auf kampfwerte etc (vllt bauspeed)
-    private double motivation =1;
+    private double motivation = 1;
     
     //Gebiet eines Spielers
-    ArrayList<int[]> territory = new ArrayList();
+    ArrayList<int[]> territory = new ArrayList<>();
 
 
     // Charaktere und Gebaeude eines Spielers
@@ -66,9 +69,7 @@ public class Player {
         characters.add(new Builder(0, 0, this.playername));
 
 
-        System.out.println("Position fuer Rathaus muss noch erstellt werden");
-
-        
+        Logger.getLogger(Player.class.getName()).log(Level.INFO, "Position fuer Rathaus muss noch erstellt werden");
     }
     
     public void updateterritory(Map map){
@@ -76,23 +77,16 @@ public class Player {
         for (int i = buildings.get(buildings.size()-1).getxPosition()-buildings.get(buildings.size()-1).getBuildingrange(); i < buildings.get(buildings.size()-1).getxPosition()+buildings.get(buildings.size()-1).getBuildingrange()+1; i++) {
             for (int j = buildings.get(buildings.size()-1).getyPosition()-buildings.get(buildings.size()-1).getBuildingrange(); j < buildings.get(buildings.size()-1).getyPosition()+buildings.get(buildings.size()-1).getBuildingrange()+1; j++) {
                 //wenn berechnetes Feld in Map existiert, gehört es zum Territorium
-                if(i>=0 && i<map.getWidth() && j>=0 && j<map.getHeight()){
-                    if(map.getFeld(i, j).getTerritoryplayer()==null){
+                if(i>=0 && i<map.getWidth() && j>=0 && j<map.getHeight() &&  (Map.getFeld(i, j).getTerritoryplayer()==null)) {
                         //Hinzufuegen des Feldes
                         territory.add(new int[]{i,j});
-                        map.getFeld(i, j).setTerritoryplayer(playername);
-                    }
+                        Map.getFeld(i, j).setTerritoryplayer(playername);
                 }
             }
         }
-        
-        //Testausgabe des Territoriums eines Spielers
-//        for (int i = 0; i < territory.size(); i++) {
-//            System.out.println(territory.get(i)[0]+"  "+territory.get(i)[1]);
-//        }
     }
 
-    public ArrayList<int[]> getTerritory() {
+    public List<int[]> getTerritory() {
         return territory;
     }
     
@@ -201,13 +195,6 @@ public class Player {
                 p.characters.remove(i);
             }
         }
-
-        // check ob noch alle Gebäude "leben"
-        // for (int i = 0; i < p.Buildings.size(); i++) {
-        // if(!p.Buildings.get(i).getalive()){
-        // p.Buildings.remove(i);
-        // }
-        // }
     }
     
     
@@ -273,7 +260,7 @@ public class Player {
 
     public static Player getAtTurn(){
         for (int i = 0; i < Start.getPlayers().length; i++) {
-            if(Start.getPlayers()[i].isAtTurn() == true){
+            if(Start.getPlayers()[i].isAtTurn()){
                 return Start.getPlayers()[i];
             }
         }

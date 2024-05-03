@@ -20,17 +20,17 @@ public class Catapult extends Fighter {
 
     @Override
     public void move() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void killed() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Image getPicture() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException();
     }
     
     @Override
@@ -40,6 +40,7 @@ public class Catapult extends Fighter {
     
     @Override
     public void blockedterrainsattack() {
+        throw new UnsupportedOperationException();
     }
 
 }

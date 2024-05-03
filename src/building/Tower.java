@@ -16,14 +16,13 @@ public class Tower extends Building {
     
     private int einnehmen = 5;
 
-    public Tower(String playername, int xPosition, int yPosition) {
-        super(playername); 
+    public Tower(int xPosition, int yPosition) {
+        super(); 
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.buildtime = 4;
         this.healthpoints = 5;
         this.buildingrange = 10;
-        //  this.info="große Range";
         this.level = 0;
         this.attackingstrength = 1;
         picture = MiscUtils.loadImages("src/gui/res/building")[5];
@@ -34,19 +33,13 @@ public class Tower extends Building {
         int wood = player.getWood();
         int stone = player.getStone();
 
-        if (wood >= 1 && stone >= 1) {
-            // Kosten des Bauens: 1 wood, 1 Stone
-//            player.setWood(wood - 1);
-//            player.setStone(stone - 1);
-            // genug ressourcen, deswegen buildable true
-            return true;
-        }
+        // Kosten des Bauens: 1 wood, 1 Stone
+        // genug ressourcen, deswegen buildable true
         // bei false, soll das Gebäude nicht gebaut werden
-        return false;
+        return wood >= 1 && stone >= 1;
     }
 
-    //! player wird nicht in der Methode verwendet
-    public void upgrade(Player player, Townhall townhall) {
+    public void upgrade(Townhall townhall) {
         int maxlevel;
         // maxlevel soll progress des townhalls mal 1 sein
         maxlevel = townhall.progress;
@@ -88,12 +81,12 @@ public class Tower extends Building {
         this.einnehmen = einnehmen;
     }
     
-    public void EinnehmenStart(Player player){
-        
+    public void einnehmenStart(Player player){
+        throw new UnsupportedOperationException();
     }
     
-    public void EinnehmenProzess(int einnehmen, Player player){
-        
+    public void einnehmenProzess(int einnehmen, Player player){
+        throw new UnsupportedOperationException();
     }
     
 

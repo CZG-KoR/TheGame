@@ -1,8 +1,10 @@
 package building;
 
+import map.Player;
+
 import java.awt.Image;
 import java.util.ArrayList;
-import map.Player;
+import java.util.List;
 
 public abstract class Building {
     // Dauer wie Lange gebaut wird
@@ -15,18 +17,13 @@ public abstract class Building {
     protected int buildingrange;
     
     //Gebiete, auf die Gebäude nicht gebaut werden kann
-    protected ArrayList<String> buildableterrains = new ArrayList();
-    
-    private String playername;
+    protected ArrayList<String> buildableterrains = new ArrayList<>();
     
     Image picture;
 
     
-    // Credits fuer Gebaeude zum Bauen und spaeter pro Runde
-    // int buildcredits;
-    // int creditsperround;
+    // Credits fuer Gebaeude zum Bauen und spaeter pro Runde -> buildCredits, creditsPerRound
 
-    // braucht man eigentlich nicht
     int[] buildcost = new int[2];
 
     
@@ -68,8 +65,7 @@ public abstract class Building {
     }
     
 
-    protected Building(String playername) {
-        this.playername = playername;
+    protected Building() {
         buildableterrains();
     }
 
@@ -81,13 +77,7 @@ public abstract class Building {
         return buildingrange;
     }
 
-    public ArrayList<String> getBuildableterrains() {
+    public List<String> getBuildableterrains() {
         return buildableterrains;
     }
-
-    
-
-    
-
-
 }

@@ -8,8 +8,6 @@ public abstract class Hero extends Character{
     
     protected Hero(String playername) {
         super(playername);
-        //! Das hat keinen Effekt (Info sollte vermutlich Parameter der Klasse sein)
-        this.info = info;
     }
     
     //jeder Held hat eine Fähigkeit
